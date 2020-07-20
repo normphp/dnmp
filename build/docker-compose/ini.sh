@@ -41,3 +41,7 @@ echo "复制当前目录下的目录index.html等文件到对应运行目录/doc
 `sudo cp ./nginx/html/index.html /docker/normphp/dnmp/data/www/default/index.html`
 `sudo cp ./nginx/html/404.html /docker/normphp/dnmp/data/www/default/404.html`
 `sudo cp ./nginx/html/index.php /docker/normphp/dnmp/data/www/default/index.php`
+
+#自动生成docker-compose文件
+echo "自动生成docker-compose文件"
+sudo bash compose.sh
