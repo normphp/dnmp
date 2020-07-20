@@ -10,7 +10,7 @@ nginxPorts1='"443:443"'
 nginxPorts2='"80:80"'
 nginxPorts3='"8080:8080"'
 mysqlPorts='"3306:3306"'
-
+redisPorts='"6379:6379"'
 echo "version: '3.3'
 services:
   php-fpm:
@@ -65,7 +65,7 @@ services:
   redis-db:
     build: ./redis
     ports:
-      - ’6379:6379‘
+      - ${redisPorts}
     volumes:
       - /docker/normphp/dnmp/data/redis:/data
     restart: always" >> $patternFile
