@@ -1,3 +1,7 @@
+现有预编译好的二进制文件docker-compose都是针对x86的，对于ARM版ubuntu，尚没有编译好的docker-compose可供下载，
+因此需要以其他方式安装，利用pip就可以安装
+pip install docker-compose
+
 ### docker-compose
 #### 基础命令
     # 参考文档
