@@ -5,13 +5,19 @@ pattern_array=("deploy" "develop" "production" "basics")
 for pattern in ${pattern_array[@]}
 do
 patternFile="docker-compose-${pattern}.yml"
+phpFpmPorts='"9000:9000"'
+nginxPorts1='"443:443"'
+nginxPorts2='"80:80"'
+nginxPorts3='"8080:8080"'
+mysqlPorts='"3306:3306"'
+
 echo "version: '3.3'
 services:
   php-fpm:
     image: normphp/dnmp:php-fpm-${pattern}
     #build: ./php/
     ports:
-      - ‘9000:9000‘
+      - ${phpFpmPorts}
     links:
       - mysql-db:mysql-db
       - redis-db:redis-db
@@ -36,16 +42,16 @@ services:
       - /docker/normphp/dnmp/data/www/:/www/:rw
       - /docker/normphp/dnmp/data/nginx/logs/:/wwwlogs/:rw
     ports:
-      - ‘443:443‘
-      - ‘80:80‘
-      - ‘8080:8080‘
+      - ${nginxPorts1}
+      - ${nginxPorts2}
+      - ${nginxPorts3}
     restart: always
     command: nginx -g 'daemon off;'
 
   mysql-db:
     build: ./mysql
     ports:
-      - ‘3306:3306‘
+      - ${mysqlPorts}
     volumes:
       - /docker/normphp/dnmp/data/mysql:/var/lib/mysql:rw
     environment:
@@ -63,8 +69,9 @@ services:
     volumes:
       - /docker/normphp/dnmp/data/redis:/data
     restart: always" >> $patternFile
+    # 写入文件
 done
 
 
-# 写入文件
+
 
