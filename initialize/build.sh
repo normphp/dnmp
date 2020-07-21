@@ -1,7 +1,7 @@
 #!/bin/bash
 # 查看系统信息
 cat /etc/redhat-release
-yum update
+yum -y update
 yum  -y install vim git gcc automake autoconf libtool cmake git  \
         libfreetype6-dev libjpeg62-turbo-dev  \
         openssl libpng-dev  libssl-dev
@@ -16,7 +16,7 @@ ulimit -n 65535
 #  curl -sSL https://get.daocloud.io/docker | sh
 #  curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 curl -sSL https://get.daocloud.io/docker | sh
-echo '启动docker'
+echo '确定docker'
 sudo systemctl start docker
 echo '设置开机启动'
 sudo systemctl enable docker.service
