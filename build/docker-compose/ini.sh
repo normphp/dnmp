@@ -1,11 +1,18 @@
 #!/bin/bash
 Path=$(readlink -f "$(dirname "$0")")
 # Docker Compose 的当前稳定版本
-echo "Docker Compose 的当前稳定版本"
-sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-sudo ln -snf   /usr/local/bin/docker-compose /usr/bin/docker-compose
-docker-compose --version
+echo -e "init Docker Compose"
+sudo docker-compose version
+if [ $? -ne 0 ]; then
+  echo "Docker Compose 的当前稳定版本"
+  sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  sudo chmod +x /usr/local/bin/docker-compose
+  sudo ln -snf   /usr/local/bin/docker-compose /usr/bin/docker-compose
+  docker-compose --version
+else
+    echo "已安装Docker Compose"
+fi
+
 echo "********************************************************"
 # 创建目录 /normphp/dnmp/
 echo "创建目录：/docker/normphp/dnmp/data/nginx/{conf,conf.d,html,logs}"
@@ -52,5 +59,6 @@ echo "自动生成docker-compose文件"
 export Path
 echo $Path
 `sudo chmod +x   ${Path}/compose.sh`
+
 `source  ${Path}/compose.sh`
 
