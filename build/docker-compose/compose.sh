@@ -4,7 +4,7 @@ pattern_array=("deploy" "develop" "production" "basics")
 
 for pattern in ${pattern_array[@]}
 do
-patternFile="docker-compose-${pattern}.yml"
+patternFile="${Path}/docker-compose-${pattern}.yml"
 phpFpmPorts='"9000:9000"'
 nginxPorts1='"443:443"'
 nginxPorts2='"80:80"'
