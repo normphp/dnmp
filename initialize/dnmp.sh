@@ -27,6 +27,8 @@ docker -v
 #******************docker-compose ******************
 echo '初始化 docker-compose'
 cur_dir=$(dirname $(pwd))
+export cur_dir
 echo $cur_dir
 `sudo chmod +x   ${cur_dir}/build/docker-compose/ini.sh`
+
 source  ` ${cur_dir}/build/docker-compose/ini.sh`

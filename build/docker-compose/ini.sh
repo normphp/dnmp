@@ -19,7 +19,10 @@ sudo mkdir -p /docker/normphp/dnmp/data/{redis,mysql,php}
 
 # 复制当前目录下的目录nginx.conf配置到对应运行目录
 echo "复制当前目录下的目录nginx.conf、default.conf配置到对应运行目录/docker/data/nginx/"
-
+if [ "x${cur_dir}" != "x" ];then
+Path=$cur_dir
+fi
+echo $Path;
 `sudo cp ${Path}/nginx/conf/nginx.conf /docker/normphp/dnmp/data/nginx/conf/nginx.conf`
 `sudo cp ${Path}/nginx/conf/default.conf /docker/normphp/dnmp/data/nginx/conf/default.conf`
 `sudo cp -r ${Path}/nginx/conf/vhost/jt /docker/normphp/dnmp/data/nginx/conf/`
