@@ -52,4 +52,5 @@ echo "自动生成docker-compose文件"
 export Path
 echo $Path
 `sudo chmod +x   ${Path}/compose.sh`
-source ` bash ${Path}/compose.sh`
+source ` ${Path}/compose.sh`
+
