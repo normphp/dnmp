@@ -48,4 +48,8 @@ echo "复制当前目录下的目录index.html等文件到对应运行目录/doc
 
 #自动生成docker-compose文件
 echo "自动生成docker-compose文件"
-`sudo bash ${Path}/compose.sh`
+
+export Path
+echo $Path
+`sudo chmod +x   ${Path}/compose.sh`
+source ` bash ${Path}/compose.sh`
