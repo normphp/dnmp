@@ -36,4 +36,5 @@ cur_dir="$(dirname $(pwd))/build/docker-compose"
 export cur_dir
 echo $cur_dir
 `sudo chmod +x   ${cur_dir}/ini.sh`
-`source  ${cur_dir}/ini.sh`
+cli="${cur_dir}/ini.sh"
+source  $cli
