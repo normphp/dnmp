@@ -2,7 +2,7 @@
 # 更新
 cat /etc/redhat-release
 yum -y update
-yum  -y install vim git gcc automake autoconf libtool cmake git  \
+yum  -y install vim wget git gcc automake autoconf libtool cmake git  \
         libfreetype6-dev libjpeg62-turbo-dev  \
         openssl libpng-dev  libssl-dev
 
@@ -16,6 +16,8 @@ sudo chmod +x  /etc/rc.local
 sudo chmod 755 /etc/rc.local
 #******************安装decker ******************
 echo '安装docker'
+wget https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.13-3.1.el7.x86_64.rpm
+sudo yum -y install ./containerd.io-1.2.13-3.1.el7.x86_64.rpm && rm -rf containerd.io-1.2.13-3.1.el7.x86_64.rpm
 # curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 curl -sSL https://get.daocloud.io/docker | sh
 echo '启动docker'
