@@ -13,7 +13,7 @@ curl -sSL https://get.daocloud.io/docker | sh \
 #&& sudo yum -y install ./containerd.io-1.2.13-3.1.el7.x86_64.rpm && rm -rf containerd.io-1.2.13-3.1.el7.x86_64.rpm \
 # curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 
-&&  echo '启动docker' \
+echo '启动docker' \
 &&  sudo systemctl start docker \
 &&  echo '设置开机启动' \
 &&  sudo systemctl enable docker.service \
