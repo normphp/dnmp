@@ -7,6 +7,9 @@ pip install docker-compose
     # 参考文档
     https://www.cnblogs.com/phpk/p/11205467.html
 #### 基础操作
+    # 自定义compose.yml文件
+    docker-compose -f 文件打字 [build|up -d|up|down] #  docker-compose -f ../build/docker-compose/docker-compose-develop.yml up -d
+
     # 构建新容器包
     docker-compose build 
     # 运行容器  -d 为后台运行
