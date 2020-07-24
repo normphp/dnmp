@@ -38,6 +38,10 @@ services:
       - php-fpm:php-fpm
     volumes:
       - /docker/normphp/dnmp/data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /docker/normphp/dnmp/data/nginx/conf/fastcgi_params:/etc/nginx/fastcgi_params:ro
+      - /docker/normphp/dnmp/data/nginx/conf/mime.types:/etc/nginx/mime.types:ro
+      - /docker/normphp/dnmp/data/nginx/conf/scgi_params:/etc/nginx/scgi_params:ro
+      - /docker/normphp/dnmp/data/nginx/conf/uwsgi_params:/etc/nginx/uwsgi_params:ro
       - /docker/normphp/dnmp/data/nginx/conf/:/etc/nginx/conf/:ro
       - /docker/normphp/dnmp/data/www/:/www/:rw
       - /docker/normphp/dnmp/data/nginx/logs/:/wwwlogs/:rw

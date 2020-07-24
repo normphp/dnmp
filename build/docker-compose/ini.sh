@@ -36,6 +36,12 @@ echo $Path;
 `sudo cp -r ${Path}/nginx/conf/vhost/normphp /docker/normphp/dnmp/data/nginx/conf/`
 `sudo cp -r ${Path}/nginx/conf/vhost/general /docker/normphp/dnmp/data/nginx/conf/`
 `sudo cp -r ${Path}/nginx/conf/vhost/tpl /docker/normphp/dnmp/data/nginx/conf/`
+`sudo cp ${Path}/nginx/conf/fastcgi_params /docker/normphp/dnmp/data/nginx/conf/fastcgi_params`
+`sudo cp ${Path}/nginx/conf/mime.types /docker/normphp/dnmp/data/nginx/conf/mime.types`
+`sudo cp ${Path}/nginx/conf/scgi_params /docker/normphp/dnmp/data/nginx/conf/scgi_params`
+`sudo cp ${Path}/nginx/conf/uwsgi_params /docker/normphp/dnmp/data/nginx/conf/uwsgi_params`
+
+
 # 处理php配置文件
 
 `sudo cp -r ${Path}/php/etc/php/php.ini-development /docker/normphp/dnmp/data/php/php-develop.ini`
