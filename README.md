@@ -20,10 +20,10 @@
         && pwd
         
         # 构建项目环境 可选择生成环境[deploy]、开发环境[develop]、生产环境[production]、基础环境[basics]
+        docker-compose -f docker-compose-[deploy|develop|production|basics].yml build
         # up 命令为启动环境  up -d 为守护进程启动环境 更多命令请自行网上搜索docker-compose命令
-        sl
-        && docker-compose -f docker-compose-[deploy|develop|production|basics].yml build
-        && docker-compose -f docker-compose-[deploy|develop|production|basics].yml up
+        # 可以访问：[服务器ip]/index.php   查看结果
+        docker-compose -f docker-compose-[deploy|develop|production|basics].yml up
 #### 一些建议
 #####恰到好处的增加虚拟内存
     free -h # 查看当前内存状态

@@ -2,9 +2,8 @@
 # 更新
 cat /etc/redhat-release
 yum -y update
-yum  -y install vim wget git gcc automake autoconf libtool cmake git  \
-        libfreetype6-dev libjpeg62-turbo-dev  \
-        openssl libpng-dev  libssl-dev
+yum  -y install vim wget openssl
+
 #******************安装decker ******************
 sudo docker -v
 if [ $? -ne 0 ]; then
