@@ -1,7 +1,7 @@
 #!/bin/bash
 # 更新
 cat /etc/redhat-release
-yum -y update
+# yum -y update
 yum  -y install vim wget openssl
 
 #******************安装decker ******************
