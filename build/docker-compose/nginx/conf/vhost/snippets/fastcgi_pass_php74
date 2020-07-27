@@ -1,0 +1,4 @@
+# php7.4
+fastcgi_pass   php-fpm:9000;
+fastcgi_param PATH_INFO $1; # 把pathinfo部分赋给PATH_INFO变量
+fastcgi_index  index.php;

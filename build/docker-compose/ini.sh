@@ -20,9 +20,10 @@ sudo mkdir -p /docker/normphp/dnmp/data/nginx/{conf,conf.d,html,logs}
 echo "创建目录：/docker/normphp/dnmp/data/www/{default,view,php}"
 sudo mkdir -p /docker/normphp/dnmp/data/www/{default,view,php}
 # 配置文件都在/docker/normphp/dnmp/data/nginx/conf目录下
-echo "创建目录：/docker/normphp/dnmp/data/nginx/conf/{normphp,jt,general,tpl}"
-sudo mkdir -p /docker/normphp/dnmp/data/nginx/conf/{normphp,jt,general,tpl}
+echo "创建目录：/docker/normphp/dnmp/data/nginx/conf/{normphp,jt,general,tpl,snippets,ssl_certificate}"
+sudo mkdir -p /docker/normphp/dnmp/data/nginx/conf/{normphp,jt,general,tpl,snippets,ssl_certificate}
 sudo mkdir -p /docker/normphp/dnmp/data/{redis,mysql,php}
+
 
 # 复制当前目录下的目录nginx.conf配置到对应运行目录
 echo "复制当前目录下的目录nginx.conf、default.conf配置到对应运行目录/docker/data/nginx/"
@@ -30,20 +31,9 @@ if [ "x${cur_dir}" != "x" ];then
 Path=$cur_dir
 fi
 echo $Path;
-`sudo cp ${Path}/nginx/conf/nginx.conf /docker/normphp/dnmp/data/nginx/conf/nginx.conf`
-`sudo cp ${Path}/nginx/conf/default.conf /docker/normphp/dnmp/data/nginx/conf/default.conf`
-`sudo cp -r ${Path}/nginx/conf/vhost/jt /docker/normphp/dnmp/data/nginx/conf/`
-`sudo cp -r ${Path}/nginx/conf/vhost/normphp /docker/normphp/dnmp/data/nginx/conf/`
-`sudo cp -r ${Path}/nginx/conf/vhost/general /docker/normphp/dnmp/data/nginx/conf/`
-`sudo cp -r ${Path}/nginx/conf/vhost/tpl /docker/normphp/dnmp/data/nginx/conf/`
-`sudo cp ${Path}/nginx/conf/fastcgi_params /docker/normphp/dnmp/data/nginx/conf/fastcgi_params`
-`sudo cp ${Path}/nginx/conf/mime.types /docker/normphp/dnmp/data/nginx/conf/mime.types`
-`sudo cp ${Path}/nginx/conf/scgi_params /docker/normphp/dnmp/data/nginx/conf/scgi_params`
-`sudo cp ${Path}/nginx/conf/uwsgi_params /docker/normphp/dnmp/data/nginx/conf/uwsgi_params`
-
-
+# 处理nginx配置文件
+`sudo cp -r ${Path}/nginx/conf/ /docker/normphp/dnmp/data/nginx/conf/`
 # 处理php配置文件
-
 `sudo cp -r ${Path}/php/etc/php/php.ini-development /docker/normphp/dnmp/data/php/php-develop.ini`
 `sudo cp -r ${Path}/php/etc/php/php.ini-development /docker/normphp/dnmp/data/php/php-basics.ini`
 `sudo cp -r ${Path}/php/etc/php/php.ini-production /docker/normphp/dnmp/data/php/php-deploy.ini`
