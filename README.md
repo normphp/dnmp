@@ -2,9 +2,9 @@
 适用normphp框架的dnmp环境（docker+nginx+mysql+php）
 ### 关于dnmp
 适用normphp框架的dnmp环境（docker+nginx+mysql+php）
-###背景
+### 背景
 适用normphp框架的dnmp环境（docker+nginx+mysql+php）
-####应用场景
+#### 应用场景
 * PHP的特点：项目产品的快速实现更新迭代变现
 * normphp框架适用性：低门槛学习成本、适用产品的快速实现更新迭代的框架（面向个人开发者、小规模团队）。
 * 不考虑大规模集群自动化部署，dnmp只做更好的lnmp代替品，代码不集成在images中，挂载在本地主机上。
