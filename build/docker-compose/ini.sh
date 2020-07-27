@@ -32,7 +32,7 @@ Path=$cur_dir
 fi
 echo $Path;
 # 处理nginx配置文件
-`sudo cp -r ${Path}/nginx/conf/ /docker/normphp/dnmp/data/nginx/conf/`
+`sudo cp -r ${Path}/nginx/conf/ /docker/normphp/dnmp/data/nginx/`
 # 处理php配置文件
 `sudo cp -r ${Path}/php/etc/php/php.ini-development /docker/normphp/dnmp/data/php/php-develop.ini`
 `sudo cp -r ${Path}/php/etc/php/php.ini-development /docker/normphp/dnmp/data/php/php-basics.ini`
