@@ -1,9 +1,9 @@
 # dnmp
 适用normphp框架的dnmp环境（docker+nginx+mysql+php）
 ### 关于dnmp
-
+适用normphp框架的dnmp环境（docker+nginx+mysql+php）
 ###背景
-
+适用normphp框架的dnmp环境（docker+nginx+mysql+php）
 ####应用场景
 * PHP的特点：项目产品的快速实现更新迭代变现
 * normphp框架适用性：低门槛学习成本、适用产品的快速实现更新迭代的框架（面向个人开发者、小规模团队）。
@@ -27,7 +27,9 @@
         
         # 构建项目环境 可选择生成环境[deploy]、开发环境[develop]、生产环境[production]、基础环境[basics]
         docker-compose -f docker-compose-[deploy|develop|production|basics].yml build 
-        ### 显例 docker-compose -f docker-compose-develop.yml build 
+        
+        ### 示例 docker-compose -f docker-compose-develop.yml build 
+        
         # up 命令为启动环境  up -d 为守护进程启动环境 更多命令请自行网上搜索docker-compose命令
         docker-compose -f docker-compose-[deploy|develop|production|basics].yml up
         # 开发环境构建命令参考[显例]
@@ -38,14 +40,17 @@
         docker-compose -f docker-compose-[deploy|develop|production|basics].yml down
         
         ************************docker-compose 服务操作*********************************
+        
         # 检测nginx配置是否正确【注意自行替换-f 参数的文件路径】
         docker-compose -f ~root/dnmp-master/build/docker-compose/docker-compose-[deploy|develop|production|basics].yml  exec nginx -t
         # 重启nginx容器服务【注意自行替换-f 参数的文件路径】
         docker-compose -f ~root/dnmp-master/build/docker-compose/docker-compose-[deploy|develop|production|basics].yml  exec nginx service nginx restart
         # 其他容器服务也可参考使用，命令的最后一个参数 就是需要在容器里面执行的命令行
-        ### 显例  docker-compose -f ~root/dnmp-master/build/docker-compose/docker-compose-develop.yml  exec  nginx nginx -t
+        
+        ### 示例  docker-compose -f ~root/dnmp-master/build/docker-compose/docker-compose-develop.yml  exec  nginx nginx -t
         
         ***********************常规docker-composer 命令********************************
+        
         # 下面是常用命令  更多命令请自行网上搜索docker-compose命令
         docker-compose restart [serviceName]: 重启服务
         
@@ -63,6 +68,6 @@
 #####恰到好处的增加虚拟内存
     free -h # 查看当前内存状态
     # 查看磁盘IO
-    #磁盘IO低于100不建议使用虚拟内存同时注意性能内存会消耗一定的CPU性能
+    # 磁盘IO低于100不建议使用虚拟内存同时注意性能内存会消耗一定的CPU性能
     
         
