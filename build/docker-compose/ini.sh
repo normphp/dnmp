@@ -15,15 +15,14 @@ fi
 
 echo "********************************************************"
 # 创建目录 /normphp/dnmp/
-echo "创建目录：/docker/normphp/dnmp/data/nginx/{conf,conf.d,html,logs}"
+sudo mkdir -p /docker/normphp/dnmp/data/{redis,mysql,php}
+echo "创建目录：{conf,conf.d,html,logs}"
 sudo mkdir -p /docker/normphp/dnmp/data/nginx/{conf,conf.d,html,logs}
-echo "创建目录：/docker/normphp/dnmp/data/www/{default,view,php}"
+echo "创建目录：{default,view,php}"
 sudo mkdir -p /docker/normphp/dnmp/data/www/{default,view,php}
 # 配置文件都在/docker/normphp/dnmp/data/nginx/conf目录下
-echo "创建目录：/docker/normphp/dnmp/data/nginx/conf/{normphp,jt,general,tpl,snippets,ssl_certificate}"
+echo "创建目录：{normphp,jt,general,tpl,snippets,ssl_certificate}"
 sudo mkdir -p /docker/normphp/dnmp/data/nginx/conf/{normphp,jt,general,tpl,snippets,ssl_certificate}
-sudo mkdir -p /docker/normphp/dnmp/data/{redis,mysql,php}
-
 
 # 复制当前目录下的目录nginx.conf配置到对应运行目录
 echo "复制当前目录下的目录nginx.conf、default.conf配置到对应运行目录/docker/data/nginx/"
@@ -32,7 +31,8 @@ Path=$cur_dir
 fi
 echo $Path;
 # 处理nginx配置文件
-`sudo cp -r ${Path}/nginx/conf/. /docker/normphp/dnmp/data/nginx/conf`
+nginx_conf="sudo cp -r ${Path}/nginx/conf/. /docker/normphp/dnmp/data/nginx/conf"
+nginx_conf
 # 处理php配置文件
 `sudo cp -r ${Path}/php/etc/php/php.ini-development /docker/normphp/dnmp/data/php/php-develop.ini`
 `sudo cp -r ${Path}/php/etc/php/php.ini-development /docker/normphp/dnmp/data/php/php-basics.ini`
@@ -43,7 +43,7 @@ echo $Path;
 `sudo cp -r ${Path}/php/etc/php-fpm.conf.default /docker/normphp/dnmp/data/php/php-fpm.conf.default`
 `sudo cp -r ${Path}/php/etc/php-fpm.d/ /docker/normphp/dnmp/data/php/php-fpm.d/`
 
-echo "复制当前目录下的目录index.html等文件到对应运行目录/docker/normphp/dnmp/data/www/\n"
+echo "复制当前目录下的目录index.html等文件到对应运行目录/docker/normphp/dnmp/data/www/"
 
 `sudo cp ${Path}/nginx/html/index.html /docker/normphp/dnmp/data/www/default/index.html`
 `sudo cp ${Path}/nginx/html/404.html /docker/normphp/dnmp/data/www/default/404.html`
@@ -54,7 +54,8 @@ echo "自动生成docker-compose文件"
 
 export Path
 echo $Path
-`sudo chmod +x   ${Path}/compose.sh`
+chmod_compose="sudo chmod +x   ${Path}/compose.sh"
+chmod_compose
 cli="${Path}/compose.sh"
 source  $cli
 
