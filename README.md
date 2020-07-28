@@ -32,7 +32,7 @@
         
         # up 命令为启动环境  up -d 为守护进程启动环境 更多命令请自行网上搜索docker-compose命令
         docker-compose -f docker-compose-[deploy|develop|production|basics].yml up
-        # 开发环境构建命令参考[显例]
+        # 开发环境构建命令参考[示例]
         docker-compose -f docker-compose-develop.yml build && docker-compose -f docker-compose-develop.yml up
         # 可以访问：[服务器ip]/index.php   查看效果
         
