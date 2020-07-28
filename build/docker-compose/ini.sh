@@ -22,7 +22,7 @@ echo "创建目录：{default,view,php}"
 sudo mkdir -p /docker/normphp/dnmp/data/www/{default,view,php}
 # 配置文件都在/docker/normphp/dnmp/data/nginx/conf目录下
 echo "创建目录：{normphp,jt,general,tpl,snippets,ssl_certificate}"
-sudo mkdir -p /docker/normphp/dnmp/data/nginx/conf/{normphp,jt,general,tpl,snippets,ssl_certificate}
+#sudo mkdir -p /docker/normphp/dnmp/data/nginx/conf/{normphp,jt,general,tpl,snippets,ssl_certificate}
 
 # 复制当前目录下的目录nginx.conf配置到对应运行目录
 echo "复制当前目录下的目录nginx.conf、default.conf配置到对应运行目录/docker/data/nginx/"
@@ -32,7 +32,7 @@ fi
 echo $Path;
 # 处理nginx配置文件
 nginx_conf="sudo cp -r ${Path}/nginx/conf/. /docker/normphp/dnmp/data/nginx/conf"
-nginx_conf
+$nginx_conf
 # 处理php配置文件
 `sudo cp -r ${Path}/php/etc/php/php.ini-development /docker/normphp/dnmp/data/php/php-develop.ini`
 `sudo cp -r ${Path}/php/etc/php/php.ini-development /docker/normphp/dnmp/data/php/php-basics.ini`
@@ -55,7 +55,7 @@ echo "自动生成docker-compose文件"
 export Path
 echo $Path
 chmod_compose="sudo chmod +x   ${Path}/compose.sh"
-chmod_compose
+$chmod_compose
 cli="${Path}/compose.sh"
 source  $cli
 
