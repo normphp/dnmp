@@ -21,14 +21,21 @@ if [ $? -ne 0 ]; then
     Path=$(readlink -f "$(dirname "$0")")
     echo "创建目录：/docker/normphp/dnmp/rc" \
     && sudo mkdir -p /docker/normphp/dnmp/rc  \
-    && `sudo cp -r ${Path}/rc.sh /docker/normphp/dnmp/rc/rc.sh`  \
-    && echo "设置开机执行sudo bash /docker/normphp/dnmp/rc/rc.sh" \
-    && sudo echo "sudo bash /docker/normphp/dnmp/rc/rc.sh" >> /etc/rc.local \
-    && sudo chmod +x  /etc/rc.local \
-    && sudo chmod 755 /etc/rc.local
+    && `sudo cp -r ${Path}/rc.sh /docker/normphp/dnmp/rc/rc.sh`
 else
     echo "已安装Docker"
 fi
+# 设置开机执行 rc.sh
+if [ `grep "/docker/normphp/dnmp/rc/rc.sh" /etc/rc.local  &>> error.txt` ] ;then
+  cat /etc/rc.local
+else
+  echo 'no error find in file.txt'
+    echo "设置开机执行sudo bash /docker/normphp/dnmp/rc/rc.sh" \
+    && sudo echo "sudo bash /docker/normphp/dnmp/rc/rc.sh" >> /etc/rc.local \
+    && sudo chmod +x  /etc/rc.local \
+    && sudo chmod 755 /etc/rc.local
+fi
+
 #******************docker-compose ******************
 echo '初始化 docker-compose'
 cur_dir="$(dirname $(pwd))/build/docker-compose"
