@@ -72,6 +72,8 @@
 ###### 产生https证书
     acme.sh  --issue  -d [域名]  --webroot  [网站根目录]
     示例：acme.sh  --issue  -d normphp.hk.heil.red  --webroot  /docker/normphp/dnmp/data/www/php/
+    如提示命令不存在：
+    alias acme.sh=~/.acme.sh/acme.sh
 ###### 安装https证书到nginx目录
      acme.sh --install-cert -d [域名] \
      --key-file       [nginx配置key的绝对路径]/key.pem  \
