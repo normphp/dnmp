@@ -35,6 +35,7 @@ else
 fi
 # 设置开机执行 rc.sh
 if [ `grep "/docker/normphp/dnmp/rc/rc.sh" /etc/rc.local  &>> error.txt` ] ;then
+  echo -e "\033[32m 已存在设置开机执行rc.sh配置  \033[0m"
   cat /etc/rc.local
 else
   echo 'no error find in file.txt'
