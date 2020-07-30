@@ -12,7 +12,7 @@
     *   按照正统容器的思想应该是业务代码+环境为一个完整容器，或者在容器构建时把代码copy到容器中。
 #### 开始
     # 初始化基础环境、安装docker和docker-compose、构建生成docker-compose.yml文件
-    
+    # 注意：如果dnmp-master文件夹右键存在请删除
     yum -y -q install wget tar \
     && wget https://github.com/normphp/dnmp/archive/master.tar.gz && tar -zxvf master.tar.gz \
     && cd dnmp-master/initialize/ \
