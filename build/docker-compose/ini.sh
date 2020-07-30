@@ -4,11 +4,14 @@ Path=$(readlink -f "$(dirname "$0")")
 echo -e "init Docker Compose"
 sudo docker-compose version
 if [ $? -ne 0 ]; then
-  echo "Docker Compose 的当前稳定版本"
+  echo "docker-Compose 的当前稳定版本"
   sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
   sudo ln -snf   /usr/local/bin/docker-compose /usr/bin/docker-compose
   docker-compose --version
+  if [ $? -ne 0 ]; then
+    echo -e "\033[31m 安装Docker-Compose失败 \033[0m" && exit
+  fi
 else
     echo "已安装Docker Compose"
 fi
