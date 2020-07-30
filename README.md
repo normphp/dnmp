@@ -14,7 +14,7 @@
     # 初始化基础环境、安装docker和docker-compose、构建生成docker-compose.yml文件
     # 注意：如果dnmp-master文件夹右键存在请删除
     yum -y -q install wget tar \
-    && wget https://github.com/normphp/dnmp/archive/master.tar.gz && tar -zxvf master.tar.gz \
+    && wget https://github.com/normphp/dnmp/archive/master.tar.gz -O master.tar.gz && tar -zxvf master.tar.gz \
     && cd dnmp-master/initialize/ \
     && bash dnmp.sh \
     && cd ../build/docker-compose/  \
