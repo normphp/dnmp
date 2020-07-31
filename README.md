@@ -27,8 +27,8 @@
 ##### 开始下载安装
     # 初始化基础环境、安装docker和docker-compose、构建生成docker-compose.yml文件、注册快捷命令和定时任务
     # 注意：如果重复执行会对dnmp-master/目录内容进行覆盖
+    rm -rf dnmp-master 
     yum -y -q install wget tar \
-    && rm-rf dnmp-master
     && wget https://github.com/normphp/dnmp/archive/master.tar.gz -O master.tar.gz && tar -zxvf master.tar.gz \
     && cd dnmp-master/initialize/ \
     && bash build.sh \

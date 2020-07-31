@@ -9,6 +9,10 @@ ulimit -n 65535
 # 基本安全配置    修改ssh端口  防火墙
 
 yum  -y -q install vim wget openssl sudo
+sudo
+if [ $? -ne 0 ]; then
+  yum  -y install  sudo
+fi
 #******************安装decker ******************
 sudo docker -v
 if [ $? -ne 0 ]; then
