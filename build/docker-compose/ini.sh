@@ -6,9 +6,10 @@ sudo docker-compose version
 if [ $? -ne 0 ]; then
   echo "docker-Compose 的当前稳定版本"
   sudo yum -y install epel-release python-pip \
-  && pip --version \
-  && pip install --upgrade pip \
-  && pip install docker-compose  \
+  && sudo pip --version \
+  && sudo pip install --upgrade pip \
+  && sudo pip install   docker-compose requests cryptography==2.9.2 \
+  && sudo pip uninstall -y  urllib3 chardet \
   && docker-compose version
 #  sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 #  sudo chmod +x /usr/local/bin/docker-compose
