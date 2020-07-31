@@ -5,7 +5,7 @@
  * @Last Modified by:   pizepei
  * @Last Modified time: 2020-07-31 09:49:52
  */
-echo '号机名：'.($_SERVER['HOSTNAME']??'');
+echo '主机名：'.($_SERVER['HOSTNAME']??'');
 echo '<br>';
 echo '<br>';
 echo 'HTTP_HOST：'.($_SERVER['HTTP_HOST']??'');
