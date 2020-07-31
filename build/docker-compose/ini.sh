@@ -10,6 +10,7 @@ if [ $? -ne 0 ]; then
   sudo ln -snf   /usr/local/bin/docker-compose /usr/bin/docker-compose
   docker-compose --version
   if [ $? -ne 0 ]; then
+     echo -e "\033[31m 安装Docker-Compose失败尝试pip方式安装 \033[0m"
       sudo yum -y install  epel-release python-pip \
       && sudo pip --version \
       && sudo pip install --upgrade pip \
