@@ -23,6 +23,7 @@ echo "创建目录：{conf,conf.d,html,logs}"
 sudo mkdir -p /docker/normphp/dnmp/data/nginx/{conf,conf.d,html,logs}
 echo "创建目录：{default,view,php}"
 sudo mkdir -p /docker/normphp/dnmp/data/www/{default,view,php}
+sudo mkdir -p /docker/normphp/dnmp/data/www/default/normphp/public
 # 配置文件都在/docker/normphp/dnmp/data/nginx/conf目录下
 echo "创建目录：{normphp,jt,general,tpl,snippets,ssl_certificate}"
 #sudo mkdir -p /docker/normphp/dnmp/data/nginx/conf/{normphp,jt,general,tpl,snippets,ssl_certificate}
@@ -50,8 +51,8 @@ echo "复制当前目录下的目录index.html等文件到对应运行目录/doc
 
 `sudo cp ${Path}/nginx/html/index.html /docker/normphp/dnmp/data/www/default/index.html`
 `sudo cp ${Path}/nginx/html/404.html /docker/normphp/dnmp/data/www/default/404.html`
-`sudo cp ${Path}/nginx/html/index.php /docker/normphp/dnmp/data/www/default/index.php`
-
+`sudo cp ${Path}/nginx/html/index.php /docker/normphp/dnmp/data/www/default/normphp/public/index.php`
+`sudo cp ${Path}/nginx/html/phpinfo.php /docker/normphp/dnmp/data/www/default/phpinfo.php`
 #自动生成docker-compose文件
 echo "自动生成docker-compose文件"
 

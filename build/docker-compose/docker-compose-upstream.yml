@@ -1,6 +1,6 @@
 version: '3.3'
 services:
-  nginx:
+  docker-upstream:
     build: ./nginx
     volumes:
       - /docker/normphp/dnmp/data/nginx/conf/nginx_upstream.conf:/etc/nginx/nginx.conf:ro
