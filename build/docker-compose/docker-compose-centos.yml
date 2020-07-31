@@ -1,0 +1,15 @@
+version: '3.3'
+services:
+  nginx-upstream:
+    image: centos:centos7
+    volumes:
+      - /docker/normphp/dnmp/data/nginx/conf/nginx_upstream.conf:/etc/nginx/nginx.conf:ro
+      - /docker/normphp/dnmp/data/nginx/logs/:/var/log/nginx/:rw
+      - /docker/normphp/dnmp/data/nginx/conf/:/etc/nginx/conf/:ro
+      - /docker/normphp/dnmp/data/www/:/www/:rw
+      - /docker/normphp/dnmp/data/nginx/logs/:/wwwlogs/:rw
+    ports:
+      - "443:443"
+      - "80:80"
+      - "8080:8080"
+    command: nginx -g 'daemon off;'
