@@ -22,6 +22,8 @@
         * 具体参考：
             * build/docker-compose/nginx/conf/vhost_upstream/README.md
             * build/docker-compose/nginx/conf/upstream/README.md
+    * 环境配置信息目录：/docker/normphp/dnmp/data/
+        * 每一个重要目录下都有一个README.md文件对当前目录进行详细的解释。
 ##### 开始下载安装
     # 初始化基础环境、安装docker和docker-compose、构建生成docker-compose.yml文件、注册快捷命令和定时任务
     # 注意：如果重复执行会对dnmp-master/目录内容进行覆盖
@@ -80,6 +82,10 @@
     * 标准环境不开与负载均衡环境在同一物理机器上（如需要在同一个机器上做实验必须修改标准环境的服务端口docker-compose.yml文件中修改）
     * 负载均衡环境的nginx配置不能拿来就用需要有一定的nginx配置知识再对配置进行简单的修改（下文会进行简单的介绍）。
 * 在《开始下载安装》章节中我们已经执行了对应的命令行对环境进行了初始化。
+* 简单配置      
+    * 设置负载均衡服务列表[环境配置信息目录]/nginx/conf/upstream/default_server.conf
+        * 设置 server [ip];
+        * 配置完成后直接访问当前服务器[ip]会负载均衡到对应server[ip]列表上的对应的主机上。
 * 下面我们开始以构建：    
 
       # cd 到对应的目录[build/docker-compose/]通常执行完下载安装命令已经自动进入了这个目录
