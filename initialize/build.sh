@@ -8,7 +8,7 @@ ulimit -n 65535
 # 增加虚拟内存（注意：1、开启虚拟内存会增加cpu压力。2、硬盘io在100m/s下不建议开启）
 # 基本安全配置    修改ssh端口  防火墙
 
-yum  -y -q install vim wget openssl
+yum  -y -q install vim wget openssl sudo
 #******************安装decker ******************
 sudo docker -v
 if [ $? -ne 0 ]; then
