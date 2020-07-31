@@ -38,6 +38,7 @@ services:
       - php-fpm:php-fpm
     volumes:
       - /docker/normphp/dnmp/data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /docker/normphp/dnmp/data/nginx/logs/:/var/log/nginx/:rw
       - /docker/normphp/dnmp/data/nginx/conf/:/etc/nginx/conf/:ro
       - /docker/normphp/dnmp/data/nginx/logs/:/wwwlogs/:rw
       - /docker/normphp/dnmp/data/www/:/www/:rw
