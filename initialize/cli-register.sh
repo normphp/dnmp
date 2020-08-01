@@ -4,10 +4,9 @@ shopt -s  expand_aliases
 
 # 注册docker-compose 相关命令
 iniCompose(){
-  echo '#!/bin/bash
+echo '#!/bin/bash
 source dnmp-function.sh
 dir_path='${1}'
-
 if [ ${1}x = "deploy"x ];then
   compose $dir_path $*
 elif [ ${1}x = "production"x ];then
@@ -31,8 +30,10 @@ else
    basics       基础环境
 "
 fi
-  ' > ${1}/initialize/dnmp.sh
+' > ${1}/initialize/dnmp.sh
+
   sudo chmod +x ./dnmp.sh
+  sudo chmod +x ./initialize/dnmp.sh
   # source ~/.bashrc
   echo -e "\033[32m 开始注册dnmp快捷命令  \033[0m"
   grep '/initialize/dnmp.sh' ~/.bashrc
@@ -44,5 +45,6 @@ fi
     source ~/.bashrc
   fi
 }
+
 # 开启alias扩展功能
 iniCompose $root_dir

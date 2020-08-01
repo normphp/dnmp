@@ -71,6 +71,7 @@ root_dir=$(dirname $(pwd))
 export root_dir
 echo $root_dir
 source cli-register.sh
+source ~/.bashrc
 
 
 
