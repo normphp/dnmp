@@ -35,6 +35,8 @@ fi
   shopt -s  expand_aliases
   sudo chmod +x ./dnmp.sh
   sudo chmod +x ./dnmp-function.sh
+  sudo chmod +x ./cli-register.sh
+
   # source ~/.bashrc
   echo -e "\033[32m 开始注册dnmp快捷命令  \033[0m"
   grep '/initialize/dnmp.sh' ~/.bashrc
