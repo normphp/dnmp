@@ -18,6 +18,7 @@ services:
     #build: ./php/
     ports:
       - ${phpFpmPorts}
+    container_name: php-fpm
     links:
       - mysql-db:mysql-db
       - redis-db:redis-db
@@ -34,6 +35,7 @@ services:
     build: ./nginx
     depends_on:
       - php-fpm
+    container_name: nginx
     links:
       - php-fpm:php-fpm
     volumes:
@@ -53,6 +55,7 @@ services:
     build: ./mysql
     ports:
       - ${mysqlPorts}
+    container_name: mysql
     volumes:
       - /docker/normphp/dnmp/data/mysql:/var/lib/mysql:rw
     environment:
@@ -65,6 +68,7 @@ services:
 
   redis-db:
     build: ./redis
+    container_name: redis
     ports:
       - ${redisPorts}
     volumes:
