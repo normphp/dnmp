@@ -36,6 +36,7 @@
     && wget https://github.com/normphp/dnmp/archive/master.tar.gz -O master.tar.gz && tar -zxvf master.tar.gz \
     && cd dnmp-master/initialize/ \
     && bash build.sh \
+    && bash cli-register.sh \
     && cd ../build/docker-compose/  \
     && source ~/.bashrc
 ##### docker-compose 构建与运行[基础知识]

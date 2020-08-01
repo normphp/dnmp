@@ -66,11 +66,6 @@ echo $cur_dir
 `sudo chmod +x   ${cur_dir}/ini.sh`
 cli="${cur_dir}/ini.sh"
 source  $cli
-#******************创建快捷命令******************
-root_dir=$(dirname $(pwd))
-export root_dir
-echo $root_dir
-source cli-register.sh
 
 
 
