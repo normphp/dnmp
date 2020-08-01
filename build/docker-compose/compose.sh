@@ -11,6 +11,8 @@ nginxPorts2='"80:80"'
 nginxPorts3='"8080:8080"'
 mysqlPorts='"3306:3306"'
 redisPorts='"6379:6379"'
+networks='"dnmp-nat"'
+
 echo "version: '3.3'
 services:
   php-fpm:
@@ -18,9 +20,8 @@ services:
     #build: ./php/
     ports:
       - ${phpFpmPorts}
-    links:
-      - mysql-db:mysql-db
-      - redis-db:redis-db
+   networks:
+      - ${networks}
     volumes:
       - /docker/normphp/dnmp/data/www/:/www/:rw
       - /docker/normphp/dnmp/data/php/php-${pattern}.ini:/usr/local/etc/php/php.ini:ro
@@ -34,8 +35,8 @@ services:
     build: ./nginx
     depends_on:
       - php-fpm
-    links:
-      - php-fpm:php-fpm
+   networks:
+      - ${networks}
     volumes:
       - /docker/normphp/dnmp/data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
       - /docker/normphp/dnmp/data/nginx/logs/:/var/log/nginx/:rw
@@ -53,6 +54,8 @@ services:
     build: ./mysql
     ports:
       - ${mysqlPorts}
+   networks:
+      - ${networks}
     volumes:
       - /docker/normphp/dnmp/data/mysql:/var/lib/mysql:rw
     environment:
@@ -67,6 +70,8 @@ services:
     build: ./redis
     ports:
       - ${redisPorts}
+   networks:
+      - ${networks}
     volumes:
       - /docker/normphp/dnmp/data/redis:/data
     restart: always" > $patternFile
