@@ -35,9 +35,9 @@
     yum -y -q install wget tar \
     && wget https://github.com/normphp/dnmp/archive/master.tar.gz -O master.tar.gz && tar -zxvf master.tar.gz \
     && cd dnmp-master/initialize/ \
-    && bash cli-register.sh && source ~/.bashrc \ 
+    && bash cli-register.sh && source ~/.bashrc \
     && bash build.sh \
-    && cd ../build/docker-compose/  
+    && cd ../build/docker-compose/
     
 ##### docker-compose 构建与运行[基础知识]
 注意：这个章节只是对基础命令进行解释不建议执行其中的示例，具体执行命令请看下一个章节
@@ -68,14 +68,14 @@
     * 标准环境不开与负载均衡环境在同一物理机器上（如需要在同一个机器上做实验必须修改标准环境的服务端口docker-compose.yml文件中修改）
     * 一个机器建议中运行一个版本的标准环境
 * 在《开始下载安装》章节中我们已经执行了对应的命令行对环境进行了初始化
-* 下面我们开始以开发环境为例构建：
+* 下面我们开始以开发环境为例构建(原理)：
 
        # cd 到对应的目录[build/docker-compose/]通常执行完下载安装命令已经自动进入了这个目录
        执行构建命令
        docker-compose -f docker-compose-develop.yml build 
        # 执行试运行命令 -d 参数为后台运行，第一次运行建议不使用-d参数方便排查错误
        docker-compose -f docker-compose-develop.yml up [-d] 
-* 快捷命令
+* 快捷命令(推荐使用)
 
       # 快捷构建
       dnmp develop build
@@ -92,7 +92,7 @@
     * 设置负载均衡服务列表[环境配置信息目录]/nginx/conf/upstream/default_server.conf
         * 设置 server [ip];
         * 配置完成后直接访问当前服务器[ip]会负载均衡到对应server[ip]列表上的对应的主机上。
-* 下面我们开始以构建：    
+* 下面我们开始以构建(原理)：    
 
       # cd 到对应的目录[build/docker-compose/]通常执行完下载安装命令已经自动进入了这个目录
       执行构建命令
@@ -103,7 +103,7 @@
       docker-compose -f docker-compose-upstream.yml exec  nginx-upstream  nginx -t
       # nginx重启
       docker-compose -f docker-compose-upstream.yml exec  nginx-upstream  service nginx restart
-* 快捷命令
+* 快捷命令(推荐使用)
 
       # 快捷构建
       dnmp upstream build
