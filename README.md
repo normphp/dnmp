@@ -35,10 +35,10 @@
     yum -y -q install wget tar \
     && wget https://github.com/normphp/dnmp/archive/master.tar.gz -O master.tar.gz && tar -zxvf master.tar.gz \
     && cd dnmp-master/initialize/ \
+    && bash cli-register.sh && source ~/.bashrc \ 
     && bash build.sh \
-    && bash cli-register.sh \
-    && cd ../build/docker-compose/  \
-    && source ~/.bashrc
+    && cd ../build/docker-compose/  
+    
 ##### docker-compose 构建与运行[基础知识]
 注意：这个章节只是对基础命令进行解释不建议执行其中的示例，具体执行命令请看下一个章节
 
