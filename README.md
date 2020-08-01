@@ -37,7 +37,7 @@
     && cd dnmp-master/initialize/ \
     && bash build.sh \
     && cd ../build/docker-compose/  \
-    && pwd
+    && source ~/.bashrc
 ##### docker-compose 构建与运行[基础知识]
 注意：这个章节只是对基础命令进行解释不建议执行其中的示例，具体执行命令请看下一个章节
 
