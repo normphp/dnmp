@@ -19,9 +19,6 @@ services:
     ports:
       - ${phpFpmPorts}
     container_name: php-fpm
-    links:
-      - mysql-db:mysql-db
-      - redis-db:redis-db
     networks:
      - dnmpNat
     volumes:
@@ -38,8 +35,6 @@ services:
     depends_on:
       - php-fpm
     container_name: nginx
-    links:
-      - php-fpm:php-fpm
     networks:
      - dnmpNat
     volumes:
