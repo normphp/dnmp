@@ -31,14 +31,16 @@ else
 "
 fi
 ' > ${1}/initialize/dnmp.sh
-
+  shopt expand_aliases
+  shopt -s  expand_aliases
   sudo chmod +x ./dnmp.sh
-  sudo chmod +x ./initialize/dnmp.sh
+  sudo chmod +x ./dnmp-function.sh
   # source ~/.bashrc
   echo -e "\033[32m 开始注册dnmp快捷命令  \033[0m"
   grep '/initialize/dnmp.sh' ~/.bashrc
   if [ $? -eq 0 ];then
       echo -e "\033[32m 已经注册dnmp快捷命令  \033[0m"
+      source ~/.bashrc
   else
     echo '未注册dnmp快捷命令！现在进行注册'
     sudo echo "alias dnmp='bash ${1}/initialize/dnmp.sh'">>~/.bashrc
