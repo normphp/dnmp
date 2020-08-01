@@ -22,6 +22,8 @@ services:
     links:
       - mysql-db:mysql-db
       - redis-db:redis-db
+    networks:
+     - dnmpNat
     volumes:
       - /docker/normphp/dnmp/data/www/:/www/:rw
       - /docker/normphp/dnmp/data/php/php-${pattern}.ini:/usr/local/etc/php/php.ini:ro
@@ -38,6 +40,8 @@ services:
     container_name: nginx
     links:
       - php-fpm:php-fpm
+    networks:
+     - dnmpNat
     volumes:
       - /docker/normphp/dnmp/data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
       - /docker/normphp/dnmp/data/nginx/logs/:/var/log/nginx/:rw
@@ -56,6 +60,8 @@ services:
     ports:
       - ${mysqlPorts}
     container_name: mysql
+    networks:
+     - dnmpNat
     volumes:
       - /docker/normphp/dnmp/data/mysql:/var/lib/mysql:rw
     environment:
@@ -69,6 +75,8 @@ services:
   redis-db:
     build: ./redis
     container_name: redis
+    networks:
+     - dnmpNat
     ports:
       - ${redisPorts}
     volumes:
