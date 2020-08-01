@@ -5,33 +5,32 @@ shopt -s  expand_aliases
 # 注册docker-compose 相关命令
 iniCompose(){
   echo '#!/bin/bash
-  source dnmp-function.sh
+source dnmp-function.sh
+dir_path='${1}'
 
-  dir_path='${1}'
-
-  if [ ${1}x = "deploy"x ];then
-    compose $dir_path $*
-  elif [ ${1}x = "production"x ];then
-   compose $dir_path $*
-  elif [ ${1}x = "deploy"x ];then
-   compose $dir_path $*
-  elif [ ${1}x = "develop"x ];then
-   compose $dir_path $*
-  elif [ ${1}x = "upstream"x ];then
-   compose $dir_path $*
-  elif [ ${1}x = "-f"x ];then
-   composeFile $dir_path $*
-  elif [ ${1}x = "-v"x ];then
-   versions $dir_path $*
-  else
-     echo "第一个命令是需要操作的环境：
-     develop      开发环境
-     deploy       部署环境
-     upstream     负载均衡服务
-     production   生产环境
-     basics       基础环境
-  "
-  fi
+if [ ${1}x = "deploy"x ];then
+  compose $dir_path $*
+elif [ ${1}x = "production"x ];then
+ compose $dir_path $*
+elif [ ${1}x = "deploy"x ];then
+ compose $dir_path $*
+elif [ ${1}x = "develop"x ];then
+ compose $dir_path $*
+elif [ ${1}x = "upstream"x ];then
+ compose $dir_path $*
+elif [ ${1}x = "-f"x ];then
+ composeFile $dir_path $*
+elif [ ${1}x = "-v"x ];then
+ versions $dir_path $*
+else
+   echo "第一个命令是需要操作的环境：
+   develop      开发环境
+   deploy       部署环境
+   upstream     负载均衡服务
+   production   生产环境
+   basics       基础环境
+"
+fi
   ' > ${1}/initialize/dnmp.sh
   sudo chmod +x ./dnmp.sh
   # source ~/.bashrc
