@@ -17,7 +17,7 @@ fi
 sudo docker -v
 if [ $? -ne 0 ]; then
     echo '安装docker' \
-    & curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+    && curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
     #wget https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.13-3.1.el7.x86_64.rpm \
     #&& sudo yum -y install ./containerd.io-1.2.13-3.1.el7.x86_64.rpm && rm -rf containerd.io-1.2.13-3.1.el7.x86_64.rpm \
     # curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
