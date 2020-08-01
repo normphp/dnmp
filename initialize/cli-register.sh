@@ -50,7 +50,5 @@ fi
     source ~/.bashrc
   fi
 }
-
 # 开启alias扩展功能
-iniCompose $root_dir
 iniCompose $root_dir

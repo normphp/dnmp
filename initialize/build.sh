@@ -62,11 +62,12 @@ echo '*********初始化 docker-compose*************'
 root_dir=$(dirname $(pwd))
 cur_dir="$root_dir/build/docker-compose"
 export cur_dir
-echo $cur_dir
-`sudo chmod +x   ${cur_dir}/ini.sh`
-cli="${cur_dir}/ini.sh"
-source  $cli
-
+dockerComposeBuild="${cur_dir}/ini.sh"
+dockerComposeBuildChmdo="sudo chmod +x   ${dockerComposeBuild}"
+dockerComposeBuildChmdo
+source  $dockerComposeBuild
+source  cli-register.sh
+pwd
 
 
 
