@@ -63,7 +63,7 @@ echo "复制当前目录下的目录index.html等文件到对应运行目录/doc
 `sudo cp ${Path}/nginx/html/index.php /docker/normphp/dnmp/data/www/default/normphp/public/index.php`
 `sudo cp ${Path}/nginx/html/phpinfo.php /docker/normphp/dnmp/data/www/default/phpinfo.php`
 #自动生成docker-compose文件
-echo "自动生成docker-compose文件"
+echo -e "\033[32m *****************自动生成docker-compose文件*************** \033[0m"
 
 export Path
 echo $Path
@@ -71,4 +71,3 @@ chmod_compose="sudo chmod +x   ${Path}/compose.sh"
 $chmod_compose
 cli="${Path}/compose.sh"
 source  $cli
-

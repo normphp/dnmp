@@ -69,7 +69,7 @@ services:
       - ${redisPorts}
     volumes:
       - /docker/normphp/dnmp/data/redis:/data
-    restart: always" >> $patternFile
+    restart: always" > $patternFile
     # 写入文件
 done
 

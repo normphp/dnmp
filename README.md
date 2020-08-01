@@ -73,11 +73,11 @@
 * 快捷命令
 
       # 快捷构建
-      dnmp-compose develop build
+      dnmp develop build
       # 快捷启动
-      dnmp-compose develop up [-d]
+      dnmp develop up [-d]
       # 快捷关闭删除
-      dnmp-compose develop down
+      dnmp develop down
 ##### docker-compose 构建与运行[负载均衡环境]    
 * 注意：
     * 标准环境不开与负载均衡环境在同一物理机器上（如需要在同一个机器上做实验必须修改标准环境的服务端口docker-compose.yml文件中修改）
@@ -101,11 +101,11 @@
 * 快捷命令
 
       # 快捷构建
-      dnmp-compose upstream build
+      dnmp upstream build
       # 快捷启动
-      dnmp-compose upstream up [-d]
+      dnmp upstream up [-d]
       # 快捷关闭删除
-      dnmp-compose upstream down  
+      dnmp upstream down  
       # nginx与配置检查
 #####常规docker-composer 命令
      # 下面是常用命令  更多命令请自行网上搜索docker-compose命令
