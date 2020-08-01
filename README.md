@@ -26,8 +26,9 @@
         * 每一个重要目录下都有一个README.md文件对当前目录进行详细的解释。
 ##### 开始下载安装
     # 初始化基础环境、安装docker和docker-compose、构建生成docker-compose.yml文件、注册快捷命令和定时任务
-    # 注意：如果重复执行会对dnmp-master/目录内容进行覆盖  检查sudo 命令是否可用
-    # 删除可能的文件
+    # 注意：
+    #    如果重复执行会对dnmp-master/目录内容进行覆盖  检查sudo 命令是否可用
+    #    如果是非国内IDC的服务器修改参数为usa  【bash build.sh usa】使用docker官方资源安装
     rm -rf dnmp-master 
     # 检查sudo 命令是否可用
     sudo
@@ -35,7 +36,7 @@
     yum -y -q install wget tar \
     && wget https://github.com/normphp/dnmp/archive/master.tar.gz -O master.tar.gz && tar -zxvf master.tar.gz \
     && cd dnmp-master/initialize/  \
-    && bash build.sh && source ~/.bashrc \
+    && bash build.sh cn && source ~/.bashrc \
     && cd ../build/docker-compose/
     
 ##### docker-compose 构建与运行[基础知识]

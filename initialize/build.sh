@@ -16,8 +16,19 @@ fi
 #******************安装decker ******************
 sudo docker -v
 if [ $? -ne 0 ]; then
-    echo '安装docker' \
-    && curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+    echo '安装docker'
+
+    if [ ${1}x = "cn"x ];then
+      # cn 使用阿里云
+      curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+    elif [ ${1}x = "usa"x ];then
+      # usa 使用docker官方
+      curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
+    else
+      # 默认使用阿里云
+      curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+    fi
+
     #wget https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.13-3.1.el7.x86_64.rpm \
     #&& sudo yum -y install ./containerd.io-1.2.13-3.1.el7.x86_64.rpm && rm -rf containerd.io-1.2.13-3.1.el7.x86_64.rpm \
     # curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
