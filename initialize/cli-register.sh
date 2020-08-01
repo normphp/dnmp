@@ -46,7 +46,7 @@ fi
   else
     echo '未注册dnmp快捷命令！现在进行注册'
     sudo echo "alias dnmp='bash ${root_dir}/initialize/dnmp.sh'">>~/.bashrc
-    alias dnmp "bash ${root_dir}/initialize/dnmp.sh"
+    alias dnmp='bash '${root_dir}'/initialize/dnmp.sh'
     source ~/.bashrc
   fi
 }
