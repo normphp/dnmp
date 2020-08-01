@@ -7,7 +7,7 @@ dnmpVersions="1.0";
 compose(){
   #可快速执行对应环境的compose命令   up   exec    build   down
   composeFile="${1}/build/docker-compose/docker-compose-${2}.yml"
-  dockerComposeCli="docker-compose -f ${composeFile} ${3}"
+  dockerComposeCli="docker-compose -f ${composeFile} ${3} ${4} ${5} ${6} ${7} ${8} ${9}"
   $dockerComposeCli
 }
 # 快捷获取目录
