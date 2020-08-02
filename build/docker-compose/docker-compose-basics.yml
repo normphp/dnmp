@@ -1,29 +1,17 @@
-#!/bin/bash
-# 定义array
-pattern_array=("deploy" "develop" "production" "basics")
-
-for pattern in ${pattern_array[@]}
-do
-patternFile="${Path}/docker-compose-${pattern}.yml"
-phpFpmPorts='"9000:9000"'
-nginxPorts1='"443:443"'
-nginxPorts2='"80:80"'
-nginxPorts3='"8080:8080"'
-
-echo "version: '3.3'
+version: '3.3'
 services:
   php-fpm:
-    image: normphp/dnmp:php-fpm-${pattern}
-  env_file:
-    - env/${pattern}.env
+    env_file:
+      - .env
+    image: ${PHP_FPM_IMAGE}
     ports:
-      - ${PORTS1}
-    container_name: php-fpm
+      - "${PHP_FPM_PORTS}"
+    container_name: ${PHP_FPM_NAME}
     networks:
-     - dnmpNat
+     - ${PHP_FPM_NETWORKS}
     volumes:
       - /docker/normphp/dnmp/data/www/:/www/:rw
-      - /docker/normphp/dnmp/data/php/php-${pattern}.ini:/usr/local/etc/php/php.ini:ro
+      - /docker/normphp/dnmp/data/php/php-basics.ini:/usr/local/etc/php/php.ini:ro
       - /docker/normphp/dnmp/data/php/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
       - /docker/normphp/dnmp/data/php/php-fpm.d/:/usr/local/etc/php-fpm.d/:ro
       - /docker/normphp/dnmp/data/logs/php-fpm:/var/log/php-fpm:rw
@@ -31,12 +19,14 @@ services:
     command: php-fpm
 
   nginx:
-    build: ./nginx
+    env_file:
+      - env/nginx.env
+    build: ${NGINX_FPM_IMAGE}
     depends_on:
       - php-fpm
-    container_name: nginx
+    container_name: ${NGINX_FPM_NAME}
     networks:
-     - dnmpNat
+     - ${NGINX_FPM_NETWORKS}
     volumes:
       - /docker/normphp/dnmp/data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
       - /docker/normphp/dnmp/data/nginx/logs/:/var/log/nginx/:rw
@@ -44,16 +34,10 @@ services:
       - /docker/normphp/dnmp/data/nginx/logs/:/wwwlogs/:rw
       - /docker/normphp/dnmp/data/www/:/www/:rw
     ports:
-      - ${nginxPorts1}
-      - ${nginxPorts2}
-      - ${nginxPorts3}
+      - "${NGINX_PORTS_HTTP}"
+      - "${NGINX_PORTS_HTTP2}"
+      - "${NGINX_PORTS_HTTPS}"
     restart: always
     command: nginx -g 'daemon off;'
 networks:
-  dnmpNat:" > $patternFile
-    # 写入文件
-done
-
-
-
-
+  dnmpNat:

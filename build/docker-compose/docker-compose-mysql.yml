@@ -2,6 +2,8 @@ version: '3.3'
 services:
   dnmp-mysql:
     build: ./mysql
+    env_file:
+      - env/mysql.env
     ports:
       - "3306:3306"
     container_name: dnmp-mysql
@@ -10,10 +12,10 @@ services:
     volumes:
       - /docker/normphp/dnmp/data/mysql:/var/lib/mysql:rw
     environment:
-      MYSQL_ROOT_PASSWORD: 123456
-      MYSQL_DATABASE: zphaldb
-      MYSQL_USER: zphal
-      MYSQL_PASSWORD: zphal123
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     restart: always
     command: ‘--character-set-server=utf8‘
 networks:

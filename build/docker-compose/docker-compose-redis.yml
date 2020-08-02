@@ -2,6 +2,8 @@ version: '3.3'
 services:
   dnmp-redis:
     build: ./redis
+    env_file:
+      - env/redis.env
     container_name: dnmp-redis
     networks:
       - dnmpNat

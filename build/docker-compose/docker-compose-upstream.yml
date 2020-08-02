@@ -2,6 +2,8 @@ version: '3.3'
 services:
   nginx-upstream:
     build: ./nginx
+    env_file:
+      - env/nginx.env
     networks:
       - dnmpNat
     volumes:
