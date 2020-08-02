@@ -15,7 +15,6 @@ echo "version: '3.3'
 services:
   php-fpm:
     image: normphp/dnmp:php-fpm-${pattern}
-    #build: ./php/
     ports:
       - ${phpFpmPorts}
     container_name: php-fpm
@@ -76,7 +75,11 @@ services:
       - ${redisPorts}
     volumes:
       - /docker/normphp/dnmp/data/redis:/data
-    restart: always" > $patternFile
+    restart: always
+networks:
+  dnmpNat:" > $patternFile
+
+
     # 写入文件
 done
 

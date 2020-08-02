@@ -71,3 +71,4 @@ chmod_compose="sudo chmod +x   ${Path}/compose.sh"
 $chmod_compose
 cli="${Path}/compose.sh"
 source  $cli
+sudo docker network ls
