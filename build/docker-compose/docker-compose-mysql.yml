@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+  dnmp-mysql:
+    build: ./mysql
+    ports:
+      - "3306:3306"
+    container_name: dnmp-mysql
+    networks:
+      - dnmpNat
+    volumes:
+      - /docker/normphp/dnmp/data/mysql:/var/lib/mysql:rw
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: zphaldb
+      MYSQL_USER: zphal
+      MYSQL_PASSWORD: zphal123
+    restart: always
+    command: ‘--character-set-server=utf8‘
+networks:
+  dnmpNat:

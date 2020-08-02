@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  dnmp-redis:
+    build: ./redis
+    container_name: dnmp-redis
+    networks:
+      - dnmpNat
+    ports:
+      - "6379:6379"
+    volumes:
+      - /docker/normphp/dnmp/data/redis:/data
+    restart: always
+networks:
+  dnmpNat:

@@ -9,8 +9,6 @@ phpFpmPorts='"9000:9000"'
 nginxPorts1='"443:443"'
 nginxPorts2='"80:80"'
 nginxPorts3='"8080:8080"'
-mysqlPorts='"3306:3306"'
-redisPorts='"6379:6379"'
 echo "version: '3.3'
 services:
   php-fpm:
@@ -48,38 +46,8 @@ services:
       - ${nginxPorts3}
     restart: always
     command: nginx -g 'daemon off;'
-
-  mysql-db:
-    build: ./mysql
-    ports:
-      - ${mysqlPorts}
-    container_name: mysql
-    networks:
-     - dnmpNat
-    volumes:
-      - /docker/normphp/dnmp/data/mysql:/var/lib/mysql:rw
-    environment:
-      MYSQL_ROOT_PASSWORD: 123456
-      MYSQL_DATABASE: zphaldb
-      MYSQL_USER: zphal
-      MYSQL_PASSWORD: zphal123
-    restart: always
-    command: ‘--character-set-server=utf8‘
-
-  redis-db:
-    build: ./redis
-    container_name: redis
-    networks:
-     - dnmpNat
-    ports:
-      - ${redisPorts}
-    volumes:
-      - /docker/normphp/dnmp/data/redis:/data
-    restart: always
 networks:
   dnmpNat:" > $patternFile
-
-
     # 写入文件
 done
 

@@ -17,6 +17,10 @@ elif [ ${1}x = "develop"x ];then
  compose $dir_path $*
 elif [ ${1}x = "upstream"x ];then
  compose $dir_path $*
+elif [ ${1}x = "redis"x ];then
+ compose $dir_path $*
+elif [ ${1}x = "mysql"x ];then
+ compose $dir_path $*
 elif [ ${1}x = "-f"x ];then
  composeFile $dir_path $*
 elif [ ${1}x = "-v"x ];then
@@ -25,11 +29,13 @@ else
    echo "
    dnmp是一个代替[docker-compose -f docker-compose-xxx.yml]部分命令的快捷命令
    第一个命令是需要操作的环境：
-   develop      开发环境
-   deploy       部署环境
-   upstream     负载均衡服务
-   production   生产环境
-   basics       基础环境
+   develop      开发环境[只包含nginx+php-fpm]
+   deploy       部署环境[只包含nginx+php-fpm]
+   upstream     负载均衡服务[只包含nginx 通常做反向代理负载均衡]
+   production   生产环境[只包含nginx+php-fpm]
+   basics       基础环境[只包含nginx+php-fpm]
+   redis        Redis[只包含Redis]
+   mysql        Redis[只包含Mysql]
    -f           docker-compose-xxx.yml文件所在路径
    -v           当前各软件版本
    后面的参数与与docker-compose命令完全一致

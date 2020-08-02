@@ -1,8 +1,0 @@
-version: '3.3'
-services:
-  centos-7:
-    image: centos/centos:centos7
-    ports:
-      - "443:443"
-      - "80:80"
-      - "8080:8080"
