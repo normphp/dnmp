@@ -25,6 +25,8 @@ versions(){
     sudo docker-compose --version
     echo -e "\033[32m dnmp \033[0m"
     echo $dnmpVersions
+    echo -e "\033[32m Linux OS \033[0m"
+    cat /etc/redhat-release
 }
 # 安装docker
 installDocker(){

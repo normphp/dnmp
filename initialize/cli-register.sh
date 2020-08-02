@@ -22,12 +22,17 @@ elif [ ${1}x = "-f"x ];then
 elif [ ${1}x = "-v"x ];then
  versions $dir_path $*
 else
-   echo "第一个命令是需要操作的环境：
+   echo "
+   dnmp是一个代替[docker-compose -f docker-compose-xxx.yml]部分命令的快捷命令
+   第一个命令是需要操作的环境：
    develop      开发环境
    deploy       部署环境
    upstream     负载均衡服务
    production   生产环境
    basics       基础环境
+   -f           docker-compose-xxx.yml文件所在路径
+   -v           当前各软件版本
+   后面的参数与与docker-compose命令完全一致
 "
 fi
 ' > ${root_dir}/initialize/dnmp.sh
