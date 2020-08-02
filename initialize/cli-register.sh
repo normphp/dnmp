@@ -47,7 +47,7 @@ fi
   grep 'sudo bash ./dnmp.sh' ~/.bashrc
   if [ $? -eq 0 ];then
       echo -e "\033[32m 已经注册dnmp快捷命令  \033[0m"
-      #source ~/.bashrc
+      source ~/.bashrc
   else
     echo '未注册dnmp快捷命令！现在进行注册'
     sudo echo "alias dnmp='cd ${root_dir}/initialize/ && sudo bash ./dnmp.sh'">>~/.bashrc
