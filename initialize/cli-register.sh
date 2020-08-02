@@ -3,7 +3,7 @@
 shopt -s  expand_aliases
 root_dir=$(dirname $(pwd))
 # 注册docker-compose 相关命令
-iniCompose(){
+iniComposeCli(){
 echo '#!/bin/bash
 source dnmp-function.sh
 dir_path='${root_dir}'
@@ -50,5 +50,4 @@ fi
     source ~/.bashrc
   fi
 }
-# 开启alias扩展功能
-iniCompose $root_dir
+
