@@ -14,6 +14,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone  
         libfreetype6-dev libjpeg62-turbo-dev  \
         openssl libpng-dev  libssl-dev \
         autoconf \
+        iputils-ping net-tools \
 #编译  libzip
 && cd /home/ && curl https://libzip.org/download/libzip-1.5.1.tar.gz >>libzip-1.5.1.tar.gz \
 && tar -zxvf libzip-1.5.1.tar.gz \
