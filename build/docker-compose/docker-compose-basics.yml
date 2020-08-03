@@ -6,7 +6,7 @@ services:
     image: ${BASICS_PHP_FPM_IMAGE}
     ports:
       - "9000:${BASICS_PHP_FPM_PORTS}"
-    container_name: ${BASICS_PHP_FPM_NAME}
+    #container_name: ${BASICS_PHP_FPM_NAME}
     networks:
      - ${BASICS_PHP_FPM_NETWORKS}
     volumes:
@@ -24,7 +24,7 @@ services:
     build: ${BASICS_NGINX_FPM_IMAGE}
     depends_on:
       - php-fpm
-    container_name: ${BASICS_NGINX_FPM_NAME}
+    #container_name: ${BASICS_NGINX_FPM_NAME}
     networks:
      - ${BASICS_NGINX_FPM_NETWORKS}
     volumes:

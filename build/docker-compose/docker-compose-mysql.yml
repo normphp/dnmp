@@ -6,7 +6,6 @@ services:
     build: ${MYSQL_BUILD}
     ports:
       - "3306:${MYSQL_PORTS}"
-    container_name: ${MYSQL_NAME}
     networks:
       - ${MYSQL_NETWORKS}
     volumes:
@@ -17,6 +16,6 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     restart: always
-    command: ‘--character-set-server=utf8‘
+    #command: ‘--character-set-server=utf8‘
 networks:
   dnmpNat:

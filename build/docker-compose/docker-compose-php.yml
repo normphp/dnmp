@@ -7,7 +7,7 @@ services:
     #build: ${PHP_FPM_BUILD}
     ports:
       - "9000:${PHP_FPM_PORTS}"
-    container_name: ${PHP_FPM_NAME}
+    #container_name: ${PHP_FPM_NAME}
     networks:
      - ${PHP_FPM_NETWORKS}
     volumes:
