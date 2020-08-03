@@ -30,8 +30,8 @@ else
    dnmp是一个代替[docker-compose -f docker-compose-xxx.yml]部分命令的快捷命令
 
    第一个参数是需要操作的环境：
-   \033[32m develop \033[0m     开发环境[只包含nginx+php-fpm]
-   \033[32m deploy \033[0m       部署环境[只包含nginx+php-fpm]
+   \033[32m develop \033[0m       开发环境[只包含nginx+php-fpm]
+   \033[32m deploy \033[0m        部署环境[只包含nginx+php-fpm]
    \033[32m upstream \033[0m      负载均衡服务[只包含nginx 通常做反向代理负载均衡]
    \033[32m production \033[0m    生产环境[只包含nginx+php-fpm]
    \033[32m basics \033[0m        基础环境[只包含nginx+php-fpm]
@@ -52,7 +52,7 @@ fi
 
   # source ~/.bashrc
   echo -e "\033[32m 开始注册dnmp快捷命令  \033[0m"
-  grep 'sudo bash ./dnmp.sh' ~/.bashrc
+  grep '/dnmp.sh' ~/.bashrc
   if [ $? -eq 0 ];then
       echo -e "\033[32m 已经注册dnmp快捷命令  \033[0m"
       source ~/.bashrc
