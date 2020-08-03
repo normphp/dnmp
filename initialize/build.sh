@@ -10,7 +10,7 @@ ulimit -n 65535
 
 root_dir=$(dirname $(pwd))
 export root_dir
-$root_dir
+echo $root_dir
 # 引入文件包含
 source ${root_dir}'/initialize/dnmp-function.sh'
 source  ${root_dir}'/initialize/cli-register.sh'
