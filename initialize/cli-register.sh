@@ -5,8 +5,8 @@ root_dir=$(dirname $(pwd))
 # 注册docker-compose 相关命令
 iniComposeCli(){
 echo '#!/bin/bash
-source dnmp-function.sh
 dir_path='${root_dir}'
+source ${dir_path}/initialize/dnmp-function.sh
 if [ ${1}x = "deploy"x ];then
   compose $dir_path $*
 elif [ ${1}x = "production"x ];then
