@@ -45,7 +45,8 @@
     && bash build.sh usa && source ~/.bashrc \
     && cd ../build/docker-compose/
 ##### docker-compose 构建与运行[基础知识]
-注意：这个章节只是对基础命令进行解释不建议执行其中的示例，具体执行命令请看下一个章节
+* 本章节只是对基础命令进行解释不建议执行其中的示例，具体快捷执行命令请看下一个章节
+
 
     # -f 代表需要使用的docker-compose.yml文件以及路径
     # 构建项目环境 可选择生成环境[deploy]、开发环境[develop]、生产环境[production]、基础环境[basics]
