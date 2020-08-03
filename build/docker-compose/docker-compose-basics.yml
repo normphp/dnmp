@@ -2,7 +2,7 @@ version: '3.3'
 services:
   php-fpm:
     env_file:
-      - .env
+      - env/basics.env
     image: ${PHP_FPM_IMAGE}
     ports:
       - "${PHP_FPM_PORTS}"
