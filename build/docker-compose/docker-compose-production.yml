@@ -3,15 +3,15 @@ services:
   php-fpm:
     env_file:
       - .env
-    image: ${BASICS_PHP_FPM_IMAGE}
+    image: ${PRODUCTION_PHP_FPM_IMAGE}
     ports:
-      - "9000:${BASICS_PHP_FPM_PORTS}"
-    container_name: ${BASICS_PHP_FPM_NAME}
+      - "9000:${PRODUCTION_PHP_FPM_PORTS}"
+    container_name: ${PRODUCTION_PHP_FPM_NAME}
     networks:
-     - ${BASICS_PHP_FPM_NETWORKS}
+     - ${PRODUCTION_PHP_FPM_NETWORKS}
     volumes:
       - /docker/normphp/dnmp/data/www/:/www/:rw
-      - /docker/normphp/dnmp/data/php/php-basics.ini:/usr/local/etc/php/php.ini:ro
+      - /docker/normphp/dnmp/data/php/php-production.ini:/usr/local/etc/php/php.ini:ro
       - /docker/normphp/dnmp/data/php/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
       - /docker/normphp/dnmp/data/php/php-fpm.d/:/usr/local/etc/php-fpm.d/:ro
       - /docker/normphp/dnmp/data/logs/php-fpm:/var/log/php-fpm:rw
@@ -21,12 +21,12 @@ services:
   nginx:
     env_file:
       - .env
-    build: ${BASICS_NGINX_FPM_IMAGE}
+    build: ${PRODUCTION_NGINX_FPM_IMAGE}
     depends_on:
       - php-fpm
-    container_name: ${BASICS_NGINX_FPM_NAME}
+    container_name: ${PRODUCTION_NGINX_FPM_NAME}
     networks:
-     - ${BASICS_NGINX_FPM_NETWORKS}
+     - ${PRODUCTION_NGINX_FPM_NETWORKS}
     volumes:
       - /docker/normphp/dnmp/data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
       - /docker/normphp/dnmp/data/nginx/logs/:/var/log/nginx/:rw
@@ -34,9 +34,9 @@ services:
       - /docker/normphp/dnmp/data/nginx/logs/:/wwwlogs/:rw
       - /docker/normphp/dnmp/data/www/:/www/:rw
     ports:
-      - "80:${BASICS_NGINX_PORTS_HTTP}"
-      - "8080:${BASICS_NGINX_PORTS_HTTP2}"
-      - "443:${BASICS_NGINX_PORTS_HTTPS}"
+      - "80:${PRODUCTION_NGINX_PORTS_HTTP}"
+      - "8080:${PRODUCTION_NGINX_PORTS_HTTP2}"
+      - "443:${PRODUCTION_NGINX_PORTS_HTTPS}"
     restart: always
     command: nginx -g 'daemon off;'
 networks:

@@ -1,14 +1,14 @@
 version: '3.3'
 services:
   dnmp-mysql:
-    build: ./mysql
     env_file:
-      - env/mysql.env
+      - .env
+    build: ${MYSQL_BUILD}
     ports:
-      - "3306:3306"
-    container_name: dnmp-mysql
+      - "3306:${MYSQL_PORTS}"
+    container_name: ${MYSQL_NAME}
     networks:
-      - dnmpNat
+      - ${MYSQL_NETWORKS}
     volumes:
       - /docker/normphp/dnmp/data/mysql:/var/lib/mysql:rw
     environment:

@@ -1,11 +1,11 @@
 version: '3.3'
 services:
   nginx-upstream:
-    build: ./nginx
     env_file:
-      - env/nginx.env
+      - .env
+    build: ${UPSTREAM_NGINX_FPM_IMAGE}
     networks:
-      - dnmpNat
+      - ${UPSTREAM_NGINX_FPM_NETWORKS}
     volumes:
       - /docker/normphp/dnmp/data/nginx/conf/nginx_upstream.conf:/etc/nginx/nginx.conf:ro
       - /docker/normphp/dnmp/data/nginx/logs/:/var/log/nginx/:rw
@@ -13,9 +13,9 @@ services:
       - /docker/normphp/dnmp/data/www/:/www/:rw
       - /docker/normphp/dnmp/data/nginx/logs/:/wwwlogs/:rw
     ports:
-      - "443:443"
-      - "80:80"
-      - "8080:8080"
+      - "${UPSTREAM_NGINX_PORTS_HTTP}"
+      - "${UPSTREAM_NGINX_PORTS_HTTP2}"
+      - "${UPSTREAM_NGINX_PORTS_HTTPS}"
     command: nginx -g 'daemon off;'
 networks:
   dnmpNat:

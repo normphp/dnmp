@@ -67,8 +67,8 @@ echo -e "\033[32m *****************自动生成docker-compose文件*************
 
 export Path
 echo $Path
-chmod_compose="sudo chmod +x   ${Path}/compose.sh"
-$chmod_compose
-cli="${Path}/compose.sh"
-source  $cli
+#chmod_compose="sudo chmod +x   ${Path}/compose.sh"
+#$chmod_compose
+#cli="${Path}/compose.sh"
+#source  $cli
 sudo docker network ls

@@ -1,14 +1,14 @@
 version: '3.3'
 services:
   dnmp-redis:
-    build: ./redis
     env_file:
-      - env/redis.env
-    container_name: dnmp-redis
+      - .env
+    build: ${REDIS_IMAGE}
+    container_name: {$REDIS_NAME}
     networks:
-      - dnmpNat
+      - ${REDIS_NETWORKS}
     ports:
-      - "6379:6379"
+      - "6379:${REDIS_PORTS}"
     volumes:
       - /docker/normphp/dnmp/data/redis:/data
     restart: always
