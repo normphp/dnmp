@@ -3,9 +3,9 @@ services:
   nginx-upstream:
     env_file:
       - .env
-    build: ${UPSTREAM_NGINX_FPM_IMAGE}
+    build: ${UPSTREAM_NGINX_IMAGE}
     networks:
-      - ${UPSTREAM_NGINX_FPM_NETWORKS}
+      - ${UPSTREAM_NGINX_NETWORKS}
     volumes:
       - /docker/normphp/dnmp/data/nginx/conf/nginx_upstream.conf:/etc/nginx/nginx.conf:ro
       - /docker/normphp/dnmp/data/nginx/logs/:/var/log/nginx/:rw
@@ -13,9 +13,9 @@ services:
       - /docker/normphp/dnmp/data/www/:/www/:rw
       - /docker/normphp/dnmp/data/nginx/logs/:/wwwlogs/:rw
     ports:
-      - "${UPSTREAM_NGINX_PORTS_HTTP}"
-      - "${UPSTREAM_NGINX_PORTS_HTTP2}"
-      - "${UPSTREAM_NGINX_PORTS_HTTPS}"
+      - "80:${UPSTREAM_NGINX_PORTS_HTTP}"
+      - "8080:${UPSTREAM_NGINX_PORTS_HTTP2}"
+      - "443:${UPSTREAM_NGINX_PORTS_HTTPS}"
     command: nginx -g 'daemon off;'
     restart: always
 networks:
