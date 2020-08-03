@@ -28,19 +28,22 @@ elif [ ${1}x = "-v"x ];then
 else
    echo -e "
    dnmp是一个代替[docker-compose -f docker-compose-xxx.yml]部分命令的快捷命令
-
    第一个参数是需要操作的环境：
    \033[32m develop \033[0m       开发环境[只包含nginx+php-fpm]
    \033[32m deploy \033[0m        部署环境[只包含nginx+php-fpm]
-   \033[32m upstream \033[0m      负载均衡服务[只包含nginx 通常做反向代理负载均衡]
    \033[32m production \033[0m    生产环境[只包含nginx+php-fpm]
    \033[32m basics \033[0m        基础环境[只包含nginx+php-fpm]
+
+   \033[32m upstream \033[0m      负载均衡服务[只包含nginx 通常做反向代理负载均衡]
    \033[32m redis \033[0m         Redis[只包含Redis]
    \033[32m mysql \033[0m         Redis[只包含Mysql]
+
    \033[32m -f \033[0m            docker-compose-xxx.yml文件所在路径
    \033[32m -v \033[0m            当前各软件版本
 
-   后面的参数与与docker-compose命令完全一致
+   后面的参数与与docker-compose命令完全一致：
+   dnmp develop up
+   相当于：docker-compose -f docker-compose-develop.yml up
 "
 fi
 ' > ${root_dir}/initialize/dnmp.sh
