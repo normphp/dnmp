@@ -100,10 +100,21 @@
       # nginx与配置检查
       dnmp upstream exec  nginx-upstream  nginx -t 
       dnmp upstream exec  nginx-upstream service nginx restart   
+      # 进入容器
+      dnmp upstream exec  nginx-upstream  bash
+      # 命令解释：dnmp [环境标识如upstream] exec [服务标识如nginx、redis、php-fpm]  [bash 直接进入容器内、其他命令不进入容器只向容器方式命令行并返回结果]
+      # 其他compose服务可参考这里，如不清楚具体的容器服务名称可：
+      dnmp upstream ps 
+      # 或者查看对应的docker-compose.yml文件中services的下一级就是对应的服务名称
 ##### docker-compose 构建与运行[应用与服务] 
 * 由于考虑到不同应用场景需要的服务不一样新版本的dnmp基础环境不再直接包含mysql、redis等容器服务。
 * 不同容器之间的通讯怎么解决？
     * 以docker-compose-redis.yml无例通过定义networks:dnmpNat设置把redis加入到dnmpNat网络然后其他的docker-compose配置文件中也设置了同样的网络，这样就只需要用对应的服务名代替ip地址来连接对应服务就可以了比如连接redis只需要在主机地址上填写nginx就可以连接（原理类型修改系统host文件）
+* 简单示例
+        
+
+    dnmp redis up -d
+    dnmp mysql up -d
 #####常规docker-composer 命令
      # 下面是常用命令  更多命令请自行网上搜索docker-compose命令
      docker-compose restart [serviceName]: 重启服务
