@@ -1,6 +1,6 @@
 version: '3.3'
 services:
-  dnmp-redis:
+  redis:
     env_file:
       - .env
     build: ${REDIS_IMAGE}
