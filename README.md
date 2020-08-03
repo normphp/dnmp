@@ -94,7 +94,7 @@
 
       # 快捷构建
       dnmp upstream build
-      # 快捷启动
+      # 快捷启动 (启动后访问服务器ip你会发现自动负载均衡反代到了百度官网，具体的配置前到nginx配置中查看)
       dnmp upstream up [-d]
       # 快捷关闭删除
       dnmp upstream down  
