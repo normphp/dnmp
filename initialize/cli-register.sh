@@ -48,7 +48,7 @@ else
 "
 fi
 # 返回上一次目录
-cd -
+cd - >>null
 ' > ${root_dir}/initialize/dnmp.sh
   shopt expand_aliases
   shopt -s  expand_aliases
