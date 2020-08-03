@@ -4,7 +4,6 @@ services:
     env_file:
       - .env
     build: ${REDIS_IMAGE}
-    container_name: {$REDIS_NAME}
     networks:
       - ${REDIS_NETWORKS}
     ports:
