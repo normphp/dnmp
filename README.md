@@ -11,6 +11,7 @@
 #### 开始
 * dnmp环境分类
     * 标准环境：docker+nginx+mysql+php，一般为单机环境主要区分在PHP扩展安装上，其中包括如下版本：
+        * 新版本中标准环境中不再包含mysql、redis，如需使用执行：dnmp redis up 即可
         * 部署环境[deploy] 一般是用在部署服务主机上有安装开发环境所有的PHP扩展但又有生成环境的安全性配置
         * 开发环境[develop] 安装了所有可能用得上的PHP扩展
         * 生产环境[production] 去除了不必要的PHP扩展
@@ -73,13 +74,8 @@
     * 一个机器建议中运行一个版本的标准环境
 * 在《开始下载安装》章节中我们已经执行了对应的命令行对环境进行了初始化
 * 下面我们开始以开发环境为例构建(原理)：
-
-       # cd 到对应的目录[build/docker-compose/]通常执行完下载安装命令已经自动进入了这个目录
-       执行构建命令
-       docker-compose -f docker-compose-develop.yml build 
-       # 执行试运行命令 -d 参数为后台运行，第一次运行建议不使用-d参数方便排查错误
-       docker-compose -f docker-compose-develop.yml up [-d] 
 * 快捷命令(推荐使用)
+
 
       # 快捷构建
       dnmp develop build
@@ -92,22 +88,8 @@
     * 标准环境不开与负载均衡环境在同一物理机器上（如需要在同一个机器上做实验必须修改标准环境的服务端口docker-compose.yml文件中修改）
     * 负载均衡环境的nginx配置不能拿来就用需要有一定的nginx配置知识再对配置进行简单的修改（下文会进行简单的介绍）。
 * 在《开始下载安装》章节中我们已经执行了对应的命令行对环境进行了初始化。
-* 简单配置      
-    * 设置负载均衡服务列表[环境配置信息目录]/nginx/conf/upstream/default_server.conf
-        * 设置 server [ip];
-        * 配置完成后直接访问当前服务器[ip]会负载均衡到对应server[ip]列表上的对应的主机上。
-* 下面我们开始以构建(原理)：    
+* 简单配置快捷命令(推荐使用)  
 
-      # cd 到对应的目录[build/docker-compose/]通常执行完下载安装命令已经自动进入了这个目录
-      执行构建命令
-      docker-compose -f docker-compose-upstream.yml build 
-      # 执行试运行命令 -d 参数为后台运行，第一次运行建议不使用-d参数方便排查错误
-      docker-compose -f docker-compose-upstream.yml up [-d] 
-      # nginx配置检查
-      docker-compose -f docker-compose-upstream.yml exec  nginx-upstream  nginx -t
-      # nginx重启
-      docker-compose -f docker-compose-upstream.yml exec  nginx-upstream  service nginx restart
-* 快捷命令(推荐使用)
 
       # 快捷构建
       dnmp upstream build
@@ -116,6 +98,12 @@
       # 快捷关闭删除
       dnmp upstream down  
       # nginx与配置检查
+      dnmp upstream exec  nginx-upstream  nginx -t 
+      dnmp upstream exec  nginx-upstream service nginx restart   
+##### docker-compose 构建与运行[应用与服务] 
+* 由于考虑到不同应用场景需要的服务不一样新版本的dnmp基础环境不再直接包含mysql、redis等容器服务。
+* 不同容器之间的通讯怎么解决？
+    * 以docker-compose-redis.yml无例通过定义networks:dnmpNat设置把redis加入到dnmpNat网络然后其他的docker-compose配置文件中也设置了同样的网络，这样就只需要用对应的服务名代替ip地址来连接对应服务就可以了比如连接redis只需要在主机地址上填写nginx就可以连接（原理类型修改系统host文件）
 #####常规docker-composer 命令
      # 下面是常用命令  更多命令请自行网上搜索docker-compose命令
      docker-compose restart [serviceName]: 重启服务

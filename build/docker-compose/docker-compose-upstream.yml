@@ -17,5 +17,6 @@ services:
       - "${UPSTREAM_NGINX_PORTS_HTTP2}"
       - "${UPSTREAM_NGINX_PORTS_HTTPS}"
     command: nginx -g 'daemon off;'
+    restart: always
 networks:
   dnmpNat:
