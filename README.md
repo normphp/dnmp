@@ -26,6 +26,9 @@
     * 环境配置信息目录：/docker/normphp/dnmp/data/
         * 每一个重要目录下都有一个README.md文件对当前目录进行详细的解释。
     * 如需自定义构建自己的php-fpm 可自行编辑build/docker-compose/php/diy/Dockerfile，然后使用dnmp diy-php-fpm build 进行DIY构建测试
+    * 使用过程中常见问题：
+        * 访问IP没有效果请使用 up 命令查看是否有error错误
+        * 检查服务器防火墙、云服务商网络安全组是否开放对应[80 443  8080]端口
 ##### 开始下载安装
     # 初始化基础环境、安装docker和docker-compose、构建生成docker-compose.yml文件、注册快捷命令和定时任务
     # 注意：
