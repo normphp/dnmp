@@ -20,6 +20,8 @@ elif [ ${1}x = "upstream"x ];then
  compose $dir_path $*
 elif [ ${1}x = "redis"x ];then
  compose $dir_path $*
+elif [ ${1}x = "diy-php-fpm"x ];then
+ compose $dir_path $*
 elif [ ${1}x = "mysql"x ];then
  compose $dir_path $*
 elif [ ${1}x = "-f"x ];then
