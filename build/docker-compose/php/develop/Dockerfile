@@ -55,8 +55,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone  
        && apt-get clean \
        && printf "y" | apt-get autoclean \
        && printf "y" | apt-get autoremove \
-       && dpkg -l |grep ^rc|awk '{print $2}' | xargs dpkg -P
-
+       && dpkg -l |grep ^rc|awk '{print $2}' | xargs dpkg -P \
+       && rm -rf /tmp/pear/*
 ENV PATH $COMPOSER_HOME/vendor/bin:$PATH
 
 WORKDIR /data
