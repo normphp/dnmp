@@ -87,3 +87,12 @@ startTask(){
       && sudo chmod 755 /etc/rc.local
   fi
 }
+tlsManage(){
+  # 执行acme.sh命令判断命令是否存在、不存在执行安装命令、并且注册快捷命令
+  acme.sh >>null
+  if [  $? -eq 0  ] ;then
+    echo -e "\033[32m 已安装acme.sh  \033[0m"
+  else
+    echo -e "\033[31m 没有安装acme.sh 现在进行安装 \033[0m" && exit
+  fi
+}

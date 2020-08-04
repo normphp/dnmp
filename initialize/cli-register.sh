@@ -28,6 +28,10 @@ elif [ ${1}x = "-f"x ];then
  composeFile $dir_path $*
 elif [ ${1}x = "-v"x ];then
  versions $dir_path $*
+elif [ ${1}x = "tls"x ];then
+  tlsManage $dir_path $*
+elif [ ${1}x = "update"x ];then
+  update $dir_path $*
 else
    echo -e "
    dnmp是一个代替[docker-compose -f docker-compose-xxx.yml]部分命令的快捷命令
@@ -42,6 +46,9 @@ else
    \033[32m mysql \033[0m         Redis[只包含Mysql]
    \033[32m diy-php-fpm \033[0m   diy-php-fpm[只包含php-fpm]
 
+   \033[32m tls \033[0m           https tls 管理[在acme.sh的基础上实现]
+
+   \033[32m update \033[0m        更新dnmp[只更新sh脚本其他文件不更新]
    \033[32m -f \033[0m            docker-compose-xxx.yml文件所在路径
    \033[32m -v \033[0m            当前各软件版本
 
