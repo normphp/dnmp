@@ -20,8 +20,9 @@ sudo
 if [ $? -ne 0 ]; then
   yum  -y install  sudo
 fi
+
 #*********安装decker**********
-installDocker
+installDocker ${1}
 # 设置开机执行 rc.sh
 startTask
 

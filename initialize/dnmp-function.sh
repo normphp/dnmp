@@ -13,7 +13,7 @@ compose(){
 # 快捷获取目录
 composeFile(){
   echo -e "\033[32m dnmp 目录  \033[0m"
-  echo -e "\033[32m ${1} \033[0m"
+  echo -e "\033[32m ${dir_path}/initialize/dnmp.sh \033[0m"
   echo -e "\033[32m dnmp docker-compose 目录  \033[0m"
   echo -e "\033[32m ${1}/build/docker-compose/docker-compose-*.yml \033[0m"
 }
@@ -87,12 +87,42 @@ startTask(){
       && sudo chmod 755 /etc/rc.local
   fi
 }
-tlsManage(){
+tlsInit(){
   # 执行acme.sh命令判断命令是否存在、不存在执行安装命令、并且注册快捷命令
-  acme.sh >>null
+  grep 'acme.sh' ~/.bashrc
   if [  $? -eq 0  ] ;then
     echo -e "\033[32m 已安装acme.sh  \033[0m"
   else
-    echo -e "\033[31m 没有安装acme.sh 现在进行安装 \033[0m" && exit
+    echo -e "\033[31m 没有安装acme.sh 现在进行安装 \033[0m"
+    curl  https://get.acme.sh | sh
   fi
+  # 开始命令
+  tlsManage $*
+}
+tlsManage(){
+  #bash /root/.acme.sh/acme.sh
+  # 进行命令拆分  add 域名
+  # updateTls
+  echo ${3}
+  if [ ${3}x = "update-tls"x ];then
+    # acme.sh更新tls时 触发的
+    updateTls ${4} ${5} ${6} ${7} ${8} ${9}
+  else
+     echo -e "
+      xxxxx
+  "
+  fi
+}
+updateTls(){
+  echo ${1}${2}>>"${dir_path}/name.txt"
+  echo date>>"${dir_path}/ccccc.txt"
+  # docker exec -it nginx-upstream service nginx force-reload
+  # acme.sh更新tls时 触发的
+  # 创建文件夹
+  # 复制文件到对应目录   写入日志文件
+  # curl post 到对应的 服务中心
+
+  # 由服务中心的php项目使用ssh2 链接跳板机 把证书 复制到对应的负载均衡服务上 并且执行命令重启负载均衡nginx
+  #bash /root/.acme.sh/acme.sh
+
 }

@@ -5,7 +5,7 @@ root_dir=$(dirname $(pwd))
 # 注册docker-compose 相关命令
 iniComposeCli(){
 echo '#!/bin/bash
-dir_path='${root_dir}'
+export dir_path='${root_dir}'
 cd "${dir_path}/build/docker-compose/"
 source ${dir_path}/initialize/dnmp-function.sh
 if [ ${1}x = "deploy"x ];then
@@ -29,7 +29,7 @@ elif [ ${1}x = "-f"x ];then
 elif [ ${1}x = "-v"x ];then
  versions $dir_path $*
 elif [ ${1}x = "tls"x ];then
-  tlsManage $dir_path $*
+  tlsInit $dir_path $*
 elif [ ${1}x = "update"x ];then
   update $dir_path $*
 else
@@ -46,7 +46,7 @@ else
    \033[32m mysql \033[0m         Redis[只包含Mysql]
    \033[32m diy-php-fpm \033[0m   diy-php-fpm[只包含php-fpm]
 
-   \033[32m tls \033[0m           https tls 管理[在acme.sh的基础上实现]
+   \033[32m tls \033[0m           https tls 管理[在acme.sh的基础上实现主要用在自动化跨服务器管理]
 
    \033[32m update \033[0m        更新dnmp[只更新sh脚本其他文件不更新]
    \033[32m -f \033[0m            docker-compose-xxx.yml文件所在路径

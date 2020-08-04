@@ -151,6 +151,16 @@
      --key-file       /docker/normphp/dnmp/data/nginx/conf/ssl_certificate/normphp.hk.heil.red/key.pem  \
      --fullchain-file /docker/normphp/dnmp/data/nginx/conf/ssl_certificate/normphp.hk.heil.red/fullchain.pem \
      --reloadcmd     "docker exec -it docker-compose_nginx_1 service nginx force-reload"
+   
+    # 如果使用中心服务 处理acme.sh 更新 查看所有下面命令复制
+    # reloadcmd 内容是 执行dnmp.sh tls update-tls  【当前域名】 
+    # 原理是acme.sh在更新ssl时会这些 reloadcmd 设置的命令
+    # dnmp.sh tls update-tls 会处理完成并且签名post 信息到服务中心的php项目，php使用ssh2链接跳板机把证书复制到对应的负载均衡服务上并且执行命令重启负载均衡nginx 
+    # post请求计划请求只支持normphp框架的部署中心，不过好有post请求的文档不使用normphp框架可自行根据文档开发api适配
+    acme.sh --install-cert -d normphp.hk.heil.red \
+        --key-file       /docker/normphp/dnmp/data/nginx/conf/ssl_certificate/normphp.hk.heil.red/key.pem  \
+        --fullchain-file /docker/normphp/dnmp/data/nginx/conf/ssl_certificate/normphp.hk.heil.red/fullchain.pem \
+        --reloadcmd     "bash  /root/dnmp-master/initialize/dnmp.sh tls update-tls normphp.hk.heil.red"
     
     # Nginx 的配置 ssl_certificate 使用 /etc/nginx/ssl/fullchain.cer ，而非 /etc/nginx/ssl/<domain>.cer ，否则 SSL Labs 的测试会报 Chain issues Incomplete 错误
 #### 一些建议
