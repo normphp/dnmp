@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+  php-fpm:
+    env_file:
+      - .env
+    #image: ${DIY_PHP_FPM_IMAGE}
+    build: ${DIY_PHP_FPM_IMAGE}
+    ports:
+      - "9000:${DIY_PHP_FPM_PORTS}"
+    #container_name: ${DIY_PHP_FPM_NAME}
+    networks:
+     - ${DIY_PHP_FPM_NETWORKS}
+    volumes:
+      - /docker/normphp/dnmp/data/www/:/www/:rw
+      - /docker/normphp/dnmp/data/php/php-${DIY_PHP_FPM_PATTERN}.ini:/usr/local/etc/php/php.ini:ro
+      - /docker/normphp/dnmp/data/php/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
+      - /docker/normphp/dnmp/data/php/php-fpm.d/:/usr/local/etc/php-fpm.d/:ro
+      - /docker/normphp/dnmp/data/logs/php-fpm:/var/log/php-fpm:rw
+    restart: always
+    command: php-fpm
+networks:
+  dnmpNat:

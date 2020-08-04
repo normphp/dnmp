@@ -38,6 +38,7 @@ else
    \033[32m upstream \033[0m      负载均衡服务[只包含nginx 通常做反向代理负载均衡]
    \033[32m redis \033[0m         Redis[只包含Redis]
    \033[32m mysql \033[0m         Redis[只包含Mysql]
+   \033[32m diy-php-fpm \033[0m   diy-php-fpm[只包含php-fpm]
 
    \033[32m -f \033[0m            docker-compose-xxx.yml文件所在路径
    \033[32m -v \033[0m            当前各软件版本

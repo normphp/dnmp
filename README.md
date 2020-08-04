@@ -10,12 +10,12 @@
     *   按照正统容器的思想应该是业务代码+环境为一个完整容器，或者在容器构建时把代码copy到容器中。
 #### 开始
 * dnmp环境分类
-    * 标准环境：docker+nginx+mysql+php，一般为单机环境主要区分在PHP扩展安装上，其中包括如下版本：
+    * 标准环境：docker+nginx+php，一般为单机环境主要区分在PHP扩展安装上，其中包括如下版本：
         * 新版本中标准环境中不再包含mysql、redis，如需使用执行：dnmp redis up 即可
-        * 部署环境[deploy] 一般是用在部署服务主机上有安装开发环境所有的PHP扩展但又有生成环境的安全性配置
-        * 开发环境[develop] 安装了所有可能用得上的PHP扩展
+        * 部署环境[deploy] 一般是用在部署服务主机上有安装开发环境的PHP扩展但又有生成环境的安全性配置
+        * 开发环境[develop] 安装了可能用得上的PHP扩展
         * 生产环境[production] 去除了不必要的PHP扩展
-        * 基础环境[basics] 简单的PHP环境只安装pdo等必须要扩展
+        * 基础环境[basics] 简单的PHP环境只安装pdo等必要扩展
         * 具体参考build\docker-compose\php\README.md
     * 负载均衡环境：使用nginx实现的负载均衡单一服务
         * 构建文件：build/docker-compose/docker-compose-upstream.yml   
@@ -25,6 +25,7 @@
             * build/docker-compose/nginx/conf/upstream/README.md
     * 环境配置信息目录：/docker/normphp/dnmp/data/
         * 每一个重要目录下都有一个README.md文件对当前目录进行详细的解释。
+    * 如需自定义构建自己的php-fpm 可自行编辑build/docker-compose/php/diy/Dockerfile，然后使用dnmp diy-php-fpm build 进行DIY构建测试
 ##### 开始下载安装
     # 初始化基础环境、安装docker和docker-compose、构建生成docker-compose.yml文件、注册快捷命令和定时任务
     # 注意：
@@ -45,7 +46,7 @@
     && bash build.sh usa && source ~/.bashrc \
     && cd ../build/docker-compose/
 ##### docker-compose 构建与运行[基础知识]
-* 本章节只是对基础命令进行解释不建议执行其中的示例，具体快捷执行命令请看下一个章节
+* 本章节只是对基础命令进行解释【不建议执行其中的示例】，具体快捷执行命令请看下一个章节
 
 
     # -f 代表需要使用的docker-compose.yml文件以及路径
@@ -74,7 +75,6 @@
     * 标准环境不开与负载均衡环境在同一物理机器上（如需要在同一个机器上做实验必须修改标准环境的服务端口docker-compose.yml文件中修改）
     * 一个机器建议中运行一个版本的标准环境
 * 在《开始下载安装》章节中我们已经执行了对应的命令行对环境进行了初始化
-* 下面我们开始以开发环境为例构建(原理)：
 * 快捷命令(推荐使用)
 
 
@@ -116,12 +116,13 @@
 
     dnmp redis up -d
     dnmp mysql up -d
+    dnmp diy-php-fpm up -d
 #####常规docker-composer 命令
      # 下面是常用命令  更多命令请自行网上搜索docker-compose命令
      docker-compose restart [serviceName]: 重启服务
      docker-compose config：验证和查看compose文件
-     docker-compose images：列出所用的镜像
-     docker-cpmpose scale：设置服务个数 Eg：docker-compose scale web=2 worker=3 
+     docker-compose images：列出所用的镜像
+     docker-cpmpose scale：设置服务个数 Eg：docker-compose scale web=2 worker=3
      docker-compose pause [serviceName]：暂停服务
      docker-compose unpause [serviceName]：恢复服务   
 #### 安装 acme.sh管理https证书

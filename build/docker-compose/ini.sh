@@ -51,6 +51,7 @@ $nginx_conf
 `sudo cp -r ${Path}/php/etc/php/php.ini-development /docker/normphp/dnmp/data/php/php-basics.ini`
 `sudo cp -r ${Path}/php/etc/php/php.ini-production /docker/normphp/dnmp/data/php/php-deploy.ini`
 `sudo cp -r ${Path}/php/etc/php/php.ini-production /docker/normphp/dnmp/data/php/php-production.ini`
+`sudo cp -r ${Path}/php/etc/php/php.ini-development /docker/normphp/dnmp/data/php/php-diy.ini`
 
 `sudo cp -r ${Path}/php/etc/php-fpm.conf /docker/normphp/dnmp/data/php/php-fpm.conf`
 `sudo cp -r ${Path}/php/etc/php-fpm.conf.default /docker/normphp/dnmp/data/php/php-fpm.conf.default`
