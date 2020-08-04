@@ -107,7 +107,7 @@
       dnmp upstream exec  nginx-upstream service nginx restart   
       # 进入容器
       dnmp upstream exec  nginx-upstream  bash
-      # 命令解释：dnmp [环境标识如upstream] exec [服务标识如nginx、redis、php-fpm]  [bash 直接进入容器内、其他命令不进入容器只向容器方式命令行并返回结果]
+      # 命令解释：dnmp [环境标识如upstream] exec [服务标识如nginx、redis、php-fpm]  [bash 直接进入容器内、其他命令不进入容器只向容器方式命令行并返回结果]  退出容器按ctrl+d
       # 其他compose服务可参考这里，如不清楚具体的容器服务名称可：
       dnmp upstream ps 
       # 或者查看对应的docker-compose.yml文件中services的下一级就是对应的服务名称
