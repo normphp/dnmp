@@ -36,7 +36,8 @@ else
    echo -e "
   dnmp是一个代替[docker-compose -f docker-compose-xxx.yml]部分命令的快捷命令
   第一个参数是需要操作的环境：
-  \033[32m dome \033[0m                     一个简单示例dome[只包含nginx+php-fpm]
+
+  \033[32m dome \033[0m                     一个快速而简单示例dome[只包含nginx+php-fpm]
 
   \033[32m php-fpm-7.1-universal\033[0m     通用版[通用的]
   \033[32m php-fpm-7.3-universal\033[0m     通用版[包含swoole扩展]
