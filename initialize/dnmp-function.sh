@@ -128,6 +128,7 @@ updateTls(){
 }
 downloadPHPImages(){
   cpDockerfile='sudo cp -r dnmp-dockerfile-php-master/.  '${dir_path}'/build/docker-compose/php'
+  echo $cpDockerfile
   wget https://github.com/normphp/dnmp-dockerfile-php/archive/master.tar.gz -O dnmp-dockerfile-php.tar.gz \
   && tar -zxvf dnmp-dockerfile-php.tar.gz \
   && rm -rf dnmp-dockerfile-php.tar.gz \
