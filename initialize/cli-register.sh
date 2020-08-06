@@ -39,6 +39,13 @@ else
 
   \033[32m dome \033[0m                     一个快速而简单示例dome[只包含nginx+php-fpm]
 
+  \033[32m upstream \033[0m                 负载均衡服务[只包含nginx 通常做反向代理负载均衡]
+  \033[32m redis \033[0m                    Redis[只包含Redis]
+  \033[32m mysql \033[0m                    Redis[只包含Mysql]
+
+  \033[32m php-fpm \033[0m                  php-fpm[php-fpm版本选择器]
+
+
   \033[32m php-fpm-7.1-universal\033[0m     通用版[通用的]
   \033[32m php-fpm-7.3-universal\033[0m     通用版[包含swoole扩展]
   \033[32m php-fpm-7.4-universal\033[0m     通用版[包含swoole扩展]
@@ -49,9 +56,6 @@ else
   \033[32m php-fpm-7.3-full\033[0m          完整版[包含ssh2、xdebug、swoole、MongoDB扩展]
   \033[32m php-fpm-7.4-full\033[0m          完整版[包含ssh2、xdebug、swoole、MongoDB扩展]
 
-  \033[32m upstream \033[0m      负载均衡服务[只包含nginx 通常做反向代理负载均衡]
-  \033[32m redis \033[0m         Redis[只包含Redis]
-  \033[32m mysql \033[0m         Redis[只包含Mysql]
   \033[32m diy-php-fpm \033[0m   diy-php-fpm[只包含php-fpm]
 
   \033[32m tls \033[0m           https tls 管理[在acme.sh的基础上实现主要用在自动化跨服务器管理]
