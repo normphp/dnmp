@@ -46,9 +46,9 @@ else
   \033[32m php-fpm \033[0m                  php-fpm[php-fpm版本选择器]
 
 
-  \033[32m php-fpm-7.1-universal\033[0m     通用版[通用的]
-  \033[32m php-fpm-7.3-universal\033[0m     通用版[包含swoole扩展]
-  \033[32m php-fpm-7.4-universal\033[0m     通用版[包含swoole扩展]
+  \033[32m php-fpm-7.1-universal\033[0m     通用版[只含gd、pdo、redis扩展]
+  \033[32m php-fpm-7.3-universal\033[0m     通用版[只含gd、pdo、redis扩展]
+  \033[32m php-fpm-7.4-universal\033[0m     通用版[只含gd、pdo、redis扩展]
   \033[32m php-fpm-7.1-swoole\033[0m        swoole版[包含swoole扩展]
   \033[32m php-fpm-7.3-swoole\033[0m        swoole版[包含swoole扩展]
   \033[32m php-fpm-7.4-swoole\033[0m        swoole版[包含swoole扩展]
