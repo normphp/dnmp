@@ -126,3 +126,6 @@ updateTls(){
   #bash /root/.acme.sh/acme.sh
 
 }
+downloadPHPImages(){
+  wget https://github.com/normphp/dnmp-dockerfile-php/archive/master.tar.gz -O dnmp-dockerfile-php.tar.gz && tar -zxvf dnmp-dockerfile-php.tar.gz && rm -rf dnmp-dockerfile-php.tar.gz
+}
