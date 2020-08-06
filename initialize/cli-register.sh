@@ -10,7 +10,7 @@ cd "${dir_path}/build/docker-compose/"
 source ${dir_path}/initialize/dnmp-function.sh
 if [ ${1}x = "deploy"x ];then
   compose $dir_path $*
-elif [ ${1}x = "production"x ];then
+elif [ ${1}x = "dome"x ];then
  compose $dir_path $*
 elif [ ${1}x = "deploy"x ];then
  compose $dir_path $*
@@ -36,7 +36,7 @@ else
    echo -e "
   dnmp是一个代替[docker-compose -f docker-compose-xxx.yml]部分命令的快捷命令
   第一个参数是需要操作的环境：
-  \033[32m dome \033[0m                  一个简单示例dome[只包含nginx+php-fpm]
+  \033[32m dome \033[0m                     一个简单示例dome[只包含nginx+php-fpm]
 
   \033[32m php-fpm-7.1-universal\033[0m     通用版[通用的]
   \033[32m php-fpm-7.3-universal\033[0m     通用版[包含swoole扩展]
@@ -60,8 +60,8 @@ else
   \033[32m -v \033[0m            当前各软件版本
 
   后面的参数与与docker-compose命令完全一致：
-   dnmp develop up
-   相当于：docker-compose -f docker-compose-develop.yml up
+  dnmp dome up
+  相当于：docker-compose -f docker-compose-dome.yml up
 "
 fi
 # 返回上一次目录

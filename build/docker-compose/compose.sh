@@ -1,25 +1,22 @@
 #!/bin/bash
 # 定义array
-pattern_array=("deploy" "develop" "production" "basics")
+pattern_array=("php-fpm-7.1-universal" "php-fpm-7.3-universal" "php-fpm-7.4-universal" "php-fpm-7.1-swoole"  "php-fpm-7.1-swoole"  "php-fpm-7.1-swoole"  "php-fpm-7.1-full" "php-fpm-7.3-full" "php-fpm-7.4-full" "php-fpm-8.0-universal" )
+
 
 for pattern in ${pattern_array[@]}
 do
 patternFile="${Path}/docker-compose-${pattern}.yml"
-phpFpmPorts='"9000:9000"'
-nginxPorts1='"443:443"'
-nginxPorts2='"80:80"'
-nginxPorts3='"8080:8080"'
 
 echo "version: '3.3'
 services:
   php-fpm:
-    image: normphp/dnmp:php-fpm-${pattern}
+    image: "'${'"${pattern}_PHP_FPM_IMAGE}
   env_file:
-    - env/${pattern}.env
+    - .env
     ports:
-      - ${PORTS1}
-    container_name: php-fpm
+      - "'"9000:${'"${pattern}_PHP_FPM_PORTS}"'"'"
     networks:
+     - "'${'"${pattern}_PHP_FPM_NETWORKS}
      - dnmpNat
     volumes:
       - /docker/normphp/dnmp/data/www/:/www/:rw
@@ -44,9 +41,9 @@ services:
       - /docker/normphp/dnmp/data/nginx/logs/:/wwwlogs/:rw
       - /docker/normphp/dnmp/data/www/:/www/:rw
     ports:
-      - ${nginxPorts1}
-      - ${nginxPorts2}
-      - ${nginxPorts3}
+      - "'"80:${'"${pattern}_NGINX_PORTS_HTTP}"'"'"
+      - "'"8080:${'"${pattern}_NGINX_PORTS_HTTP2}"'"'"
+      - "'"443:${'"${pattern}_NGINX_PORTS_HTTPS}"'"'"
     restart: always
     command: nginx -g 'daemon off;'
 networks:

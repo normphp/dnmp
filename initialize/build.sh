@@ -33,7 +33,7 @@ cur_dir="$root_dir/build/docker-compose"
 export cur_dir
 dockerComposeBuild="${cur_dir}/ini.sh"
 dockerComposeBuildChmdo="sudo chmod +x   ${dockerComposeBuild}"
-dockerComposeBuildChmdo
+$dockerComposeBuildChmdo
 
 source  $dockerComposeBuild
 # 初始化命令行

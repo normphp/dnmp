@@ -10,7 +10,7 @@ if [ $? -ne 0 ]; then
   # curl -L https://get.daocloud.io/docker/compose/releases/download/1.25.5/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
   sudo ln -snf   /usr/local/bin/docker-compose /usr/bin/docker-compose
-  docker-compose --version
+  sudo docker-compose --version
   if [ $? -ne 0 ]; then
      echo -e "\033[31m 安装Docker-Compose失败尝试pip方式安装 \033[0m"
       sudo yum -y install  epel-release python-pip \
@@ -70,8 +70,8 @@ echo -e "\033[32m *****************自动生成docker-compose文件*************
 
 export Path
 echo $Path
-#chmod_compose="sudo chmod +x   ${Path}/compose.sh"
-#$chmod_compose
-#cli="${Path}/compose.sh"
-#source  $cli
+chmod_compose="sudo chmod +x   ${Path}/compose.sh"
+$chmod_compose
+cli="${Path}/compose.sh"
+source  $cli
 sudo docker network ls
