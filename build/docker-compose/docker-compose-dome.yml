@@ -1,0 +1,43 @@
+version: '3.3'
+services:
+  php-fpm:
+    env_file:
+      - .env
+    image: ${DEVELOP_PHP_FPM_IMAGE}
+    ports:
+      - "9000:${DEVELOP_PHP_FPM_PORTS}"
+    #container_name: ${DEVELOP_PHP_FPM_NAME}
+    networks:
+      - ${DEVELOP_PHP_FPM_NETWORKS}
+    volumes:
+      - /docker/normphp/dnmp/data/www/:/www/:rw
+      - /docker/normphp/dnmp/data/php/php-develop.ini:/usr/local/etc/php/php.ini:ro
+      - /docker/normphp/dnmp/data/php/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
+      - /docker/normphp/dnmp/data/php/php-fpm.d/:/usr/local/etc/php-fpm.d/:ro
+      - /docker/normphp/dnmp/data/logs/php-fpm:/var/log/php-fpm:rw
+    restart: always
+    command: php-fpm
+
+  nginx:
+    env_file:
+      - .env
+    build: ${DEVELOP_NGINX_FPM_IMAGE}
+    depends_on:
+      - php-fpm
+    #container_name: ${DEVELOP_NGINX_FPM_NAME}
+    networks:
+      - ${DEVELOP_NGINX_FPM_NETWORKS}
+    volumes:
+      - /docker/normphp/dnmp/data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /docker/normphp/dnmp/data/nginx/logs/:/var/log/nginx/:rw
+      - /docker/normphp/dnmp/data/nginx/conf/:/etc/nginx/conf/:ro
+      - /docker/normphp/dnmp/data/nginx/logs/:/wwwlogs/:rw
+      - /docker/normphp/dnmp/data/www/:/www/:rw
+    ports:
+      - "80:${DEVELOP_NGINX_PORTS_HTTP}"
+      - "8080:${DEVELOP_NGINX_PORTS_HTTP2}"
+      - "443:${DEVELOP_NGINX_PORTS_HTTPS}"
+    restart: always
+    command: nginx -g 'daemon off;'
+networks:
+  dnmpNat:
