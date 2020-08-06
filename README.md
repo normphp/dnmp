@@ -90,6 +90,7 @@
 ##### docker-compose 构建与运行[应用与服务] 
 * 由于考虑到不同应用场景需要的服务不一样新版本的dnmp基础环境不再直接包含mysql、redis等容器服务。
 * 不同容器之间的通讯怎么解决？
+
     * 以docker-compose-redis.yml无例通过定义networks:dnmpNat设置把redis加入到dnmpNat网络然后其他的docker-compose配置文件中也设置了同样的网络，这样就只需要用对应的服务名代替ip地址来连接对应服务就可以了比如连接redis只需要在主机地址上填写nginx就可以连接（原理类型修改系统host文件）
 * 简单示例
         
