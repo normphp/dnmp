@@ -132,5 +132,5 @@ downloadPHPImages(){
   && tar -zxvf dnmp-dockerfile-php.tar.gz \
   && rm -rf dnmp-dockerfile-php.tar.gz \
   $cpDockerfile \
-  && rm -rf ./dnmp-dockerfile-php-master
+  && rm -rf dnmp-dockerfile-php-master
 }
