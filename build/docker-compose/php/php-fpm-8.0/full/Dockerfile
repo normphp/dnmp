@@ -32,7 +32,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone  
 && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
 # 清除不需要的数据
 &&  printf "y" |  apt-get remove --purge gcc automake autoconf libtool \
-&& cmake git libfreetype6-dev libjpeg62-turbo-dev libpng-dev libssl-dev \
+cmake git libfreetype6-dev libjpeg62-turbo-dev libpng-dev libssl-dev \
 && rm -rf /var/lib/apt/lists/* \
        && rm -rf /home/* \
        && apt-get clean \
