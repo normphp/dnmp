@@ -33,11 +33,13 @@ installDocker(){
   sudo docker -v
   if [ $? -ne 0 ]; then
       echo '安装docker'
-      if [ ${1}x = "cn"x ];then
+      if [ ${dockerResourceType}x = "CN"x ];then
+        echo -e "\033[32m cn 源安装docker \033[0m"
         # cn 使用阿里云
         curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
-      elif [ ${1}x = "usa"x ];then
+      elif [ ${dockerResourceType}x = "USA"x ];then
         # usa 使用docker官方
+        echo -e "\033[32m usa 使用docker官方源安装docker \033[0m"
         curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
       else
         # 默认使用阿里云

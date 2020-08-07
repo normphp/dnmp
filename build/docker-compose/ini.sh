@@ -5,11 +5,24 @@ echo -e "init Docker Compose"
 sudo docker-compose version
 if [ $? -ne 0 ]; then
   echo "docker-Compose 的当前稳定版本"
-  sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-  # 国内源
-  # curl -L https://get.daocloud.io/docker/compose/releases/download/1.25.5/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+
+  if [ ${dockerResourceType}x = "CN"x ];then
+    echo -e "\033[32m cn 源安装docker-compose \033[0m"
+    # cn 使用阿里云
+    curl -L https://get.daocloud.io/docker/compose/releases/download/1.25.5/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+
+  elif [ ${dockerResourceType}x = "USA"x ];then
+    # usa 使用docker官方
+    echo -e "\033[32m usa 使用docker官方源安装docker-compose \033[0m"
+      sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+  else
+    # 默认使用阿里云
+    curl -L https://get.daocloud.io/docker/compose/releases/download/1.25.5/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+  fi
   sudo chmod +x /usr/local/bin/docker-compose
   sudo ln -snf   /usr/local/bin/docker-compose /usr/bin/docker-compose
+
   sudo docker-compose --version
   if [ $? -ne 0 ]; then
      echo -e "\033[31m 安装Docker-Compose失败尝试pip方式安装 \033[0m"

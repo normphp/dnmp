@@ -1,6 +1,5 @@
 #!/bin/bash
 # 开启alias扩展功能
-shopt -s  expand_aliases
 root_dir=$(dirname $(pwd))
 # 注册docker-compose 相关命令
 iniComposeCli(){

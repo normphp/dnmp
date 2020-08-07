@@ -10,6 +10,32 @@ ulimit -n 65535
 root_dir=$(dirname $(pwd))
 export root_dir
 echo $root_dir
+
+while true;do
+stty -icanon min 0 time 100
+echo -n -e '\033[32m
+1、China（CN）
+2、America(USA)
+\033[0m
+请输入序号选择安装源类型? \033[16m (10s无操作默认选择1) \033[0m'
+
+read Arg
+case $Arg in
+1)
+export  dockerResourceType='CN'
+  break;;
+2)
+export  dockerResourceType='USA'
+  break;;
+"")  #Autocontinue
+export  dockerResourceType='CN'
+  break;;
+esac
+done
+echo '*****************************'
+echo "使用${dockerResourceType}安装源"
+echo '*****************************'
+
 # 引入文件包含
 source ${root_dir}'/initialize/dnmp-function.sh'
 source  ${root_dir}'/initialize/cli-register.sh'
