@@ -58,7 +58,7 @@ phpFpmPattern(){
   3、full       整版[通用版基础上增加ssh2、xdebug、swoole、MongoDB扩展]
   4、diy        DIY
   \033[0m
-  请输入序号选择选择PHP版本? \033[5m (10s无操作默认1): \033[0m'
+  请输入序号选择环境版本? \033[5m (10s无操作默认1): \033[0m'
   read Arg
   case $Arg in
   1)
