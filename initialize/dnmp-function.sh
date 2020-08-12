@@ -85,7 +85,6 @@ phpFpmCompose(){
   phpFpmPattern
 
   composeFile="${dir_path}/build/docker-compose/docker-compose-${phpFpmVersions}-${phpFpmPattern}.yml"
-  echo $composeFile
 # 写入配置文件
 echo "version: '3.3'
 services:
@@ -107,6 +106,7 @@ services:
     command: php-fpm
 networks:
   dnmpNat:" > $composeFile
+  echo $composeFile
   #可快速执行对应环境的compose命令   up   exec    build   down
   dockerComposeCli="docker-compose -f ${composeFile} ${2} ${3} ${4} ${5} ${6} ${7} ${8} ${9}"
   $dockerComposeCli
