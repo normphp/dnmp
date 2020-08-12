@@ -60,17 +60,16 @@ fi
 echo $Path;
 # 处理nginx配置文件
 nginx_conf="sudo cp -r ${Path}/nginx/conf/. /docker/normphp/dnmp/data/nginx/conf"
+# 处理php-fpm配置文件
+phpFpm_conf="sudo cp -r ${Path}/php/etc/  /docker/normphp/dnmp/data/php/"
 $nginx_conf
+$phpFpm_conf
 # 处理php配置文件
 `sudo cp -r ${Path}/php/etc/php/php.ini-development /docker/normphp/dnmp/data/php/php-develop.ini`
 `sudo cp -r ${Path}/php/etc/php/php.ini-development /docker/normphp/dnmp/data/php/php-basics.ini`
 `sudo cp -r ${Path}/php/etc/php/php.ini-production /docker/normphp/dnmp/data/php/php-deploy.ini`
 `sudo cp -r ${Path}/php/etc/php/php.ini-production /docker/normphp/dnmp/data/php/php-production.ini`
 `sudo cp -r ${Path}/php/etc/php/php.ini-development /docker/normphp/dnmp/data/php/php-diy.ini`
-
-`sudo cp -r ${Path}/php/etc/php-fpm.conf /docker/normphp/dnmp/data/php/php-fpm.conf`
-`sudo cp -r ${Path}/php/etc/php-fpm.conf.default /docker/normphp/dnmp/data/php/php-fpm.conf.default`
-`sudo cp -r ${Path}/php/etc/php-fpm.d/ /docker/normphp/dnmp/data/php/php-fpm.d/`
 
 echo "复制当前目录下的目录index.html等文件到对应运行目录/docker/normphp/dnmp/data/www/"
 

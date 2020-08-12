@@ -98,14 +98,15 @@ services:
      - dnmpNat
     volumes:
       - /docker/normphp/dnmp/data/www/:/www/:rw
-      - /docker/normphp/dnmp/data/php/php-develop.ini:/usr/local/etc/php/php.ini:ro
       - /docker/normphp/dnmp/data/php/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
+      - /docker/normphp/dnmp/data/php/php-develop.ini:/usr/local/etc/php/php.ini:ro
       - /docker/normphp/dnmp/data/php/php-fpm.d/:/usr/local/etc/php-fpm.d/:ro
       - /docker/normphp/dnmp/data/logs/php-fpm:/var/log/php-fpm:rw
     restart: always
     command: php-fpm
 networks:
   dnmpNat:" > $composeFile
+
   echo $composeFile
   #可快速执行对应环境的compose命令   up   exec    build   down
   dockerComposeCli="docker-compose -f ${composeFile} ${2} ${3} ${4} ${5} ${6} ${7} ${8} ${9}"
