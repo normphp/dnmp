@@ -26,26 +26,6 @@ services:
       - /docker/normphp/dnmp/data/logs/php-fpm:/var/log/php-fpm:rw
     restart: always
     command: php-fpm
-
-  nginx:
-    build: ./nginx
-    depends_on:
-      - php-fpm
-    container_name: nginx
-    networks:
-     - dnmpNat
-    volumes:
-      - /docker/normphp/dnmp/data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
-      - /docker/normphp/dnmp/data/nginx/logs/:/var/log/nginx/:rw
-      - /docker/normphp/dnmp/data/nginx/conf/:/etc/nginx/conf/:ro
-      - /docker/normphp/dnmp/data/nginx/logs/:/wwwlogs/:rw
-      - /docker/normphp/dnmp/data/www/:/www/:rw
-    ports:
-      - "'"80:${'"${pattern}_NGINX_PORTS_HTTP}"'"'"
-      - "'"8080:${'"${pattern}_NGINX_PORTS_HTTP2}"'"'"
-      - "'"443:${'"${pattern}_NGINX_PORTS_HTTPS}"'"'"
-    restart: always
-    command: nginx -g 'daemon off;'
 networks:
   dnmpNat:" > $patternFile
     # 写入文件

@@ -6,8 +6,109 @@ dnmpVersions="1.0";
 # 快捷docker-compose命令
 compose(){
   #可快速执行对应环境的compose命令   up   exec    build   down
-  composeFile="${1}/build/docker-compose/docker-compose-${2}.yml"
-  dockerComposeCli="docker-compose -f ${composeFile} ${3} ${4} ${5} ${6} ${7} ${8} ${9}"
+  composeFile="${dir_path}/build/docker-compose/docker-compose-${1}.yml"
+  dockerComposeCli="docker-compose -f ${composeFile} ${2} ${3} ${4} ${5} ${6} ${7} ${8} ${9}"
+  $dockerComposeCli
+}
+# 选择php-fpm版本
+phpFpmVersions(){
+ # 选择php-fpm版本
+  while true;do
+  stty -icanon min 0 time 100
+  echo -n -e '\033[32m
+  1、PHP 7.1
+  2、PHP 7.3
+  3、PHP 7.4
+  4、PHP 8.0
+  \033[0m
+  请输入序号选择选择PHP版本? \033[5m (10s无操作默认1): \033[0m'
+  read Arg
+  case $Arg in
+  1)
+  export phpFpmVersions='php-fpm-7.1'
+    break;;
+  2)
+  export phpFpmVersions='php-fpm-7.3'
+    break;;
+  3)
+  export phpFpmVersions='php-fpm-7.4'
+    break;;
+  4)
+  export phpFpmVersions='php-fpm-8.0'
+    break;;
+  "")  #Autocontinue
+  export phpFpmVersions='php-fpm-7.1'
+    break;;
+  esac
+  done
+  echo '*****************************'
+  echo -e "\033[32m 使用：${phpFpmVersions}\033[0m"
+  echo '*****************************'
+  return $phpFpmVersions
+}
+#选择环境版本
+phpFpmPattern(){
+
+   # 选择环境版本
+  while true;do
+  stty -icanon min 0 time 100
+  echo -n -e '\033[32m
+  1、universal  通用版[只含gd、pdo、redis扩展]
+  2、swoole     swoole版[通用版基础上增加swoole扩展]
+  3、full       整版[通用版基础上增加ssh2、xdebug、swoole、MongoDB扩展]
+  4、diy        DIY
+  \033[0m
+  请输入序号选择选择PHP版本? \033[5m (10s无操作默认1): \033[0m'
+  read Arg
+  case $Arg in
+  1)
+  export phpFpmPattern='universal'
+    break;;
+  2)
+  export phpFpmPattern='swoole'
+    break;;
+  3)
+  export phpFpmPattern='full'
+    break;;
+  "")  #Autocontinue
+  export phpFpmPattern='universal'
+    break;;
+  esac
+  done
+
+  echo '*****************************'
+  echo -e "\033[32m 使用：${phpFpmPattern}\033[0m"
+  echo '*****************************'
+}
+phpFpmCompose(){
+  phpFpmVersions
+  phpFpmPattern
+
+  composeFile="${dir_path}/build/docker-compose/docker-compose-${phpFpmVersions}-${phpFpmPattern}.yml"
+  echo $composeFile
+# 写入配置文件
+echo "version: '3.3'
+services:
+  php-fpm:
+    env_file:
+    - .env
+    image: normphp/dnmp-php:"${phpFpmVersions}-${phpFpmPattern}"
+    ports:
+      - "9000:9000"
+    networks:
+     - dnmpNat
+    volumes:
+      - /docker/normphp/dnmp/data/www/:/www/:rw
+      - /docker/normphp/dnmp/data/php/php-develop.ini:/usr/local/etc/php/php.ini:ro
+      - /docker/normphp/dnmp/data/php/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
+      - /docker/normphp/dnmp/data/php/php-fpm.d/:/usr/local/etc/php-fpm.d/:ro
+      - /docker/normphp/dnmp/data/logs/php-fpm:/var/log/php-fpm:rw
+    restart: always
+    command: php-fpm
+networks:
+  dnmpNat:" > $composeFile
+  #可快速执行对应环境的compose命令   up   exec    build   down
+  dockerComposeCli="docker-compose -f ${composeFile} ${2} ${3} ${4} ${5} ${6} ${7} ${8} ${9}"
   $dockerComposeCli
 }
 # 快捷获取目录
@@ -15,7 +116,7 @@ composeFile(){
   echo -e "\033[32m dnmp 目录  \033[0m"
   echo -e "\033[32m ${dir_path}/initialize/dnmp.sh \033[0m"
   echo -e "\033[32m dnmp docker-compose 目录  \033[0m"
-  echo -e "\033[32m ${1}/build/docker-compose/docker-compose-*.yml \033[0m"
+  echo -e "\033[32m ${dir_path}/build/docker-compose/docker-compose-*.yml \033[0m"
 }
 # 快捷获取版本号
 versions(){

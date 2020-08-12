@@ -17,7 +17,7 @@ echo -n -e '\033[32m
 1、China（CN）
 2、America(USA)
 \033[0m
-请输入序号选择安装源类型? \33[5m (10s无操作默认选择1) \033[0m'
+请输入序号选择安装源类型? \033[5m (10s无操作默认1): \033[0m'
 
 read Arg
 case $Arg in
@@ -33,7 +33,7 @@ export  dockerResourceType='CN'
 esac
 done
 echo '*****************************'
-echo "\033[16m 使用${dockerResourceType}安装源\033[0m"
+echo -e"\033[16m 使用${dockerResourceType}安装源\033[0m"
 echo '*****************************'
 
 # 引入文件包含

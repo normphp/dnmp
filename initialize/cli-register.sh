@@ -7,22 +7,23 @@ echo '#!/bin/bash
 export dir_path='${root_dir}'
 cd "${dir_path}/build/docker-compose/"
 source ${dir_path}/initialize/dnmp-function.sh
-if [ ${1}x = "deploy"x ];then
-  compose $dir_path $*
-elif [ ${1}x = "dome"x ];then
- compose $dir_path $*
-elif [ ${1}x = "deploy"x ];then
- compose $dir_path $*
+if [ ${1}x = "dome"x ];then
+  compose  $*
+elif [ ${1}x = "php-fpm"x ];then
+  #php-fpm版本选择器
+ phpFpmCompose  $*
+elif [ ${1}x = "nginx"x ];then
+ compose $*
 elif [ ${1}x = "develop"x ];then
- compose $dir_path $*
+ compose  $*
 elif [ ${1}x = "upstream"x ];then
- compose $dir_path $*
+ compose  $*
 elif [ ${1}x = "redis"x ];then
- compose $dir_path $*
+ compose  $*
 elif [ ${1}x = "diy-php-fpm"x ];then
- compose $dir_path $*
+ compose  $*
 elif [ ${1}x = "mysql"x ];then
- compose $dir_path $*
+ compose  $*
 elif [ ${1}x = "-f"x ];then
  composeFile $dir_path $*
 elif [ ${1}x = "-v"x ];then
@@ -36,28 +37,16 @@ else
   dnmp是一个代替[docker-compose -f docker-compose-xxx.yml]部分命令的快捷命令
   第一个参数是需要操作的环境：
 
-  \033[32m dome \033[0m                     一个快速而简单示例dome[只包含nginx+php-fpm]
+  \033[32m dome \033[0m           一个快速而简单示例dome[只包含nginx+php-fpm]
+  \033[32m nginx \033[0m          nginx[常规nginx]
+  \033[32m php-fpm \033[0m        php-fpm[php-fpm]
+  \033[32m upstream \033[0m       负载均衡服务[只包含nginx 通常做反向代理负载均衡]
 
-  \033[32m upstream \033[0m                 负载均衡服务[只包含nginx 通常做反向代理负载均衡]
-  \033[32m redis \033[0m                    Redis[只包含Redis]
-  \033[32m mysql \033[0m                    Redis[只包含Mysql]
+  \033[32m redis \033[0m          Redis[只包含Redis]
+  \033[32m mysql \033[0m          Mysql[只包含Mysql]
 
-  \033[32m php-fpm \033[0m                  php-fpm[php-fpm版本选择器]
-
-
-  \033[32m php-fpm-7.1-universal\033[0m     通用版[只含gd、pdo、redis扩展]
-  \033[32m php-fpm-7.3-universal\033[0m     通用版[只含gd、pdo、redis扩展]
-  \033[32m php-fpm-7.4-universal\033[0m     通用版[只含gd、pdo、redis扩展]
-  \033[32m php-fpm-7.1-swoole\033[0m        swoole版[包含swoole扩展]
-  \033[32m php-fpm-7.3-swoole\033[0m        swoole版[包含swoole扩展]
-  \033[32m php-fpm-7.4-swoole\033[0m        swoole版[包含swoole扩展]
-  \033[32m php-fpm-7.1-full\033[0m          完整版[包含ssh2、xdebug、swoole、MongoDB扩展]
-  \033[32m php-fpm-7.3-full\033[0m          完整版[包含ssh2、xdebug、swoole、MongoDB扩展]
-  \033[32m php-fpm-7.4-full\033[0m          完整版[包含ssh2、xdebug、swoole、MongoDB扩展]
 
   \033[32m diy-php-fpm \033[0m   diy-php-fpm[只包含php-fpm]
-
-  \033[32m tls \033[0m           https tls 管理[在acme.sh的基础上实现主要用在自动化跨服务器管理]
 
   \033[32m update \033[0m        更新dnmp[只更新sh脚本其他文件不更新]
   \033[32m -f \033[0m            docker-compose-xxx.yml文件所在路径
@@ -66,6 +55,9 @@ else
   后面的参数与与docker-compose命令完全一致：
   dnmp dome up
   相当于：docker-compose -f docker-compose-dome.yml up
+
+  其他服务
+  \033[32m tls \033[0m           https tls 管理[在acme.sh的基础上实现主要用在自动化跨服务器管理]
 "
 fi
 # 返回上一次目录
