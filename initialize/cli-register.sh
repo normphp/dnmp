@@ -14,8 +14,8 @@ elif [ ${1}x = "php-fpm"x ];then
  phpFpmCompose  $*
 elif [ ${1}x = "nginx"x ];then
  compose $*
-elif [ ${1}x = "develop"x ];then
- compose  $*
+elif [ ${1}x = "systemInfo"x ];then
+ systemInfo  $*
 elif [ ${1}x = "upstream"x ];then
  compose  $*
 elif [ ${1}x = "redis"x ];then
@@ -45,12 +45,13 @@ else
   \033[32m redis \033[0m          Redis[只包含Redis]
   \033[32m mysql \033[0m          Mysql[只包含Mysql]
 
-
   \033[32m diy-php-fpm \033[0m   diy-php-fpm[只包含php-fpm]
 
-  \033[32m update \033[0m        更新dnmp[只更新sh脚本其他文件不更新]
   \033[32m -f \033[0m            docker-compose-xxx.yml文件所在路径
   \033[32m -v \033[0m            当前各软件版本
+  \033[32m update \033[0m        更新dnmp[只更新sh脚本其他文件不更新]
+  \033[32m systemInfo \033[0m    查看当前系统服务状态
+
 
   后面的参数与与docker-compose命令完全一致：
   dnmp dome up

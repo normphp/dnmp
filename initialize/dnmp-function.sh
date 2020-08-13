@@ -239,3 +239,12 @@ downloadPHPImages(){
   && $cpDockerfile \
   && rm -rf dnmp-dockerfile-php-master
 }
+# POST 系统消息到一个服务中心  频率1s一次
+postSystemInfo()
+{
+  # 系统运行时间
+  echo "System running time">>postSystemInfo.txt
+  "$(awk -F. '{print $1}' /proc/uptime) second ago" +"%Y-%m-%d %H:%M:%S">>postSystemInfo.txt
+  # 系统安装时间
+  tune2fs -l /dev/sda1 | grep create>>postSystemInfo.txt
+}
