@@ -1,11 +1,11 @@
 version: '3.3'
 services:
-  php-fpm:
+  php-fpm-7.1:
     env_file:
       - .env
     image: ${DOME_PHP_FPM_IMAGE}
     ports:
-      - "9000:${DEVELOP_PHP_FPM_PORTS}"
+    #  - "9000:${DEVELOP_PHP_FPM_PORTS}"
     #container_name: ${DOME_PHP_FPM_NAME}
     networks:
       - ${DOME_PHP_FPM_NETWORKS}
@@ -23,7 +23,7 @@ services:
       - .env
     build: ${DOME_NGINX_FPM_IMAGE}
     depends_on:
-      - php-fpm
+      - php-fpm-7.1
     #container_name: ${DOME_NGINX_FPM_NAME}
     networks:
       - ${DOME_NGINX_FPM_NETWORKS}
