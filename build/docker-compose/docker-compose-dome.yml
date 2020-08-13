@@ -23,7 +23,7 @@ services:
       - .env
     build: ${DOME_NGINX_FPM_IMAGE}
     depends_on:
-      - php-fpm-7.1
+      - php-fpm-7.4
     #container_name: ${DOME_NGINX_FPM_NAME}
     networks:
       - ${DOME_NGINX_FPM_NETWORKS}
