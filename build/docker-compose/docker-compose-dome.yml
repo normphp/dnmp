@@ -1,20 +1,20 @@
 version: '3.3'
 services:
-  php-fpm-7.1:
+  php-fpm-7.4:
     env_file:
       - .env
     image: ${DOME_PHP_FPM_IMAGE}
-    ports:
+    #ports:
     #  - "9000:${DEVELOP_PHP_FPM_PORTS}"
     #container_name: ${DOME_PHP_FPM_NAME}
     networks:
       - ${DOME_PHP_FPM_NETWORKS}
     volumes:
       - /docker/normphp/dnmp/data/www/:/www/:rw
-      - /docker/normphp/dnmp/data/php/etc/php-fpm-7.1/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
-      - /docker/normphp/dnmp/data/php/etc/php-fpm-7.1/php.ini-development:/usr/local/etc/php/php.ini:ro
-      - /docker/normphp/dnmp/data/php/etc/php-fpm-7.1/php-fpm.d/:/usr/local/etc/php-fpm.d/:ro
-      - /docker/normphp/dnmp/data/logs/php-fpm-7.1:/var/log/php-fpm:rw
+      - /docker/normphp/dnmp/data/php/etc/php-fpm-7.4/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
+      - /docker/normphp/dnmp/data/php/etc/php-fpm-7.4/php.ini-development:/usr/local/etc/php/php.ini:ro
+      - /docker/normphp/dnmp/data/php/etc/php-fpm-7.4/php-fpm.d/:/usr/local/etc/php-fpm.d/:ro
+      - /docker/normphp/dnmp/data/logs/php-fpm-7.4:/var/log/php-fpm:rw
     restart: always
     command: php-fpm
 
