@@ -88,12 +88,12 @@ phpFpmCompose(){
 # 写入配置文件
 echo "version: '3.3'
 services:
-  php-fpm:
+  ${phpFpmVersions}:
     env_file:
     - .env
     image: normphp/dnmp-php:"${phpFpmVersions}-${phpFpmPattern}"
-    ports:
-      - "9000:9000"
+    #    ports:
+    #  - "9000:9000"
     networks:
      - dnmpNat
     volumes:
