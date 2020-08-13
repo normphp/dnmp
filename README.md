@@ -43,12 +43,6 @@
     && cd dnmp-master/initialize/  \
     && bash build.sh cn && source ~/.bashrc \
     && cd ../build/docker-compose/
-    # 如果是非国内IDC的服务器修改参数为usa  【bash build.sh usa】使用docker官方资源安装
-    yum -y -q install wget tar \
-    && wget https://github.com/normphp/dnmp/archive/master.tar.gz -O master.tar.gz && tar -zxvf master.tar.gz \
-    && cd dnmp-master/initialize/  \
-    && bash build.sh usa && source ~/.bashrc \
-    && cd ../build/docker-compose/
 
 ##### docker-compose 构建与运行[标准环境]    
 * 注意：
