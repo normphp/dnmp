@@ -98,10 +98,10 @@ services:
      - dnmpNat
     volumes:
       - /docker/normphp/dnmp/data/www/:/www/:rw
-      - /docker/normphp/dnmp/data/php/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
-      - /docker/normphp/dnmp/data/php/php-develop.ini:/usr/local/etc/php/php.ini:ro
-      - /docker/normphp/dnmp/data/php/php-fpm.d/:/usr/local/etc/php-fpm.d/:ro
-      - /docker/normphp/dnmp/data/logs/php-fpm:/var/log/php-fpm:rw
+      - /docker/normphp/dnmp/data/php/etc/"${phpFpmVersions}"/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
+      - /docker/normphp/dnmp/data/php/etc/"${phpFpmVersions}"/php.ini-development:/usr/local/etc/php/php.ini:ro
+      - /docker/normphp/dnmp/data/php/etc/"${phpFpmVersions}"/php-fpm.d/:/usr/local/etc/php-fpm.d/:ro
+      - /docker/normphp/dnmp/data/logs/"${phpFpmVersions}":/var/log/php-fpm:rw
     restart: always
     command: php-fpm
 networks:
