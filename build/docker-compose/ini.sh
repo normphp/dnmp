@@ -43,7 +43,7 @@ fi
 echo "********************************************************"
 # 创建目录 /normphp/dnmp/
 sudo mkdir -p /docker/normphp/dnmp/data/{redis,mysql,php}
-sudo mkdir -p /docker/normphp/dnmp/data/logs/{php-fpm-7.1,php-fpm-7.3,php-fpm-7.4,php-fpm-8.0}
+sudo mkdir -p /docker/normphp/dnmp/data/logs/{php-fpm-7.1,php-fpm-7.3,php-fpm-7.4,php-fpm-8.0,php-fpm-diy}
 
 echo "创建目录：{conf,conf.d,html,logs}"
 sudo mkdir -p /docker/normphp/dnmp/data/nginx/{conf,conf.d,html,logs}
@@ -67,11 +67,11 @@ phpFpm_conf="sudo cp -r ${Path}/php/etc/  /docker/normphp/dnmp/data/php/"
 $nginx_conf
 $phpFpm_conf
 # 处理php配置文件
-`sudo cp -r ${Path}/php/etc/php/php.ini-development /docker/normphp/dnmp/data/php/php-develop.ini`
-`sudo cp -r ${Path}/php/etc/php/php.ini-development /docker/normphp/dnmp/data/php/php-basics.ini`
-`sudo cp -r ${Path}/php/etc/php/php.ini-production /docker/normphp/dnmp/data/php/php-deploy.ini`
-`sudo cp -r ${Path}/php/etc/php/php.ini-production /docker/normphp/dnmp/data/php/php-production.ini`
-`sudo cp -r ${Path}/php/etc/php/php.ini-development /docker/normphp/dnmp/data/php/php-diy.ini`
+#`sudo cp -r ${Path}/php/etc/php/php.ini-development /docker/normphp/dnmp/data/php/php-develop.ini`
+#`sudo cp -r ${Path}/php/etc/php/php.ini-development /docker/normphp/dnmp/data/php/php-basics.ini`
+#`sudo cp -r ${Path}/php/etc/php/php.ini-production /docker/normphp/dnmp/data/php/php-deploy.ini`
+#`sudo cp -r ${Path}/php/etc/php/php.ini-production /docker/normphp/dnmp/data/php/php-production.ini`
+#`sudo cp -r ${Path}/php/etc/php/php.ini-development /docker/normphp/dnmp/data/php/php-diy.ini`
 
 echo "复制当前目录下的目录index.html等文件到对应运行目录/docker/normphp/dnmp/data/www/"
 

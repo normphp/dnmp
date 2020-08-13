@@ -12,10 +12,7 @@ services:
      - ${DIY_PHP_FPM_NETWORKS}
     volumes:
       - /docker/normphp/dnmp/data/www/:/www/:rw
-      - /docker/normphp/dnmp/data/php/php-${DIY_PHP_FPM_PATTERN}.ini:/usr/local/etc/php/php.ini:ro
-      - /docker/normphp/dnmp/data/php/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
-      - /docker/normphp/dnmp/data/php/php-fpm.d/:/usr/local/etc/php-fpm.d/:ro
-      - /docker/normphp/dnmp/data/logs/php-fpm:/var/log/php-fpm:rw
+      - /docker/normphp/dnmp/data/logs/php-fpm-diy:/var/log/php-fpm:rw
     restart: always
     command: php-fpm
 networks:

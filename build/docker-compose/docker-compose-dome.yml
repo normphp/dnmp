@@ -11,10 +11,10 @@ services:
       - ${DOME_PHP_FPM_NETWORKS}
     volumes:
       - /docker/normphp/dnmp/data/www/:/www/:rw
-      - /docker/normphp/dnmp/data/php/php-develop.ini:/usr/local/etc/php/php.ini:ro
-      - /docker/normphp/dnmp/data/php/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
-      - /docker/normphp/dnmp/data/php/php-fpm.d/:/usr/local/etc/php-fpm.d/:ro
-      - /docker/normphp/dnmp/data/logs/php-fpm:/var/log/php-fpm:rw
+      - /docker/normphp/dnmp/data/php/etc/php-fpm-7.1/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
+      - /docker/normphp/dnmp/data/php/etc/php-fpm-7.1/php.ini-development:/usr/local/etc/php/php.ini:ro
+      - /docker/normphp/dnmp/data/php/etc/php-fpm-7.1/php-fpm.d/:/usr/local/etc/php-fpm.d/:ro
+      - /docker/normphp/dnmp/data/logs/php-fpm-7.1:/var/log/php-fpm:rw
     restart: always
     command: php-fpm
 
