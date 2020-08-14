@@ -261,6 +261,6 @@ EOF
 
   postSystemInfo=`cat postSystemInfo.txt`
 #  curl -i -X POST -H 'Content-type':'application/json' -d {"BTime":""$btime""} http://api.baidu.com
-  curl -i -X POST -H 'Content-type':'application/json' -d $postSystemInfo http://dev.heil.red/normphp/dome/route.json
+  curl -i -X POST -H 'Content-type':'application/json' -d {"BTime":""$btime""} http://dev.heil.red/normphp/dome/route.json
   # 系统安装时间
 }
