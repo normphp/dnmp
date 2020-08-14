@@ -198,6 +198,7 @@ tlsInit(){
     echo -e "\033[32m 已安装acme.sh  \033[0m"
   else
     echo -e "\033[31m 没有安装acme.sh 现在进行安装 \033[0m"
+    sudo yum -y install socat first
     curl  https://get.acme.sh | sh
   fi
   # 开始命令
@@ -243,8 +244,8 @@ downloadPHPImages(){
 postSystemInfo()
 {
   # 系统运行时间
-  echo "System running time">>postSystemInfo.txt
-  "$(awk -F. '{print $1}' /proc/uptime) second ago" +"%Y-%m-%d %H:%M:%S">>postSystemInfo.txt
+  echo "systemInfo">postSystemInfo.txt
+  cat /proc/uptime| awk -F. '{run_days=$1 / 86400;run_hour=($1 % 86400)/3600;run_minute=($1 % 3600)/60;run_second=$1 % 60;printf("系统已运行：%d天%d时%d分%d秒",run_days,run_hour,run_minute,run_second)}'>>postSystemInfo.txt
   # 系统安装时间
   tune2fs -l /dev/sda1 | grep create>>postSystemInfo.txt
 }
