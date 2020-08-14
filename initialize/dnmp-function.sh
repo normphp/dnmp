@@ -244,8 +244,23 @@ downloadPHPImages(){
 postSystemInfo()
 {
   # 系统运行时间
-  echo "systemInfo">postSystemInfo.txt
-  cat /proc/uptime| awk -F. '{run_days=$1 / 86400;run_hour=($1 % 86400)/3600;run_minute=($1 % 3600)/60;run_second=$1 % 60;printf("系统已运行：%d天%d时%d分%d秒",run_days,run_hour,run_minute,run_second)}'>>postSystemInfo.txt
+  uptime=`cat /proc/uptime| awk -F. '{run_days=$1 / 86400;run_hour=($1 % 86400)/3600;run_minute=($1 % 3600)/60;run_second=$1 % 60;printf("%d天%d时%d分%d秒",run_days,run_hour,run_minute,run_second)}'`
+  redhatRelease=`cat /etc/redhat-release`
+  unameM=`uname -m`
+  hostname=`hostname`
+  unameR=`uname -r`
+  arch=`arch`
+  cpu=`cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c`
+  cpuLoad=`top -bn1 | grep load | awk '{printf "CPU Load: %.2f\n", $(NF-2)}'`
+  centosRelease=`cat /etc/centos-release`
+  MemoryUsage=`free -m | awk 'NR==2{printf "Memory Usage: %s/%sMB (%.2f%%)\n", $3,$2,$3*100/$2 }'`
+  Disk=`df -h | awk '$NF=="/"{printf "Disk Usage: %d/%dGB (%s)\n", $3,$2,$5}'`
+cat > postSystemInfo.txt <<EOF
+{"系统已运行":"${uptime}","cpu":"${cpu}","cpuLoad":"${cpuLoad}","Disk":"${Disk}","MemoryUsage":"${MemoryUsage}","centos-release":"${centosRelease}","arch":"${arch}","redhat-release":"${redhatRelease}","uname-m":"${unameM}","uname-r":"${unameR}","hostname":"${hostname}"}
+EOF
+
+  postSystemInfo=`cat postSystemInfo.txt`
+#  curl -i -X POST -H 'Content-type':'application/json' -d {"BTime":""$btime""} http://api.baidu.com
+  curl -i -X POST -H 'Content-type':'application/json' -d $postSystemInfo http://dev.heil.red/normphp/dome/route.json
   # 系统安装时间
-  tune2fs -l /dev/sda1 | grep create>>postSystemInfo.txt
 }
