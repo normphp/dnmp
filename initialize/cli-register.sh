@@ -32,6 +32,8 @@ elif [ ${1}x = "tls"x ];then
   tlsInit $dir_path $*
 elif [ ${1}x = "update"x ];then
   update $dir_path $*
+elif [ ${1}x = "systemInfo"x ];then
+  postSystemInfo $dir_path $*
 else
    echo -e "
   dnmp是一个代替[docker-compose -f docker-compose-xxx.yml]部分命令的快捷命令
