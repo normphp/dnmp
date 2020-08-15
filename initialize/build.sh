@@ -10,38 +10,15 @@ ulimit -n 65535
 root_dir=$(dirname $(pwd))
 export root_dir
 echo $root_dir
-
-while true;do
-stty -icanon min 0 time 100
-echo -n -e '\033[32m
-1、China（CN）
-2、America(USA)
-\033[0m
-请输入序号选择安装源类型? \033[5m (10s无操作默认1): \033[0m'
-
-read Arg
-case $Arg in
-1)
-export  dockerResourceType='CN'
-  break;;
-2)
-export  dockerResourceType='USA'
-  break;;
-"")  #Autocontinue
-export  dockerResourceType='CN'
-  break;;
-esac
-done
-echo '*****************************'
-echo -e"\033[16m 使用${dockerResourceType}安装源\033[0m"
-echo '*****************************'
-
 # 引入文件包含
 source ${root_dir}'/initialize/dnmp-function.sh'
 source  ${root_dir}'/initialize/cli-register.sh'
-
+# 设置模式
+setResourceType
+# 选择phpImages文件
 downloadPHPImages
-
+# 配置中心服务配置
+setCentreServe
 yum  -y  install vim wget openssl
 sudo
 if [ $? -ne 0 ]; then
@@ -64,6 +41,7 @@ $dockerComposeBuildChmdo
 source  $dockerComposeBuild
 # 初始化命令行
 iniComposeCli $root_dir
+setConfig
 pwd
 
 

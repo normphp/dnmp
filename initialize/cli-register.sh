@@ -6,6 +6,7 @@ iniComposeCli(){
 echo '#!/bin/bash
 export dir_path='${root_dir}'
 cd "${dir_path}/build/docker-compose/"
+source ${dir_path}/initialize/config.sh
 source ${dir_path}/initialize/dnmp-function.sh
 if [ ${1}x = "dome"x ];then
   compose  $*

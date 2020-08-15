@@ -240,10 +240,8 @@ downloadPHPImages(){
   && $cpDockerfile \
   && rm -rf dnmp-dockerfile-php-master
 }
-# POST 系统消息到一个服务中心  频率1s一次
-postSystemInfo()
-{
-  # 系统运行时间
+# 获取新系统信息
+getSystemInfo(){
   uptime=`cat /proc/uptime| awk -F. '{run_days=$1 / 86400;run_hour=($1 % 86400)/3600;run_minute=($1 % 3600)/60;run_second=$1 % 60;printf("%d天%d时%d分%d秒",run_days,run_hour,run_minute,run_second)}'`
   redhatRelease=`cat /etc/redhat-release`
   unameM=`uname -m`
@@ -251,16 +249,94 @@ postSystemInfo()
   unameR=`uname -r`
   arch=`arch`
   cpu=`cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c`
-  cpuLoad=`top -bn1 | grep load | awk '{printf "CPU Load: %.2f\n", $(NF-2)}'`
+  cpuLoad=`top -bn1 | grep load | awk '{printf "%.2f\n", $(NF-2)}'`
+  cpuId=`dmidecode -t 4 | grep ID |sort -u |awk -F': ' '{print $2}'`
+  # 物理cpu数量
+  cpuPhysicalCount=`cat /proc/cpuinfo | grep 'physical id' | sort | uniq | wc -l`
+  cpuProcessorCount=`cat /proc/cpuinfo | grep 'processor' | wc -l`
   centosRelease=`cat /etc/centos-release`
-  MemoryUsage=`free -m | awk 'NR==2{printf "Memory Usage: %s/%sMB (%.2f%%)\n", $3,$2,$3*100/$2 }'`
-  Disk=`df -h | awk '$NF=="/"{printf "Disk Usage: %d/%dGB (%s)\n", $3,$2,$5}'`
+  #MemoryUsage=`free -m | awk 'NR==2{printf "%s/%sMB (%.2f%%)\n", $3,$2,$3*100/$2 }'`
+  MemoryUsed=`free -m | awk 'NR==2{printf "%s", $3 }'`
+  MemoryAll=`free -m | awk 'NR==2{printf "%s", $2 }'`
+  MemoryRatio=`free -m | awk 'NR==2{printf "%.2f", $3*100/$2 }'`
+  Disk=`df -h | awk '$NF=="/"{printf "%d/%dGB (%s)\n", $3,$2,$5}'`
 cat > postSystemInfo.txt <<EOF
-{"系统已运行":"${uptime}","cpu":"${cpu}","cpuLoad":"${cpuLoad}","Disk":"${Disk}","MemoryUsage":"${MemoryUsage}","centos-release":"${centosRelease}","arch":"${arch}","redhat-release":"${redhatRelease}","uname-m":"${unameM}","uname-r":"${unameR}","hostname":"${hostname}"}
+{"uptime":"${uptime}","cpu":"${cpu}","MemoryUsed":"${MemoryUsed}","MemoryAll":"${MemoryAll}","MemoryRatio":"${MemoryRatio}","cpuProcessorCount":"${cpuProcessorCount}","cpuPhysicalCount":"${cpuPhysicalCount}","cpuId":"${cpuId}","cpuLoad":"${cpuLoad}","Disk":"${Disk}","centos-release":"${centosRelease}","arch":"${arch}","redhat-release":"${redhatRelease}","uname-m":"${unameM}","uname-r":"${unameR}","hostname":"${hostname}"}
 EOF
 
+}
+# POST 系统消息到一个服务中心  频率1s一次
+postSystemInfo()
+{
+  # 系统运行时间
+  getSystemInfo
   postSystemInfo=`cat postSystemInfo.txt`
-#  curl -i -X POST -H 'Content-type':'application/json' -d {"BTime":""$btime""} http://api.baidu.com
-  curl -i -X POST -H 'Content-type':'application/json' -d {"BTime":""$btime""} http://dev.heil.red/normphp/dome/route.json
+  curl -i -X POST -H 'Content-type':'application/json' -d "${postSystemInfo}" http://dev.heil.red/normphp/dome/route.json
   # 系统安装时间
+}
+# 选择安装资源
+setResourceType(){
+  while true;do
+  stty -icanon min 0 time 100
+  echo -n -e '\033[32m
+  1、China（CN）
+  2、America(USA)
+  \033[0m
+  请输入序号选择安装源类型? \033[5m (10s无操作默认1): \033[0m'
+
+  read Arg
+  case $Arg in
+  1)
+  export  dockerResourceType='CN'
+    break;;
+  2)
+  export  dockerResourceType='USA'
+    break;;
+  "")  #Autocontinue
+  export  dockerResourceType='CN'
+    break;;
+  esac
+  done
+  echo '*****************************'
+  echo -e"\033[16m 使用${dockerResourceType}安装源\033[0m"
+  echo '*****************************'
+}
+#配置中心服务配置
+setCentreServe(){
+  getSystemInfo
+  postSystemInfo=`cat postSystemInfo.txt`
+  while true;do
+
+  stty -icanon min 0 time 100
+  echo -n -e '\033[32m
+  请输入中心服务器API地址，当前机器将以3s一次的频率请求API地址推送如下JSON系统信息：
+  '$getSystemInfo'
+
+  \033[0m
+  \033[5m 车键为不开启功能(10s无操作默认不开启功能): \033[0m'
+
+    read Arg
+    if [ ${Arg}x = ""x ];then
+      export  CentreServe='off'
+      export  CentreServeAPI=''
+    else
+      export  CentreServe='on'
+      export  CentreServeAPI=$Arg
+    fi
+     break
+  done
+  echo '*****************************'
+  echo -e"\033[16m 使用${dockerResourceType}安装源\033[0m"
+  echo '*****************************'
+}
+setConfig()
+{
+cat > config.sh <<EOF
+#!/bin/bash
+export  CentreServe=${CentreServe}
+export  CentreServeAPI=${CentreServeAPI}
+export  dockerResourceType=${dockerResourceType}
+EOF
+sudo chmod +x config.sh
+  # 设置中心服务器地址、设置服务器key 配置的收入
 }
