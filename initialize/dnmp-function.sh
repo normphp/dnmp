@@ -261,14 +261,15 @@ getSystemInfo(){
   MemoryRatio=`free -m | awk 'NR==2{printf "%.2f", $3*100/$2 }'`
   Disk=`df -h | awk '$NF=="/"{printf "%d/%dGB (%s)\n", $3,$2,$5}'`
 cat > postSystemInfo.txt <<EOF
-{"uptime":"${uptime}","cpu":"${cpu}","MemoryUsed":"${MemoryUsed}","MemoryAll":"${MemoryAll}","MemoryRatio":"${MemoryRatio}","cpuProcessorCount":"${cpuProcessorCount}","cpuPhysicalCount":"${cpuPhysicalCount}","cpuId":"${cpuId}","cpuLoad":"${cpuLoad}","Disk":"${Disk}","centos-release":"${centosRelease}","arch":"${arch}","redhat-release":"${redhatRelease}","uname-m":"${unameM}","uname-r":"${unameR}","hostname":"${hostname}"}
+{"uptime":"${uptime}","cpu":"${cpu}","MemoryUsed":"${MemoryUsed}","MemoryAll":"${MemoryAll}","MemoryRatio":"${MemoryRatio}","cpuProcessorCount":"${cpuProcessorCount}","cpuPhysicalCount":"${cpuPhysicalCount}","cpuId":"${cpuId}","cpuLoad":"${cpuLoad}","Disk":"${Disk}","centos_release":"${centosRelease}","arch":"${arch}","uname_m":"${unameM}","uname_r":"${unameR}","hostname":"${hostname}"}
 EOF
 
 }
 # POST 系统消息到一个服务中心  频率1s一次
 postSystemInfo()
 {
-  if [ ${1}x = "off"x ];then
+
+  if [ ${CentreServe}x = "off"x ];then
     echo '未开启服务'
   else
     # 系统运行时间
@@ -328,8 +329,12 @@ setCentreServe(){
     fi
      break
   done
+  # 写入定时任务
+  systemctl restart crond.service
+  systemctl reload crond.service
+
   echo '*****************************'
-  echo -e"\033[16m 使用${dockerResourceType}安装源\033[0m"
+  echo -e"\033[16m 使用${dockerResourceType}\033[0m"
   echo '*****************************'
 }
 setConfig()
