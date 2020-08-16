@@ -334,7 +334,7 @@ setCentreServe(){
   systemctl reload crond.service
 
   echo '*****************************'
-  echo -e"\033[16m 使用${dockerResourceType}\033[0m"
+  echo -e "\033[16m 使用${dockerResourceType} \033[0m"
   echo '*****************************'
 }
 setConfig()
