@@ -270,7 +270,9 @@ postSystemInfo()
 {
   # 系统运行时间
   getSystemInfo
+  pwd
   postSystemInfo=`cat postSystemInfo.txt`
+  echo $postSystemInfo
   curl -i -X POST -H 'Content-type':'application/json' -d "${postSystemInfo}" http://dev.heil.red/normphp/dome/route.json
   # 系统安装时间
 }

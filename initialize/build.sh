@@ -19,7 +19,7 @@ setResourceType
 downloadPHPImages
 # 配置中心服务配置
 setCentreServe
-yum  -y  install vim wget openssl
+yum  -y  install vim wget openssl nc  jq
 sudo
 if [ $? -ne 0 ]; then
   yum  -y install  sudo
