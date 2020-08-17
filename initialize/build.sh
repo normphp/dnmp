@@ -42,6 +42,7 @@ source  $dockerComposeBuild
 # 初始化命令行
 iniComposeCli $root_dir
 setConfig
+setCrond
 pwd
 
 
