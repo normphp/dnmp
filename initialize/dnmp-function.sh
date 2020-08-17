@@ -268,13 +268,15 @@ EOF
 # POST 系统消息到一个服务中心  频率1s一次
 postSystemInfo()
 {
-  # 系统运行时间
-  getSystemInfo
-  pwd
-  postSystemInfo=`cat postSystemInfo.txt`
-  echo $postSystemInfo
-  curl -i -X POST -H 'Content-type':'application/json' -d "${postSystemInfo}" http://dev.heil.red/normphp/dome/route.json
-  # 系统安装时间
+
+  if [ ${CentreServe}x = "off"x ];then
+    echo '未开启服务'
+  else
+    # 系统运行时间
+    getSystemInfo
+    postSystemInfo=`cat postSystemInfo.txt`
+    curl -i -X POST -H 'Content-type':'application/json' -d "${postSystemInfo}" $CentreServeAPI
+  fi
 }
 # 选择安装资源
 setResourceType(){
