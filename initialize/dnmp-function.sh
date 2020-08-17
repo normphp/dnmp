@@ -344,3 +344,38 @@ EOF
 sudo chmod +x config.sh
   # 设置中心服务器地址、设置服务器key 配置的收入
 }
+setCrond(){
+  # 判断是否已经设置开机启动crond
+    grep 'crond' /etc/rc.local
+  if [ $? -eq 0 ];then
+      echo -e "\033[32m 已经设置开机启动crond  \033[0m"
+      source ~/.bashrc
+  else
+    echo '没有设置开机启动crond'
+    sudo echo "/bin/systemctl start crond.service">>/etc/rc.local
+  fi
+  # 判断是否已经设置
+  grep 'crond-hour.sh' /var/spool/cron/root
+  if [ $? -eq 0 ];then
+      echo -e "\033[32m 已经设置crond-hour \033[0m"
+      source ~/.bashrc
+  else
+    echo '没有设置crond-hour'
+    sudo echo "* * * * * cd ${root_dir}/initialize/ && sudo bash crond-hour.sh">>/var/spool/cron/root
+  fi
+  # 判断是否已经设置
+  grep 'crond-minute.sh' /var/spool/cron/root
+  if [ $? -eq 0 ];then
+      echo -e "\033[32m 已经设置crond-minute.sh \033[0m"
+      source ~/.bashrc
+  else
+    echo '没有设置crond-minute'
+    sudo echo "* * * * * cd ${root_dir}/initialize/ && sudo bash crond-minute.sh">>/var/spool/cron/root
+  fi
+  # 重新启动配置
+  # /bin/systemctl reload crond
+  # 重新启动 crond
+  /bin/systemctl start crond
+ #crond-hour.sh
+  # * * * * * cd /root/dnmp-master/initialize/ && bash dnmp.sh systemInfo
+}
