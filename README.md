@@ -43,7 +43,21 @@
     && cd dnmp-master/initialize/  \
     && bash build.sh cn && source ~/.bashrc \
     && cd ../build/docker-compose/
+##### 开始下载安装
+    # 配置文件config.sh
+    # 配置文件在：dnmp-master/initialize/ 目录下
 
+    # 是否开启中心服务 off  on   （总开关）
+    export  CentreServe='on'
+    # 中心服务器api地址（域名部分部分）
+    export  CentreServeAPI='http://dev.heil.red'
+    # 中心服务接受 docker 信息接口路由(这里默认配置的是normphp框架支持的api)
+    export  CentreServePostDockerInfoRouter='/normphp/dnmp/nowadays/dnmp-remote-api.json'
+    # 中心服务接受 宿主机昨天 信息接口路由(这里默认配置的是normphp框架支持的api)
+    export  CentreServePostSystemInfoRouter='/normphp/dnmp/nowadays/dnmp-info.json'
+    # 配置环境容器
+    # 配置使用dnmp  deploy [up -d]启动的 容器组合，注意先后顺序
+    export deployDocker=("nginx" "php-fpm-7.4-full" "redis" "mysql");
 ##### docker-compose 构建与运行[标准环境]    
 * 注意：
     * 标准环境不开与负载均衡环境在同一物理机器上（如需要在同一个机器上做实验必须修改标准环境的服务端口docker-compose.yml文件中修改）
@@ -51,13 +65,10 @@
 * 在《开始下载安装》章节中我们已经执行了对应的命令行对环境进行了初始化
 * 快捷命令(推荐使用)
 
-
-      # 快捷构建
-      dnmp develop build
       # 快捷启动
-      dnmp develop up [-d]
+      dnmp dome up [-d]
       # 快捷关闭删除
-      dnmp develop down
+      dnmp dome down
 ##### docker-compose 构建与运行[负载均衡环境]    
 * 注意：
     * 标准环境不开与负载均衡环境在同一物理机器上（如需要在同一个机器上做实验必须修改标准环境的服务端口docker-compose.yml文件中修改）
