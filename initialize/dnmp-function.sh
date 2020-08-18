@@ -335,14 +335,18 @@ setCentreServe(){
 }
 setConfig()
 {
-cat > config.sh <<EOF
-#!/bin/bash
-export  CentreServe=${CentreServe}
-export  CentreServeAPI=${CentreServeAPI}
-export  dockerResourceType=${dockerResourceType}
-EOF
-sudo chmod +x config.sh
-  # 设置中心服务器地址、设置服务器key 配置的收入
+    grep 'dockerResourceType' ${root_dir}/initialize/config.sh
+    if [ $? -ne 0 ];then
+      sudo echo '# 使用的资源类型  cn  或者usa' >>${root_dir}/initialize/config.sh
+      sudo echo 'export  dockerResourceType="'$dockerResourceType'"' >> ${root_dir}/initialize/config.sh
+    fi
+
+    grep 'root_dir' ${root_dir}/initialize/config.sh
+    if [ $? -ne 0 ];then
+      sudo echo '# 脚本目录$root_dir' >>${root_dir}/initialize/config.sh
+      sudo echo 'export  root_dir="'$root_dir'"' >> ${root_dir}/initialize/config.sh
+    fi
+    sudo chmod +x ${root_dir}config.sh
 }
 setCrond(){
 
@@ -382,4 +386,7 @@ setCrond(){
   /bin/systemctl start crond
   #crond-hour.sh
   # * * * * * cd /root/dnmp-master/initialize/ && bash dnmp.sh systemInfo
+}
+postDockerInfo(){
+  info=`curl --unix-socket /var/run/docker.sock http:/info`
 }
