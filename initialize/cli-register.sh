@@ -15,6 +15,8 @@ elif [ ${1}x = "php-fpm"x ];then
  phpFpmCompose  $*
 elif [ ${1}x = "nginx"x ];then
  compose $*
+ elif [ ${1}x = "deploy"x ];then
+ deployDocker $*
 elif [ ${1}x = "systemInfo"x ];then
  postSystemInfo  $*
 elif [ ${1}x = "upstream"x ];then
@@ -42,6 +44,8 @@ else
   \033[32m nginx \033[0m          nginx[常规nginx]
   \033[32m php-fpm \033[0m        php-fpm[php-fpm]
   \033[32m upstream \033[0m       负载均衡服务[只包含nginx 通常做反向代理负载均衡]
+
+  \033[32m deploy \033[0m         快速部署[在config.sh中deployDocker配置的容器集合]
 
   \033[32m redis \033[0m          Redis[只包含Redis]
   \033[32m mysql \033[0m          Mysql[只包含Mysql]

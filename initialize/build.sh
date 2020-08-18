@@ -18,8 +18,8 @@ setResourceType
 # 选择phpImages文件
 downloadPHPImages
 # 配置中心服务配置
-setCentreServe
-yum  -y  install vim wget openssl nc  jq
+#setCentreServe
+yum  -y  install vim wget openssl
 sudo
 if [ $? -ne 0 ]; then
   yum  -y install  sudo
@@ -44,8 +44,5 @@ iniComposeCli $root_dir
 setConfig
 setCrond
 pwd
-
-
-
 
 

@@ -333,20 +333,23 @@ setCentreServe(){
   echo -e"\033[16m 使用${dockerResourceType}安装源\033[0m"
   echo '*****************************'
 }
+# 增加设置
 setConfig()
 {
     grep 'dockerResourceType' ${root_dir}/initialize/config.sh
     if [ $? -ne 0 ];then
       sudo echo '# 使用的资源类型  cn  或者usa' >>${root_dir}/initialize/config.sh
+
       sudo echo 'export  dockerResourceType="'$dockerResourceType'"' >> ${root_dir}/initialize/config.sh
     fi
 
     grep 'root_dir' ${root_dir}/initialize/config.sh
     if [ $? -ne 0 ];then
-      sudo echo '# 脚本目录$root_dir' >>${root_dir}/initialize/config.sh
+      sudo echo '# 脚本目录root_dir ' >>${root_dir}/initialize/config.sh
+
       sudo echo 'export  root_dir="'$root_dir'"' >> ${root_dir}/initialize/config.sh
     fi
-    sudo chmod +x ${root_dir}config.sh
+    sudo chmod +x ${root_dir}/initialize/config.sh
 }
 setCrond(){
 
@@ -370,7 +373,6 @@ setCrond(){
     sudo echo "* * * * * cd ${root_dir}/initialize/ && sudo bash crond-hour.sh">>/var/spool/cron/root
   fi
 
-  # 判断是否已经设置
   grep 'crond-minute.sh' /var/spool/cron/root
   if [ $? -eq 0 ];then
       echo -e "\033[32m 已经设置crond-minute.sh \033[0m"
@@ -380,13 +382,30 @@ setCrond(){
     sudo echo "* * * * * cd ${root_dir}/initialize/ && sudo bash crond-minute.sh">>/var/spool/cron/root
   fi
 
+
+  grep 'crond-post-docker-Info.sh' /var/spool/cron/root
+  if [ $? -ne 0 ];then
+    sudo echo "* * * * * cd ${root_dir}/initialize/ && sudo bash crond-post-docker-Info.sh">>/var/spool/cron/root
+  fi
+
+  grep 'crond-post-system-Info.sh' /var/spool/cron/root
+  if [ $? -ne 0 ];then
+    echo '没有设置crond-minute'
+    sudo echo "* * * * * cd ${root_dir}/initialize/ && sudo bash crond-post-system-Info.sh">>/var/spool/cron/root
+  fi
   # 重新启动配置
   # /bin/systemctl reload crond
   # 重新启动 crond
   /bin/systemctl start crond
-  #crond-hour.sh
-  # * * * * * cd /root/dnmp-master/initialize/ && bash dnmp.sh systemInfo
 }
 postDockerInfo(){
   info=`curl --unix-socket /var/run/docker.sock http:/info`
+}
+# 快速部署配置中的容器集合
+deployDocker(){
+  for pattern in ${deployDocker[@]}
+  do
+      compose $pattern  ${2} ${3} ${4} ${5} ${6} ${7} ${8} ${9}
+      # 写入文件
+  done
 }
