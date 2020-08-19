@@ -390,7 +390,7 @@ setCrond(){
       echo -e "\033[32m 已经设置crond-hour \033[0m"
       source ~/.bashrc
   else
-    echo '没有设置crond-hour'
+    echo '没有设置crond-hour：正在设置'
     sudo echo "* * * * * cd ${root_dir}/initialize/ && sudo bash crond-hour.sh">>/var/spool/cron/root
   fi
 
@@ -399,7 +399,7 @@ setCrond(){
       echo -e "\033[32m 已经设置crond-minute.sh \033[0m"
       source ~/.bashrc
   else
-    echo '没有设置crond-minute'
+    echo '没有设置crond-minute：正在设置'
     sudo echo "* * * * * cd ${root_dir}/initialize/ && sudo bash crond-minute.sh">>/var/spool/cron/root
   fi
 
@@ -411,9 +411,11 @@ setCrond(){
 
   grep 'crond-post-system-Info.sh' /var/spool/cron/root
   if [ $? -ne 0 ];then
-    echo '没有设置crond-minute'
+    echo '没有设置crond-minute：正在设置'
     sudo echo "* * * * * cd ${root_dir}/initialize/ && sudo bash crond-post-system-Info.sh">>/var/spool/cron/root
+    grep 'crond-post-system-Info.sh' /var/spool/cron/root
   fi
+
   # 重新启动配置
   # /bin/systemctl reload crond
   # 重新启动 crond
