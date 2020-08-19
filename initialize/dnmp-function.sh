@@ -7,6 +7,7 @@ dnmpVersions="1.0";
 compose(){
   #可快速执行对应环境的compose命令   up   exec    build   down
   composeFile="${dir_path}/build/docker-compose/docker-compose-${1}.yml"
+  echo $composeFile
   dockerComposeCli="docker-compose -f ${composeFile} ${2} ${3} ${4} ${5} ${6} ${7} ${8} ${9}"
   $dockerComposeCli
 }
@@ -405,7 +406,7 @@ postDockerInfo(){
 deployDocker(){
   for pattern in ${deployDocker[@]}
   do
+      echo "操作容器${pattern} ${2}"
       compose $pattern  ${2} ${3} ${4} ${5} ${6} ${7} ${8} ${9}
-      # 写入文件
   done
 }
