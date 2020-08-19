@@ -4,6 +4,17 @@
 cat /etc/redhat-release
 ulimit -n
 ulimit -n 65535
+
+grep 'CentOS' cat /etc/redhat-release
+if [ $? -ne 0 ];then
+  echo '只支持：CentOS 7+（CentOS 6 可自行安装docker 和docker-compose）'
+  exit
+fi
+grep 'release 7' cat /etc/redhat-release
+if [ $? -ne 0 ];then
+  echo '只支持：CentOS 7+（CentOS 6 可自行安装docker 和docker-compose）'
+  exit
+fi
 # ******************一下需要人工自行根据需要配置******************
 # 增加虚拟内存（注意：1、开启虚拟内存会增加cpu压力。2、硬盘io在100m/s下不建议开启）
 # 基本安全配置    修改ssh端口  防火墙
