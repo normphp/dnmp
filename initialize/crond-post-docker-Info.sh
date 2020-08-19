@@ -1,8 +1,8 @@
 #!/bin/bash
-export dir_path=$(dirname $(pwd))
+export root_dir=$(dirname $(pwd))
 
-source ${dir_path}/initialize/config.sh
-source ${dir_path}/initialize/dnmp-function.sh
+source ${root_dir}/initialize/config.sh
+source ${root_dir}/initialize/dnmp-function.sh
 # 判断是否开启
 if [ ${CentreServe}x = "on"x ];then
   if [ ${CentreServePostDockerInfoRouter}x != ""x ];then

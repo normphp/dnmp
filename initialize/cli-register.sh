@@ -4,10 +4,10 @@ root_dir=$(dirname $(pwd))
 # 注册docker-compose 相关命令
 iniComposeCli(){
 echo '#!/bin/bash
-export dir_path='${root_dir}'
-cd "${dir_path}/build/docker-compose/"
-source ${dir_path}/initialize/config.sh
-source ${dir_path}/initialize/dnmp-function.sh
+export root_dir='${root_dir}'
+cd "${root_dir}/build/docker-compose/"
+source ${root_dir}/initialize/config.sh
+source ${root_dir}/initialize/dnmp-function.sh
 if [ ${1}x = "dome"x ];then
   compose  $*
 elif [ ${1}x = "php-fpm"x ];then
@@ -28,13 +28,13 @@ elif [ ${1}x = "diy-php-fpm"x ];then
 elif [ ${1}x = "mysql"x ];then
  compose  $*
 elif [ ${1}x = "-f"x ];then
- composeFile $dir_path $*
+ composeFile $root_dir $*
 elif [ ${1}x = "-v"x ];then
- versions $dir_path $*
+ versions $root_dir $*
 elif [ ${1}x = "tls"x ];then
-  tlsInit $dir_path $*
+  tlsInit $root_dir $*
 elif [ ${1}x = "update"x ];then
-  update $dir_path $*
+  update $root_dir $*
 else
    echo -e "
   dnmp是一个代替[docker-compose -f docker-compose-xxx.yml]部分命令的快捷命令

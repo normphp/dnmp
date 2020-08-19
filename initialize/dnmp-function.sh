@@ -6,7 +6,7 @@ dnmpVersions="1.0";
 # 快捷docker-compose命令
 compose(){
   #可快速执行对应环境的compose命令   up   exec    build   down
-  composeFile="${dir_path}/build/docker-compose/docker-compose-${1}.yml"
+  composeFile="${root_dir}/build/docker-compose/docker-compose-${1}.yml"
   echo $composeFile
   dockerComposeCli="docker-compose -f ${composeFile} ${2} ${3} ${4} ${5} ${6} ${7} ${8} ${9}"
   $dockerComposeCli
@@ -81,12 +81,9 @@ phpFpmPattern(){
   echo -e "\033[32m 使用：${phpFpmPattern}\033[0m"
   echo '*****************************'
 }
-phpFpmCompose(){
-  phpFpmVersions
-  phpFpmPattern
-
-  composeFile="${dir_path}/build/docker-compose/docker-compose-${phpFpmVersions}-${phpFpmPattern}.yml"
-# 写入配置文件
+setDockerComposeYml()
+{
+  # 写入配置文件
 echo "version: '3.3'
 services:
   ${phpFpmVersions}:
@@ -106,8 +103,13 @@ services:
     restart: always
     command: php-fpm
 networks:
-  dnmpNat:" > $composeFile
-
+  dnmpNat:" > ${1}
+}
+phpFpmCompose(){
+  phpFpmVersions
+  phpFpmPattern
+  composeFile="${root_dir}/build/docker-compose/docker-compose-${phpFpmVersions}-${phpFpmPattern}.yml"
+  setDockerComposeYml $composeFile
   echo $composeFile
   #可快速执行对应环境的compose命令   up   exec    build   down
   dockerComposeCli="docker-compose -f ${composeFile} ${2} ${3} ${4} ${5} ${6} ${7} ${8} ${9}"
@@ -116,9 +118,9 @@ networks:
 # 快捷获取目录
 composeFile(){
   echo -e "\033[32m dnmp 目录  \033[0m"
-  echo -e "\033[32m ${dir_path}/initialize/dnmp.sh \033[0m"
+  echo -e "\033[32m ${root_dir}/initialize/dnmp.sh \033[0m"
   echo -e "\033[32m dnmp docker-compose 目录  \033[0m"
-  echo -e "\033[32m ${dir_path}/build/docker-compose/docker-compose-*.yml \033[0m"
+  echo -e "\033[32m ${root_dir}/build/docker-compose/docker-compose-*.yml \033[0m"
 }
 # 快捷获取版本号
 versions(){
@@ -220,8 +222,8 @@ tlsManage(){
   fi
 }
 updateTls(){
-  echo ${1}${2}>>"${dir_path}/name.txt"
-  echo date>>"${dir_path}/ccccc.txt"
+  echo ${1}${2}>>"${root_dir}/name.txt"
+  echo date>>"${root_dir}/ccccc.txt"
   # docker exec -it nginx-upstream service nginx force-reload
   # acme.sh更新tls时 触发的
   # 创建文件夹
@@ -407,6 +409,15 @@ deployDocker(){
   for pattern in ${deployDocker[@]}
   do
       echo "操作容器${pattern} ${2}"
+      # 判断是否是php-fpm  是就生成yml文件
+      if [ ${pattern}x == "php-fpm"x ]; then
+
+          composeFile="${root_dir}/build/docker-compose/docker-compose-${deployDockerPhpFpmVersions}-${deployDockerPhpFpmPattern}.yml"
+          export phpFpmPattern=$deployDockerPhpFpmPattern
+          export phpFpmVersions=$deployDockerPhpFpmVersions
+          setDockerComposeYml $composeFile
+          pattern=${deployDockerPhpFpmVersions}-${deployDockerPhpFpmPattern}
+      fi
       compose $pattern  ${2} ${3} ${4} ${5} ${6} ${7} ${8} ${9}
   done
 }
