@@ -41,7 +41,7 @@
     yum -y -q install wget tar \
     && wget https://github.com/normphp/dnmp/archive/master.tar.gz -O master.tar.gz && tar -zxvf master.tar.gz \
     && cd dnmp-master/initialize/  \
-    && bash build.sh cn && source ~/.bashrc \
+    && bash build.sh  && source ~/.bashrc \
     && cd ../build/docker-compose/
 ##### 开始下载安装
     # 配置文件config.sh

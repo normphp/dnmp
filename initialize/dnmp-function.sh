@@ -141,16 +141,15 @@ installDocker(){
       if [ ${dockerResourceType}x = "CN"x ];then
         echo -e "\033[32m cn 源安装docker \033[0m"
         # cn 使用阿里云
-        installDockerCli='curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun'
+        curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
       elif [ ${dockerResourceType}x = "USA"x ];then
         # usa 使用docker官方
         echo -e "\033[32m usa 使用docker官方源安装docker \033[0m"
-        installDockerCli='curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh'
+        curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
       else
         # 默认使用阿里云
-        installDockerCli='curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun'
+        curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
       fi
-      installDockerCli
       #wget https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.13-3.1.el7.x86_64.rpm \
       #&& sudo yum -y install ./containerd.io-1.2.13-3.1.el7.x86_64.rpm && rm -rf containerd.io-1.2.13-3.1.el7.x86_64.rpm \
       # curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
@@ -160,7 +159,6 @@ installDocker(){
         grep 'release 6.' /etc/redhat-release
         if [ $? -eq 0 ];then
             yum install https://get.docker.com/rpm/1.7.1/centos-6/RPMS/x86_64/docker-engine-1.7.1-1.el6.x86_64.rpm
-            installDockerCli
             docker -v
             if [ $? -ne 0 ]; then
                 echo -e "\033[31m 安装Docker失败 \033[0m" && exit
