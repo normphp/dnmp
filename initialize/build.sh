@@ -5,12 +5,12 @@ cat /etc/redhat-release
 ulimit -n
 ulimit -n 65535
 
-grep 'CentOS' cat /etc/redhat-release
+grep 'CentOS'  /etc/redhat-release
 if [ $? -ne 0 ];then
   echo '只支持：CentOS 7+（CentOS 6 可自行安装docker 和docker-compose）'
   exit
 fi
-grep 'release 7' cat /etc/redhat-release
+grep 'release 7'  /etc/redhat-release
 if [ $? -ne 0 ];then
   echo '只支持：CentOS 7+（CentOS 6 可自行安装docker 和docker-compose）'
   exit
