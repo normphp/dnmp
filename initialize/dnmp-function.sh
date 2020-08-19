@@ -158,7 +158,7 @@ installDocker(){
         #Centos6.8安装docker
         grep 'release 6.' /etc/redhat-release
         if [ $? -eq 0 ];then
-            yum install https://get.docker.com/rpm/1.7.1/centos-6/RPMS/x86_64/docker-engine-1.7.1-1.el6.x86_64.rpm
+            yum   -y  install https://get.docker.com/rpm/1.7.1/centos-6/RPMS/x86_64/docker-engine-1.7.1-1.el6.x86_64.rpm
             docker -v
             if [ $? -ne 0 ]; then
                 echo -e "\033[31m 安装Docker失败 \033[0m" && exit
