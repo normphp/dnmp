@@ -141,26 +141,46 @@ installDocker(){
       if [ ${dockerResourceType}x = "CN"x ];then
         echo -e "\033[32m cn 源安装docker \033[0m"
         # cn 使用阿里云
-        curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+        installDockerCli='curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun'
       elif [ ${dockerResourceType}x = "USA"x ];then
         # usa 使用docker官方
         echo -e "\033[32m usa 使用docker官方源安装docker \033[0m"
-        curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
+        installDockerCli='curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh'
       else
         # 默认使用阿里云
-        curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+        installDockerCli='curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun'
       fi
-
+      installDockerCli
       #wget https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.13-3.1.el7.x86_64.rpm \
       #&& sudo yum -y install ./containerd.io-1.2.13-3.1.el7.x86_64.rpm && rm -rf containerd.io-1.2.13-3.1.el7.x86_64.rpm \
       # curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
       docker -v
       if [ $? -ne 0 ]; then
-        sudo dnf install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm \
-        && curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
-        if [ $? -ne 0 ]; then
-          echo -e "\033[31m 安装Docker失败 \033[0m" && exit
+        #Centos6.8安装docker
+        grep 'release 6.' /etc/redhat-release
+        if [ $? -eq 0 ];then
+            yum install https://get.docker.com/rpm/1.7.1/centos-6/RPMS/x86_64/docker-engine-1.7.1-1.el6.x86_64.rpm
+            installDockerCli
+            docker -v
+            if [ $? -ne 0 ]; then
+                echo -e "\033[31m 安装Docker失败 \033[0m" && exit
+            fi
         fi
+
+        grep 'release 8.' /etc/redhat-release
+        if [ $? -eq 0 ];then
+          sudo dnf install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm \
+          && curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+          if [ $? -ne 0 ]; then
+            echo -e "\033[31m 安装Docker失败 \033[0m" && exit
+          fi
+        fi
+
+#        sudo dnf install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm \
+#        && curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+#        if [ $? -ne 0 ]; then
+#          echo -e "\033[31m 安装Docker失败 \033[0m" && exit
+#        fi
       else
           echo -e "\033[32m *****************安装Docker成功*************** \033[0m"
       fi
