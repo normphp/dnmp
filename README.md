@@ -172,6 +172,8 @@
 #####恰到好处的增加虚拟内存
     free -h # 查看当前内存状态
     # 查看磁盘IO
+        磁盘读取 速度测试 time dd if=/dev/sda2 of=/dev/null bs=8k count=83886080
+        磁盘写入 速度测试 dd if=/dev/zero of=test bs=6M count=300 oflag=dsync
     # 磁盘IO低于100不建议使用虚拟内存同时注意虚拟内存会消耗一定的CPU性能
     
         

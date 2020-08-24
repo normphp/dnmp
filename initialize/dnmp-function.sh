@@ -326,34 +326,6 @@ setResourceType(){
   echo -e"\033[16m 使用${dockerResourceType}安装源\033[0m"
   echo '*****************************'
 }
-#配置中心服务配置
-setCentreServe(){
-  getSystemInfo
-  postSystemInfo=`cat postSystemInfo.txt`
-  while true;do
-
-  stty -icanon min 0 time 100
-  echo -n -e '\033[32m
-  请输入中心服务器API地址，当前机器将以3s一次的频率请求API地址推送如下JSON系统信息：
-  '$getSystemInfo'
-
-  \033[0m
-  \033[5m 车键为不开启功能(10s无操作默认不开启功能): \033[0m'
-
-    read Arg
-    if [ ${Arg}x = ""x ];then
-      export  CentreServe='off'
-      export  CentreServeAPI=''
-    else
-      export  CentreServe='on'
-      export  CentreServeAPI=$Arg
-    fi
-     break
-  done
-  echo '*****************************'
-  echo -e"\033[16m 使用${dockerResourceType}安装源\033[0m"
-  echo '*****************************'
-}
 # 增加设置
 setConfig()
 {
@@ -372,6 +344,7 @@ setConfig()
     fi
     sudo chmod +x ${root_dir}/initialize/config.sh
 }
+# 设置定时任务
 setCrond(){
 
   # 判断是否已经设置开机启动crond
