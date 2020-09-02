@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+  postgres:
+    env_file:
+      - .env
+    image: ${POSTGRES_IMAGE}
+    #build: ${POSTGRES_BUILD}
+    ports:
+      - "5432:${POSTGRES_PORTS}"
+    networks:
+      - ${POSTGRES_NETWORKS}
+    volumes:
+      - /docker/normphp/dnmp/data/postgresql:/var/lib/postgresql/data:rw
+    environment:
+      MYSQL_ROOT_PASSWORD: ${PGSQL_ROOT_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+networks:
+  dnmpNat:

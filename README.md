@@ -106,26 +106,26 @@
 * 本章节只是对基础命令进行解释【不建议执行其中的示例】，具体快捷执行命令请看上面章节
 
 
-    # -f 代表需要使用的docker-compose.yml文件以及路径
-    # 构建项目环境 可选择生成环境[deploy]、开发环境[develop]、生产环境[production]、基础环境[basics]
-    docker-compose -f docker-compose-[deploy|develop|production|basics].yml build 
-    # 示例：
-    docker-compose -f docker-compose-develop.yml build 
-    # up 命令为启动环境  up -d 为守护进程启动环境 更多命令请自行网上搜索docker-compose命令
-    docker-compose -f docker-compose-[deploy|develop|production|basics].yml up
-    # 开发环境构建命令参考[示例]
-    docker-compose -f docker-compose-develop.yml build && docker-compose -f docker-compose-develop.yml up
-    # 可以访问：[服务器ip]   查看效果
-    # 关闭容器、并且删除容器实例
-    docker-compose -f docker-compose-[deploy|develop|production|basics].yml down
-    ************************docker-compose nginx 服务操作*********************************
-    # 检测nginx配置是否正确【注意自行替换-f 参数的文件路径】
-    docker-compose -f ~root/dnmp-master/build/docker-compose/docker-compose-[deploy|develop|production|basics].yml  exec nginx -t
-    # 重启nginx容器服务【注意自行替换-f 参数的文件路径】
-    docker-compose -f ~root/dnmp-master/build/docker-compose/docker-compose-[deploy|develop|production|basics].yml  exec nginx service nginx restart
-    # 其他容器服务也可参考使用，命令的最后一个参数 就是需要在容器里面执行的命令行
-    #示例：
-    docker-compose -f ~root/dnmp-master/build/docker-compose/docker-compose-develop.yml  exec  nginx nginx -t
+      # -f 代表需要使用的docker-compose.yml文件以及路径
+      # 构建项目环境 可选择生成环境[deploy]、开发环境[develop]、生产环境[production]、基础环境[basics]
+      docker-compose -f docker-compose-[deploy|develop|production|basics].yml build 
+      # 示例：
+      docker-compose -f docker-compose-develop.yml build 
+      # up 命令为启动环境  up -d 为守护进程启动环境 更多命令请自行网上搜索docker-compose命令
+      docker-compose -f docker-compose-[deploy|develop|production|basics].yml up
+      # 开发环境构建命令参考[示例]
+      docker-compose -f docker-compose-develop.yml build && docker-compose -f docker-compose-develop.yml up
+      # 可以访问：[服务器ip]   查看效果
+      # 关闭容器、并且删除容器实例
+      docker-compose -f docker-compose-[deploy|develop|production|basics].yml down
+      ************************docker-compose nginx 服务操作*********************************
+      # 检测nginx配置是否正确【注意自行替换-f 参数的文件路径】
+      docker-compose -f ~root/dnmp-master/build/docker-compose/docker-compose-[deploy|develop|production|basics].yml  exec nginx -t
+      # 重启nginx容器服务【注意自行替换-f 参数的文件路径】
+      docker-compose -f ~root/dnmp-master/build/docker-compose/docker-compose-[deploy|develop|production|basics].yml  exec nginx service nginx restart
+      # 其他容器服务也可参考使用，命令的最后一个参数 就是需要在容器里面执行的命令行
+      #示例：
+      docker-compose -f ~root/dnmp-master/build/docker-compose/docker-compose-develop.yml  exec  nginx nginx -t
 #####常规docker-composer 命令[基础知识]
      # 下面是常用命令  更多命令请自行网上搜索docker-compose命令
      docker-compose restart [serviceName]: 重启服务

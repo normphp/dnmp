@@ -42,7 +42,7 @@ fi
 
 echo "********************************************************"
 # 创建目录 /normphp/dnmp/
-sudo mkdir -p /docker/normphp/dnmp/data/{redis,mysql,php}
+sudo mkdir -p /docker/normphp/dnmp/data/{redis,mysql,php,postgresql}
 sudo mkdir -p /docker/normphp/dnmp/data/logs/{php-fpm-7.1,php-fpm-7.3,php-fpm-7.4,php-fpm-8.0,php-fpm-diy}
 
 echo "创建目录：{conf,conf.d,html,logs}"
