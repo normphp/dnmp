@@ -27,6 +27,11 @@ elif [ ${1}x = "diy-php-fpm"x ];then
  compose  $*
 elif [ ${1}x = "mysql"x ];then
  compose  $*
+elif [ ${1}x = "postgresql"x ];then
+ compose  $*
+elif [ ${1}x = "config"x ];then
+ getConfig  $*
+
 elif [ ${1}x = "-f"x ];then
  composeFile $root_dir $*
 elif [ ${1}x = "-v"x ];then
@@ -40,7 +45,6 @@ else
   dnmp是一个代替[docker-compose -f docker-compose-xxx.yml]部分命令的快捷命令
   第一个参数是需要操作的环境：
 
-  \033[32m dome \033[0m           一个快速而简单示例dome[只包含nginx+php-fpm]
   \033[32m nginx \033[0m          nginx[常规nginx]
   \033[32m php-fpm \033[0m        php-fpm[php-fpm]
   \033[32m upstream \033[0m       负载均衡服务[只包含nginx 通常做反向代理负载均衡]
@@ -49,6 +53,7 @@ else
 
   \033[32m redis \033[0m          Redis[只包含Redis]
   \033[32m mysql \033[0m          Mysql[只包含Mysql]
+  \033[32m postgresql \033[0m          PostgreSql[只包含PostgreSql]
 
   \033[32m diy-php-fpm \033[0m   diy-php-fpm[只包含php-fpm]
 
@@ -56,7 +61,7 @@ else
   \033[32m -v \033[0m            当前各软件版本
   \033[32m update \033[0m        更新dnmp[只更新sh脚本其他文件不更新]
   \033[32m systemInfo \033[0m    查看当前系统服务状态
-
+  \033[32m config \033[0m        查看配置可选参数[dnmp|compose]
 
   后面的参数与与docker-compose命令完全一致：
   dnmp dome up

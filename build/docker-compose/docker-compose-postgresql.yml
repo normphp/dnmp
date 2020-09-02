@@ -1,6 +1,6 @@
 version: '3.3'
 services:
-  postgres:
+  postgresql:
     env_file:
       - .env
     image: ${POSTGRES_IMAGE}

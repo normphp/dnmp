@@ -414,3 +414,24 @@ deployDocker(){
       compose $pattern  ${2} ${3} ${4} ${5} ${6} ${7} ${8} ${9}
   done
 }
+
+# 获取配置文件
+getConfig()
+{
+  config_dir="${root_dir}/initialize/config.sh"
+  env_dir="${root_dir}/build/docker-compose/.env"
+
+if [ ${1}x = "dnmp"x ];then
+  echo -e "\033[32m ************* $config_dir ************* \033[0m"
+  `cat ${config_dir}`
+elif [ ${1}x = "compose"x ];then
+  echo -e "\033[32m ************* $env_dir ************* \033[0m"
+  `cat ${env_dir}`
+else
+  echo -e "\033[32m ************* $config_dir ************* \033[0m"
+  cat ${config_dir}
+  echo -e "\033[32m ************* $env_dir ************* \033[0m"
+  cat ${env_dir}
+fi
+
+}
