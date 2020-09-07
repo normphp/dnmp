@@ -1,4 +1,4 @@
-FROM redis:5
+FROM redis:4
 MAINTAINER pizepei "pizepei@pizepei.com"
 ENV VERSION 0.1
 ENV TZ=Asia/Shanghai
