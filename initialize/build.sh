@@ -28,7 +28,7 @@ source  ${root_dir}'/initialize/cli-register.sh'
 setResourceType
 # 选择phpImages文件
 downloadPHPImages
-yum  -y  install vim wget openssl
+yum  -y  install vim wget openssl screen
 sudo
 if [ $? -ne 0 ]; then
   yum  -y install  sudo

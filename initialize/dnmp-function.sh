@@ -194,6 +194,18 @@ installDocker(){
       else
           echo -e "\033[32m *****************安装Docker成功*************** \033[0m"
       fi
+
+      registryMirrors='{
+  "registry-mirrors" : [
+    "https://registry.docker-cn.com",
+    "https://docker.mirrors.ustc.edu.cn",
+    "http://hub-mirror.c.163.com",
+    "https://cr.console.aliyun.com/"
+  ]
+}'
+    echo >>${registryMirrors}
+
+
       echo '启动docker' \
       &&  sudo systemctl start docker \
       &&  echo '设置开机启动' \
