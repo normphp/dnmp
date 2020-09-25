@@ -83,6 +83,17 @@ phpFpmPattern(){
 }
 setDockerComposeYml()
 {
+  archInfo=`arch`
+  if [ ${archInfo}x = "x86_64"x ];then
+    archInfo=''
+    echo ${archInfo}
+  elif [ ${archInfo}x = "aarch64"x ];then
+    echo ${archInfo}
+    archInfo='ram'
+  else
+    echo ${archInfo}
+    exit
+  fi
   # 写入配置文件
 echo "version: '3.3'
 services:
