@@ -26,19 +26,11 @@ if [ $? -ne 0 ]; then
   sudo docker-compose --version
   if [ $? -ne 0 ]; then
      echo -e "\033[31m 安装Docker-Compose失败尝试pip方式安装 \033[0m"
-      sudo yum -y install  epel-release python-pip \
-      && sudo pip --version \
-      && sudo pip install --upgrade pip \
-      && sudo pip install   docker-compose requests cryptography==2.9.2 \
-      && sudo pip uninstall -y  urllib3 chardet \
-      && docker-compose version
-      if [ $? -ne 0 ]; then
           yum install -y libffi libffi-devel openssl-devel python3 python3-pip python3-devel \
           && pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple docker-compose \
           && docker-compose version
-          if [ $? -ne 0 ]; then
+      if [ $? -ne 0 ]; then
             echo -e "\033[31m 安装Docker-Compose失败 \033[0m" && exit
-          fi
      fi
   fi
 else
