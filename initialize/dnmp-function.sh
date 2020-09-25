@@ -203,7 +203,7 @@ installDocker(){
     "https://cr.console.aliyun.com/"
   ]
 }'
-    echo ${registryMirrors}>>/etc/docker/daemon.json
+    echo ${registryMirrors}>/etc/docker/daemon.json
 
 
       echo '启动docker' \
