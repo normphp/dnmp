@@ -89,7 +89,7 @@ setDockerComposeYml()
     echo ${archInfo}
   elif [ ${archInfo}x = "aarch64"x ];then
     echo ${archInfo}
-    archInfo='ram'
+    archInfo='-ram'
   else
     echo ${archInfo}
     echo '只支持x86_64、aarch64'
@@ -101,7 +101,7 @@ services:
   ${phpFpmVersions}:
     env_file:
     - .env
-    image: normphp/dnmp-php:"${phpFpmVersions}-${phpFpmPattern}"
+    image: normphp/dnmp-php:"${phpFpmVersions}-${phpFpmPattern}${archInfo}"
     #    ports:
     #  - "9000:9000"
     networks:
