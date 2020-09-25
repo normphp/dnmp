@@ -89,7 +89,7 @@ setDockerComposeYml()
     echo ${archInfo}
   elif [ ${archInfo}x = "aarch64"x ];then
     echo ${archInfo}
-    archInfo='-ram'
+    archInfo='-arm'
   else
     echo ${archInfo}
     echo '只支持x86_64、aarch64'
