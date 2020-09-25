@@ -92,6 +92,7 @@ setDockerComposeYml()
     archInfo='ram'
   else
     echo ${archInfo}
+    echo '只支持x86_64、aarch64'
     exit
   fi
   # 写入配置文件
