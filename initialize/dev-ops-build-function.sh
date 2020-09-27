@@ -56,28 +56,26 @@ appSSHKYEMandate()
   ifBuildSshKey
   # 写入授权命令行
   expectPath="${root_dir}/initialize/expect/"
-  `cat ${expectPath}sshAuthorizationExpect.sh`
+  cat ${expectPath}sshAuthorizationExpect.sh >>null
 
-  if [ $? -ne 0 ];then
-        echo "写入Expect授权文件 sshAuthorizationExpect"
-        # ssh-copy-id -i ~/.ssh/id_rsa.pub root@【目标服务主机IP】 -p 【端口号】
-        echo '#!/usr/bin/expect
+  echo "写入Expect授权文件 sshAuthorizationExpect"
+   # ssh-copy-id -i ~/.ssh/id_rsa.pub root@【目标服务主机IP】 -p 【端口号】
+  echo '#!/usr/bin/expect
 #用expect执行下面脚本
-set timeout 10
+set timeout 5
 # 执行添加
-spawn  ssh-copy-id -i ~/.ssh/id_rsa.pub root@'${2}' -p '${3}'
+spawn  ssh-copy-id -i /root/.ssh/id_rsa.pub root@'${2}' -p '${3}'
 #看到这样的文本时
 expect "connecting (yes/no)?"
 #输入默认
-exp_send "yes"
+exp_send "yes\n"
 expect  "password:"
-exp_send "'${4}'"
+exp_send "'${4}'\n"
 #进入交互状态
 interact
-' >"${expectPath}addSshKeyExpect.sh"
-  fi
+' >"${expectPath}sshAuthorizationExpect.sh"
     # 执行授权文件
-    `/usr/bin/expect ${expectPath}sshAuthorizationExpect.sh`
-
+  echo `/usr/bin/expect ${expectPath}sshAuthorizationExpect.sh`
+  rm -rf  ${expectPath}sshAuthorizationExpect.sh
 }
 
