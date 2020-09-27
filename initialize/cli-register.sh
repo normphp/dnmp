@@ -36,6 +36,8 @@ elif [ ${1}x = "ifBuildSshKey"x ];then
  ifBuildSshKey  $*
 elif [ ${1}x = "installNodejs"x ];then
  installNodejs  $*
+elif [ ${1}x = "appSSHKYEMandate"x ];then
+ appSSHKYEMandate  $*
 elif [ ${1}x = "-f"x ];then
  composeFile $root_dir $*
 elif [ ${1}x = "-v"x ];then
