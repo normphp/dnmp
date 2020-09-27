@@ -2,7 +2,7 @@
 # 初始化构建主机的ssh key
 ifBuildSshKey()
 {
-  cat ~/.ssh/id_rsa.pub
+  cat ~/.ssh/id_rsa.pub >>null
   if [ $? -ne 0 ];then
     echo "构建主机没有SSH keys 进行创建"
     yum install -y expect
@@ -10,8 +10,9 @@ ifBuildSshKey()
     which expect
     # 写入Expect授权文件 sshKeyEmail
     expectPath="${root_dir}/initialize/expect/"
-    `cat ${expectPath}/sshAuthorizationExpect.sh`
+    `cat ${expectPath}addSshKeyExpect.sh`
       if [ $? -ne 0 ];then
+        echo "写入Expect授权文件 sshKeyEmail"
         echo '#!/usr/bin/expect
 #用expect执行下面脚本
 set timeout 10
@@ -27,10 +28,10 @@ expect "passphrase again:"
 exp_send "'${sshKeyPassword}'"
 #进入交互状态
 interact
-' >sshAuthorizationExpect.sh
+' >"${expectPath}addSshKeyExpect.sh"
       fi
     # 执行授权文件
-    /usr/bin/expect ./sshAuthorizationExpect.sh
+    `/usr/bin/expect ${expectPath}addSshKeyExpect.sh`
     cat ~/.ssh/id_rsa.pub
   fi
 }
@@ -51,7 +52,32 @@ installNodejs()
 # app ssh授权
 appSSHKYEMandate()
 {
+  # 检查ssh key
+  ifBuildSshKey
   # 写入授权命令行
-  echo 'ssss'
+  expectPath="${root_dir}/initialize/expect/"
+  `cat ${expectPath}sshAuthorizationExpect.sh`
+
+  if [ $? -ne 0 ];then
+        echo "写入Expect授权文件 sshAuthorizationExpect"
+        # ssh-copy-id -i ~/.ssh/id_rsa.pub root@【目标服务主机IP】 -p 【端口号】
+        echo '#!/usr/bin/expect
+#用expect执行下面脚本
+set timeout 10
+# 执行添加
+spawn  ssh-copy-id -i ~/.ssh/id_rsa.pub root@'${2}' -p '${3}'
+#看到这样的文本时
+expect "connecting (yes/no)?"
+#输入默认
+exp_send "yes"
+expect  "password:"
+exp_send "'${4}'"
+#进入交互状态
+interact
+' >"${expectPath}addSshKeyExpect.sh"
+  fi
+    # 执行授权文件
+    `/usr/bin/expect ${expectPath}sshAuthorizationExpect.sh`
 
 }
+
