@@ -15,3 +15,6 @@ export deployDocker=("nginx" "php-fpm" "redis" "mysql")
 # PHP版本 和扩展模式
 export deployDockerPhpFpmVersions="php-fpm-7.4"
 export deployDockerPhpFpmPattern="full"
+# ssh key
+export sshKeyEmail='pizepei@normphp.com';
+export sshKeyPassword='\n';

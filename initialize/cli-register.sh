@@ -8,6 +8,7 @@ export root_dir='${root_dir}'
 cd "${root_dir}/build/docker-compose/"
 source ${root_dir}/initialize/config.sh
 source ${root_dir}/initialize/dnmp-function.sh
+source ${root_dir}/initialize/dev-ops-build-function.sh
 if [ ${1}x = "dome"x ];then
   compose  $*
 elif [ ${1}x = "php-fpm"x ];then
@@ -31,7 +32,10 @@ elif [ ${1}x = "postgresql"x ];then
  compose  $*
 elif [ ${1}x = "config"x ];then
  getConfig  $*
-
+elif [ ${1}x = "ifBuildSshKey"x ];then
+ ifBuildSshKey  $*
+elif [ ${1}x = "installNodejs"x ];then
+ installNodejs  $*
 elif [ ${1}x = "-f"x ];then
  composeFile $root_dir $*
 elif [ ${1}x = "-v"x ];then
