@@ -66,9 +66,9 @@
 * 快捷命令(推荐使用)
 
       # 快捷启动
-      dnmp dome up [-d]
+      dnmp deploy up [-d]
       # 快捷关闭删除
-      dnmp dome down
+      dnmp deploy down
 ##### docker-compose 构建与运行[负载均衡环境]    
 * 注意：
     * 标准环境不开与负载均衡环境在同一物理机器上（如需要在同一个机器上做实验必须修改标准环境的服务端口docker-compose.yml文件中修改）
