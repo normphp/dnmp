@@ -39,22 +39,24 @@ appSSHKYEMandate()
 {
   # 检查ssh key
   ifBuildSshKey
-
+  echo -e "\033[31m app ssh授权 \033[0m"
   # 执行
 /usr/bin/expect <<EOF
     set timeout 5
     spawn  ssh-copy-id -i /root/.ssh/id_rsa.pub root@${2} -p ${3}
     expect {
+        "Host key verification failed." { send "sed -i -e '/${2}/d' /root/.ssh/known_hosts && ssh-copy-id -i /root/.ssh/id_rsa.pub root@${2} -p ${3} \n" }
         "connecting (yes/no)?" { send "yes\n";exp_continue }
         "password:" { send "${4}\n" }
     }
     spawn ssh root@${2} -p ${3}
     expect {
         "continue connecting (yes/no)?" { send "echo'授权失败'" }
-        "]#" { send "ifconfig -a |grep inet |grep -v 127.0.0.1 |grep -v inet6 && exit \n" }
+        "]#" { send "ifconfig -a |grep inet |grep -v 127.0.0.1 |grep -v inet6 && hostname && exit \n" }
     }
     expect eof
 EOF
-      #sed -i -e "/${2}/d" .ssh/known_hosts
+  hostname
+      #sed -i -e "/${2}/d" /root/.ssh/known_hosts
 }
 
