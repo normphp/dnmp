@@ -9,8 +9,7 @@ export  CentreServePostDockerInfoRouter='/normphp/dnmp/nowadays/dnmp-remote-api.
 export  CentreServePostSystemInfoRouter='/normphp/dnmp/nowadays/dnmp-info.json'
 # 配置环境容器
 # 配置使用dnmp  deploy [up -d]启动的 容器组合，注意先后顺序  注意php-fpm 需要配置deployDockerPhpFpm
-export deployDocker=("nginx" "php-fpm" "redis" "mysql")
-#export deployDocker=("php-fpm")
+export deployDocker=( "php-fpm" "nginx" "redis" "mysql")
 
 # PHP版本 和扩展模式
 export deployDockerPhpFpmVersions="php-fpm-7.4"

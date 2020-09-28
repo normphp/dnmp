@@ -32,7 +32,8 @@ interact
       fi
     # 执行授权文件
     `/usr/bin/expect ${expectPath}addSshKeyExpect.sh`
-    cat ~/.ssh/id_rsa.pub
+    rm -rf ${expectPath}addSshKeyExpect.sh
+    # cat ~/.ssh/id_rsa.pub
   fi
 }
 # 安装Nodejs
@@ -77,5 +78,6 @@ interact
     # 执行授权文件
   echo `/usr/bin/expect ${expectPath}sshAuthorizationExpect.sh`
   rm -rf  ${expectPath}sshAuthorizationExpect.sh
+      #sed -i -e "/${2}/d" .ssh/known_hosts
 }
 
