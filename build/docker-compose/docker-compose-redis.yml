@@ -6,8 +6,8 @@ services:
     build: ${REDIS_IMAGE}
     networks:
       - ${REDIS_NETWORKS}
-    ports:
-      - "6379:${REDIS_PORTS}"
+#    ports:
+#      - "6379:${REDIS_PORTS}"
     volumes:
       - /docker/normphp/dnmp/data/redis:/data
     restart: always
