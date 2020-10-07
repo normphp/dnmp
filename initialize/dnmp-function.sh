@@ -288,7 +288,7 @@ getSystemInfo(){
   unameR=`uname -r`
   arch=`arch`
   cpu=`cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c`
-  cpuLoad=`top -bn1 | grep load | awk '{printf "%.2f\n", $(NF-2)}'`
+  cpuLoad=`top -n1 | awk '/Cpu/{print $2}'`
   cpuId=`dmidecode -t 4 | grep ID |sort -u |awk -F': ' '{print $2}'`
   # 物理cpu数量
   cpuPhysicalCount=`cat /proc/cpuinfo | grep 'physical id' | sort | uniq | wc -l`
