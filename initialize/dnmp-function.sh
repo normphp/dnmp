@@ -322,6 +322,12 @@ postSystemInfo()
 }
 # 选择安装资源
 setResourceType(){
+
+if [ ${1}x = "CN"x ];then
+  export  dockerResourceType='CN'
+elif [ ${1}x = "USA"x ];then
+  export  dockerResourceType='USA'
+else
   while true;do
   stty -icanon min 0 time 100
   echo -n -e '\033[32m
@@ -343,6 +349,7 @@ setResourceType(){
     break;;
   esac
   done
+fi
   echo '*****************************'
   echo -e"\033[16m 使用${dockerResourceType}安装源\033[0m"
   echo '*****************************'
