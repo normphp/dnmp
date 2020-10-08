@@ -25,7 +25,7 @@ echo $root_dir
 source ${root_dir}'/initialize/dnmp-function.sh'
 source  ${root_dir}'/initialize/cli-register.sh'
 # 设置模式
-setResourceType
+setResourceType $*
 # 选择phpImages文件
 downloadPHPImages
 yum  -y  install vim wget openssl screen
