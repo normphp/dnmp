@@ -10,6 +10,7 @@ services:
       - ${MYSQL_NETWORKS}
     volumes:
       - /docker/normphp/dnmp/data/mysql:/var/lib/mysql:rw
+      - /docker/normphp/dnmp/data/mysql-backups:/backups:rw
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
