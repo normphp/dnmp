@@ -9,32 +9,36 @@
 * 在部署时nginx 配置好对应的目录，发布模块项目新版本时直接修改目录的软连接到新代码上（事实上这个目录同时被dnmp容器挂载）
     *   按照正统容器的思想应该是业务代码+环境为一个完整容器，或者在容器构建时把代码copy到容器中。
 #### 开始
-* dnmp目前只支持CentOS 6-8
-* dnmp环境分类
-    * 标准环境：docker+nginx+php，一般为单机环境主要区分在PHP扩展安装上，其中包括如下版本：
+* dnmp目前只支持CentOS 6-7
+* dnmp环境：php-fpm
+    * 版本：目前支持php-fpm版本：
+        * php7.1、php7.3、php7.4、基础版php8.0
+    * 类型：环境主要区分在PHP扩展安装上，其中包括如下版本：
         * 新版本中标准环境中不再包含mysql、redis，如需使用执行：dnmp redis up 即可
-        * 部署环境[deploy] 一般是用在部署服务主机上有安装开发环境的PHP扩展但又有生成环境的安全性配置
-        * 开发环境[develop] 安装了可能用得上的PHP扩展
-        * 生产环境[production] 去除了不必要的PHP扩展
-        * 基础环境[basics] 简单的PHP环境只安装pdo等必要扩展
+        * 生产环境[universal] 简单的PHP环境只安装pdo等必要扩展
+        * 开发环境[swoole] universal基础上安装了swoole扩展
+        * 部署环境[full] universal基础安装了可能用得上的PHP扩展[ssh2、xdebug、swoole、MongoDB]
         * 具体参考build\docker-compose\php\README.md
-    * 负载均衡环境：使用nginx实现的负载均衡单一服务
-        * 构建文件：build/docker-compose/docker-compose-upstream.yml   
-        * 为使负载均衡服务器性能最优故docker-compose-upstream只build一个nginx images并只启动nginx容器，因此如和正常dnmp服务使用相同nginx配置会导致无法启动负载均衡nginx会提示无法找到fastcgi_pass php-fpm:9000
-        * 具体参考：
-            * build/docker-compose/nginx/conf/vhost_upstream/README.md
-            * build/docker-compose/nginx/conf/upstream/README.md
-    * 环境配置信息目录：/docker/normphp/dnmp/data/
-        * 每一个重要目录下都有一个README.md文件对当前目录进行详细的解释。
     * 如需自定义构建自己的php-fpm 可自行编辑build/docker-compose/php/diy/Dockerfile，然后使用dnmp diy-php-fpm build 进行DIY构建测试
-    * 使用过程中常见问题：
-        * 访问IP没有效果请使用 up 命令查看是否有error错误
-        * 检查服务器防火墙、云服务商网络安全组是否开放对应[80 443  8080]端口
+* dnmp环境：nginx
+    * nginx分两个类型服务：
+        * 负载均衡服务：build/docker-compose/docker-compose-nginx.yml
+            * 常规nginx http服务 
+        * 负载均衡服务：build/docker-compose/docker-compose-upstream.yml   
+            * 为使负载均衡服务器性能最优故docker-compose-upstream只build一个nginx images并只启动nginx容器，因此如和正常dnmp服务使用相同nginx配置会导致无法启动负载均衡nginx会提示无法找到fastcgi_pass php-fpm:9000
+            * 具体参考：
+                * build/docker-compose/nginx/conf/vhost_upstream/README.md
+                * build/docker-compose/nginx/conf/upstream/README.md
+* 环境配置信息目录：/docker/normphp/dnmp/data/
+    * 每一个重要目录下都有一个README.md文件对当前目录进行详细的解释。
+* 使用过程中常见问题：
+    * 访问IP没有效果请使用 up 命令查看是否有error错误
+    * 检查服务器防火墙、云服务商网络安全组是否开放对应[80 443  8080]端口
 ##### 开始下载安装
     # 执行下面的代码会自动 初始化基础环境、安装docker和docker-compose、构建生成docker-compose.yml文件、注册快捷命令和定时任务
     # 注意：
     #    如果重复执行会对dnmp-master/目录内容进行覆盖  检查sudo 命令是否可用
-    rm -rf dnmp-master 
+    rm -rf dnmp-master  master.tar.gz
     # 检查sudo 命令是否可用
     sudo
     # 开始
@@ -46,7 +50,7 @@
 ##### 开始下载安装
     # 配置文件config.sh
     # 配置文件在：dnmp-master/initialize/ 目录下
-
+    
     # 是否开启中心服务 off  on   （总开关）
     export  CentreServe='on'
     # 中心服务器api地址（域名部分部分）
