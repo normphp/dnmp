@@ -304,7 +304,7 @@ getSystemInfo(){
   dateR=`date -R`
 
 cat > postSystemInfo.txt <<EOF
-{"dateR":"$dateR",DiskAll":"${DiskAll}","DiskUsed":"${DiskUsed}","uptime":"${uptime}","cpu":"${cpu}","MemoryUsed":"${MemoryUsed}","MemoryAll":"${MemoryAll}","MemoryRatio":"${MemoryRatio}","cpuProcessorCount":"${cpuProcessorCount}","cpuPhysicalCount":"${cpuPhysicalCount}","cpuId":"${cpuId}","cpuLoad":"${cpuLoad}","Disk":"${Disk}","centos_release":"${centosRelease}","arch":"${arch}","redhat_release":"${redhatRelease}","uname_m":"${unameM}","uname_r":"${unameR}","hostname":"${hostname}"}
+{"dateR":"$dateR","DiskAll":"${DiskAll}","DiskUsed":"${DiskUsed}","uptime":"${uptime}","cpu":"${cpu}","MemoryUsed":"${MemoryUsed}","MemoryAll":"${MemoryAll}","MemoryRatio":"${MemoryRatio}","cpuProcessorCount":"${cpuProcessorCount}","cpuPhysicalCount":"${cpuPhysicalCount}","cpuId":"${cpuId}","cpuLoad":"${cpuLoad}","Disk":"${Disk}","centos_release":"${centosRelease}","arch":"${arch}","redhat_release":"${redhatRelease}","uname_m":"${unameM}","uname_r":"${unameR}","hostname":"${hostname}"}
 EOF
 
 }
