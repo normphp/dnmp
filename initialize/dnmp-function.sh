@@ -301,9 +301,10 @@ getSystemInfo(){
   Disk=`df -h | awk '$NF=="/"{printf "%d", $5}'`
   DiskAll=`df -h | awk '$NF=="/"{printf "%d", $2}'`
   DiskUsed=`df -h | awk '$NF=="/"{printf "%d", $3}'`
+  dateR=`date -R`
 
 cat > postSystemInfo.txt <<EOF
-{"DiskAll":"${DiskAll}","DiskUsed":"${DiskUsed}","uptime":"${uptime}","cpu":"${cpu}","MemoryUsed":"${MemoryUsed}","MemoryAll":"${MemoryAll}","MemoryRatio":"${MemoryRatio}","cpuProcessorCount":"${cpuProcessorCount}","cpuPhysicalCount":"${cpuPhysicalCount}","cpuId":"${cpuId}","cpuLoad":"${cpuLoad}","Disk":"${Disk}","centos_release":"${centosRelease}","arch":"${arch}","redhat_release":"${redhatRelease}","uname_m":"${unameM}","uname_r":"${unameR}","hostname":"${hostname}"}
+{"dateR":"$dateR",DiskAll":"${DiskAll}","DiskUsed":"${DiskUsed}","uptime":"${uptime}","cpu":"${cpu}","MemoryUsed":"${MemoryUsed}","MemoryAll":"${MemoryAll}","MemoryRatio":"${MemoryRatio}","cpuProcessorCount":"${cpuProcessorCount}","cpuPhysicalCount":"${cpuPhysicalCount}","cpuId":"${cpuId}","cpuLoad":"${cpuLoad}","Disk":"${Disk}","centos_release":"${centosRelease}","arch":"${arch}","redhat_release":"${redhatRelease}","uname_m":"${unameM}","uname_r":"${unameR}","hostname":"${hostname}"}
 EOF
 
 }
