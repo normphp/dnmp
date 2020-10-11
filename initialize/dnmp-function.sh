@@ -380,7 +380,6 @@ setCrond(){
   grep 'crond' /etc/rc.local
   if [ $? -eq 0 ];then
       echo -e "\033[32m 已经设置开机启动crond  \033[0m"
-      source ~/.bashrc
   else
     echo '没有设置开机启动crond'
     sudo echo "/bin/systemctl start crond.service">>/etc/rc.local
@@ -390,7 +389,7 @@ setCrond(){
   grep 'crond-hour.sh' /var/spool/cron/root
   if [ $? -eq 0 ];then
       echo -e "\033[32m 已经设置crond-hour \033[0m"
-      source ~/.bashrc
+
   else
     echo '没有设置crond-hour：正在设置'
     sudo echo "* * * * * cd ${root_dir}/initialize/ && sudo bash crond-hour.sh">>/var/spool/cron/root
@@ -399,7 +398,7 @@ setCrond(){
   grep 'crond-minute.sh' /var/spool/cron/root
   if [ $? -eq 0 ];then
       echo -e "\033[32m 已经设置crond-minute.sh \033[0m"
-      source ~/.bashrc
+
   else
     echo '没有设置crond-minute：正在设置'
     sudo echo "* * * * * cd ${root_dir}/initialize/ && sudo bash crond-minute.sh">>/var/spool/cron/root
@@ -463,4 +462,11 @@ else
   cat ${env_dir}
 fi
 
+}
+# 更新dnmp.sh
+updateDnmpSh()
+{
+  echo $root_dir
+  source  ${root_dir}'/initialize/cli-register.sh'
+  iniComposeCli ${root_dir}
 }

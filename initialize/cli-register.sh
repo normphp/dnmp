@@ -1,10 +1,9 @@
 #!/bin/bash
 # 开启alias扩展功能
-root_dir=$(dirname $(pwd))
 # 注册docker-compose 相关命令
 iniComposeCli(){
 echo '#!/bin/bash
-export root_dir='${root_dir}'
+export root_dir='${1}'
 cd "${root_dir}/build/docker-compose/"
 source ${root_dir}/initialize/config.sh
 source ${root_dir}/initialize/dnmp-function.sh
@@ -44,8 +43,10 @@ elif [ ${1}x = "-v"x ];then
  versions $root_dir $*
 elif [ ${1}x = "tls"x ];then
   tlsInit $root_dir $*
+elif [ ${1}x = "updateDnmp"x ];then
+  updateDnmpSh $root_dir
 elif [ ${1}x = "update"x ];then
-  update $root_dir $*
+update  $root_dir $*
 else
    echo -e "
   dnmp是一个代替[docker-compose -f docker-compose-xxx.yml]部分命令的快捷命令
