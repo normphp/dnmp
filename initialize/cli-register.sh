@@ -45,6 +45,8 @@ elif [ ${1}x = "tls"x ];then
   tlsInit $root_dir $*
 elif [ ${1}x = "updateDnmp"x ];then
   updateDnmpSh $root_dir
+elif [ ${1}x = "startDevops"x ];then
+  startDevOps $root_dir   $*
 elif [ ${1}x = "update"x ];then
 update  $root_dir $*
 else

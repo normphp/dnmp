@@ -1,0 +1,47 @@
+version: '3.3'
+services:
+  devops-php-fpm-7.4:
+    env_file:
+      - .env
+    image: normphp/dnmp-php:php-fpm-7.4-full
+    networks:
+      - ${NETWORKS}
+    volumes:
+      - /docker/normphp/dnmp/data/devops/:/www/:rw
+      - /docker/normphp/dnmp/data/php/etc/php-fpm-7.4/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
+      - /docker/normphp/dnmp/data/php/etc/php-fpm-7.4/php.ini-development:/usr/local/etc/php/php.ini:ro
+      - /docker/normphp/dnmp/data/php/etc/php-fpm-7.4/php-fpm.d/:/usr/local/etc/php-fpm.d/:ro
+      - /docker/normphp/dnmp/data/logs/php-fpm-7.4:/var/log/php-fpm:rw
+    restart: always
+    command: php-fpm
+
+  devops-nginx:
+    env_file:
+      - .env
+    build: ${DOME_NGINX_FPM_IMAGE}
+    depends_on:
+      - devops-php-fpm-7.4
+    networks:
+      - ${NETWORKS}
+    volumes:
+      - /docker/normphp/dnmp/data/nginx/conf/nginx_devops.conf:/etc/nginx/nginx.conf:ro
+      - /docker/normphp/dnmp/data/nginx/logs/:/var/log/nginx/:rw
+      - /docker/normphp/dnmp/data/nginx/conf/:/etc/nginx/conf/:ro
+      - /docker/normphp/dnmp/data/nginx/logs/:/wwwlogs/:rw
+      - /docker/normphp/dnmp/data/devops/:/www/:rw
+    ports:
+      - "8888:8888"
+    restart: always
+    command: nginx -g 'daemon off;'
+
+  devops-redis:
+    env_file:
+      - .env
+    build: ./redis
+    networks:
+      - ${NETWORKS}
+    volumes:
+      - /docker/normphp/dnmp/data/redis:/data
+    restart: always
+networks:
+  dnmpNat:

@@ -470,3 +470,77 @@ updateDnmpSh()
   source  ${root_dir}'/initialize/cli-register.sh'
   iniComposeCli ${root_dir}
 }
+
+# 初始化  下载对应文件
+initDevOps()
+{
+  # 删除历史遗留
+  # 下载前端文件
+  rm -rf resource.zip resource /docker/normphp/dnmp/data/devops/code/devops-admin/ \
+  && sudo mkdir -p /docker/normphp/dnmp/data/devops/code/devops-admin \
+  && sudo mkdir -p /docker/normphp/dnmp/data/devops/data/{redis,mysql} \
+  && wget http://nomphp.pizepei.com/DevOps/layuiAdmin/resource.zip \
+  && unzip resource.zip \
+  && sudo cp -r resource/. /docker/normphp/dnmp/data/devops/devops-admin/
+  # 下载后端文件
+
+  # 复制到 对应目录 处理压缩包
+
+}
+# 启动部署系统
+startDevOps()
+{
+  initDevOps
+  setDevOps
+}
+setDevOps()
+{
+  echo "server {
+    listen       8888;
+    listen  [::]:8888;
+    index index.php index.html index.htm default.php default.htm default.html;
+    # dnmp定义站点目录在/www/下，命名规范为/www/[项目代码|域名|系统代码]/[访问代码]
+    root  /www/default/;
+    # 域名：在负载均衡nginx上必须配置为真实域名，在负载均衡的下级服务nginx上必须配置为下文$ upstream_host变量对应的值
+    # server_name  localhost;
+    #********************** ssl https 配置 *****************************
+    # ssl https 配置  如不需要开启请使用 # 屏蔽
+    #include conf/snippets/ssl_certificate.conf;
+    #include conf/snippets/ssl_certificate_path.conf;
+    # 强制使用ssl
+    #include conf/snippets/ssl_mandatory_usage.conf;
+    #申请SSL证书验证目录相关设置完全允许访问.well-known/目录
+    include conf/snippets/well_known.conf;
+    #********************日志位置*******************************
+    # 日志位置：命名规范为 域名.log | 域名.error.log
+    access_log  /wwwlogs/localhost.log;
+    error_log  /wwwlogs/localhost.error.log;
+    location / {
+        root   /www/default/;
+        index  index.html index.htm;
+    }
+    #**********************pass服务*****************************
+    #pass服务fastcgi_pass_php
+    # 注意如单独启动nginx容器会提示php-fpm:9000不存在，应该屏蔽这个配置
+    # 设置模式  jt  default
+    set $frame_name 'default';
+    # 设置运行环境模式 production  develop test
+    set $run_mode production;
+    location ~ [^/]\.php(/|$) {
+        #include conf/snippets/fastcgi_pass_php74_devops.conf;
+    }
+    #REWRITE-START URL重写规则引用（伪静态）,修改后将导致自动配置的伪静态规则失效
+    include conf/rewrite/devops.conf;
+    #********************默认配置一般情况下不需要修改*********************
+    #禁止访问的文件或目录（这里是基础配置需要配置其他文件可以直接在对应的站点server中增加配置）
+    include conf/snippets/forbid.conf;
+    # Nginx 设置忽略favicon.ico文件的404错误日志(关闭favicon.ico不存在时记录日志)
+    include conf/snippets/favicon.conf;
+    # 错误页面 404  50x
+    include conf/snippets/error_page.conf;
+    # 静态资源 缓存配置
+    include conf/snippets/static_cache.conf;
+
+}" >/docker/normphp/dnmp/data/nginx/conf/default_devops.conf
+
+}
