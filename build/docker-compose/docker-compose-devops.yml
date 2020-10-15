@@ -18,7 +18,7 @@ services:
   devops-nginx:
     env_file:
       - .env
-    build: ${DOME_NGINX_FPM_IMAGE}
+    build: ./nginx
     depends_on:
       - devops-php-fpm-7.4
     networks:

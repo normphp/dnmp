@@ -475,17 +475,29 @@ updateDnmpSh()
 initDevOps()
 {
   # 删除历史遗留
+  # 复制到 对应目录 处理压缩包
   # 下载前端文件
-  rm -rf resource.zip resource /docker/normphp/dnmp/data/devops/code/devops-admin/ \
-  && sudo mkdir -p /docker/normphp/dnmp/data/devops/code/devops-admin \
+  rm -rf resource.zip resource /docker/normphp/dnmp/data/devops/code/devops-admin/resource/ \
+  && sudo mkdir -p /docker/normphp/dnmp/data/devops/code/devops-admin/{resource,normphp} \
   && sudo mkdir -p /docker/normphp/dnmp/data/devops/data/{redis,mysql} \
   && wget http://nomphp.pizepei.com/DevOps/layuiAdmin/resource.zip \
-  && unzip resource.zip \
-  && sudo cp -r resource/. /docker/normphp/dnmp/data/devops/devops-admin/
+  && unzip -o resource.zip \
+  && sudo cp -r resource/. /docker/normphp/dnmp/data/devops/code/devops-admin/resource/ \
+  && ls /docker/normphp/dnmp/data/devops/code/devops-admin/resource/
+
+
+  rm -rf normphp.zip normphp /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
+  && sudo mkdir -p /docker/normphp/dnmp/data/devops/code/devops-admin/{resource,normphp} \
+  && sudo mkdir -p /docker/normphp/dnmp/data/devops/data/{redis,mysql} \
+  && wget wget -c "http://nomphp.pizepei.com/DevOps/layuiAdmin/normphp.zip?v=1" -O normphp.zip \
+  && unzip -o normphp.zip \
+  && sudo cp -r normphp/. /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
+  && ls /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/
+
+  ln -s /docker/normphp/dnmp/data/devops/code/devops-admin/config /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/
+
+
   # 下载后端文件
-
-  # 复制到 对应目录 处理压缩包
-
 }
 # 启动部署系统
 startDevOps()
@@ -523,9 +535,9 @@ setDevOps()
     #pass服务fastcgi_pass_php
     # 注意如单独启动nginx容器会提示php-fpm:9000不存在，应该屏蔽这个配置
     # 设置模式  jt  default
-    set $frame_name 'default';
+    set "'$frame_name'" 'default';
     # 设置运行环境模式 production  develop test
-    set $run_mode production;
+    set "'$run_mode'" production;
     location ~ [^/]\.php(/|$) {
         #include conf/snippets/fastcgi_pass_php74_devops.conf;
     }
