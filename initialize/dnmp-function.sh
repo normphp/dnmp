@@ -485,28 +485,118 @@ initDevOps()
   && sudo cp -r resource/. /docker/normphp/dnmp/data/devops/code/devops-admin/resource/ \
   && ls /docker/normphp/dnmp/data/devops/code/devops-admin/resource/
 
-
-  rm -rf normphp.zip normphp /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
+  # 下载后端文件
+  cd ~ && rm -rf normphp.zip normphp /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
   && sudo mkdir -p /docker/normphp/dnmp/data/devops/code/devops-admin/{resource,normphp} \
   && sudo mkdir -p /docker/normphp/dnmp/data/devops/data/{redis,mysql} \
-  && wget wget -c "http://nomphp.pizepei.com/DevOps/layuiAdmin/normphp.zip?v=1" -O normphp.zip \
-  && unzip -o normphp.zip \
+  && wget wget -c "http://nomphp.pizepei.com/DevOps/layuiAdmin/normphp.zip?v=1" -O normphp.zip
+
+  unzip -o normphp.zip \
   && sudo cp -r normphp/. /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
-  && ls /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/
+  && chmod -R 707 /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
+  && ls /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
+  && ln -s ../config /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/config
+  # 关于软连接 这里需要记录说明一下：
+  #   比如说我们需要/docker/dnmp/devops-admin/config 源文件夹连接到 /docker/dnmp/devops-admin/下
+  #   也就是在/docker/dnmp/devops-admin/normphp/下有 config文件夹
+  #   但是软连接只是一个记录（/docker/dnmp/devops-admin/normphp/config 上记录了源文件地址），宿主机会容器实例的目录结构是不一致的，这样会导致在宿主机可以正常使用这个目录
+  #   这个时候不能使用绝对路径，应该是先cd /docker/dnmp/devops-admin/normphp/ 到目标目录
+  #   然后使用这个目录下的相对路径创建软连接 ln -s ../config   ./config  这个时候执行ll 或者ls -l命令就可以看到 config -> ../config 在容器里面也可以正常使用了
+  #   绝对路径不是万能的
 
-  ln -s /docker/normphp/dnmp/data/devops/code/devops-admin/config /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/
-
-
-  # 下载后端文件
 }
 # 启动部署系统
 startDevOps()
 {
-  initDevOps
+  #initDevOps
   setDevOps
 }
 setDevOps()
 {
+  # 确定端口
+    while true;do
+  stty -icanon min 0 time 100
+  echo -n -e '\033[32m
+  1、单独使用独立服务器安装 运维部署系统
+  2、我只有一台服务，运维部署系统和项目都不是在当前服务器
+  \033[0m
+  请输入序号选择选择模式? \033[5m (10s无操作默认1): \033[0m'
+  read Arg
+  case $Arg in
+  1)
+   pattern='1'
+    break;;
+  2)
+   pattern='2'
+    break;;
+  "")  #Autocontinue
+   pattern='1'
+    break;;
+  esac
+  done
+  echo '*****************************'
+  echo -e "\033[32m 使用模式：${pattern}\033[0m"
+  echo '*****************************'
+  if [ ${pattern}x = "1"x ];then
+    echo '';
+  elif [ ${pattern}x = "2"x ];then
+
+        while true;do
+        stty -icanon min 0 time 100
+        echo -n -e '请输入部署项目访问端口(建议8000-8888)? \033[5m (10s无操作默认8888端口): \033[0m'
+        read Arg
+        case $Arg in
+        "")  #Autocontinue
+         Arg=$Arg
+          break;;
+        esac
+          nginxPort=$Arg
+          break;
+        done
+
+
+        while true;do
+        stty -icanon min 0 time 100
+        echo -n -e '\n是否使用独立mysql容器? yes|no \033[5m (10s无操作默认yes): \033[0m'
+        read Arg
+        case $Arg in
+        'yes')
+         mysql='yes'
+          break;;
+        'no')
+         mysql='no'
+          break;;
+        "")  #Autocontinue
+         mysql='yes'
+          break;;
+        esac
+        done
+
+
+
+        while true;do
+        stty -icanon min 0 time 100
+        echo -n -e '\n请输入mysql端口(建议4306)? \033[5m (10s无操作默认4306端口): \033[0m'
+        read Arg
+        case $Arg in
+        "")  #Autocontinue
+          Arg=$Arg
+          break;;
+        esac
+          mysqlPort=$Arg
+          break;
+        done
+
+  fi
+    echo "${pattern}"
+    echo "${nginxPort}"
+    echo "${mysql}"
+    echo "${mysqlPort}"
+
+
+
+  # 确定是否使用独立的mysql  --》mysql端口
+
   echo "server {
     listen       8888;
     listen  [::]:8888;
