@@ -13,9 +13,9 @@ services:
       - /docker/normphp/dnmp/data/www/:/www/:rw
       - /docker/normphp/dnmp/data/nginx/logs/:/wwwlogs/:rw
     ports:
-      - "80:${UPSTREAM_NGINX_PORTS_HTTP}"
-      - "8080:${UPSTREAM_NGINX_PORTS_HTTP2}"
-      - "443:${UPSTREAM_NGINX_PORTS_HTTPS}"
+      - "${UPSTREAM_NGINX_PORTS_HTTP}:80"
+      - "${UPSTREAM_NGINX_PORTS_HTTP2}:8080"
+      - "${UPSTREAM_NGINX_PORTS_HTTPS}:443"
     command: nginx -g 'daemon off;'
     restart: always
 networks:

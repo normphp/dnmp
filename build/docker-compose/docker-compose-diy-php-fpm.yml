@@ -6,7 +6,7 @@ services:
     #image: ${DIY_PHP_FPM_IMAGE}
     build: ${DIY_PHP_FPM_IMAGE}
     ports:
-      - "9000:${DIY_PHP_FPM_PORTS}"
+      - "${DIY_PHP_FPM_PORTS}:9000"
     #container_name: ${DIY_PHP_FPM_NAME}
     networks:
      - ${DIY_PHP_FPM_NETWORKS}

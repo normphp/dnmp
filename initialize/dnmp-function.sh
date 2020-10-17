@@ -517,10 +517,15 @@ setDevOps()
     while true;do
   stty -icanon min 0 time 100
   echo -n -e '\033[32m
-  1、单独使用独立服务器安装 运维部署系统
+  本运维部署系统后端为PHP开发、前端使用LayUiAdmin
+  A、如果您只有当前一台服务器想在服务器上部署本运维部署系统同时又其他被部署的web项目也在当前服务器上建议您选择 第2选项
+  （主要是http 80 443 端口冲突问题）
+  B、如果您有N个服务器建议您选择第1选项
+  *****************************************************************
+  1、单独使用独立服务器安装运维部署系统（当前服务器不在部署其他web项目）
   2、我只有一台服务，运维部署系统和项目都不是在当前服务器
   \033[0m
-  请输入序号选择选择模式? \033[5m (10s无操作默认1): \033[0m'
+  请输入数字序号选择选择模式? \033[5m (10s无操作默认1): \033[0m'
   read Arg
   case $Arg in
   1)
@@ -543,17 +548,30 @@ setDevOps()
 
         while true;do
         stty -icanon min 0 time 100
-        echo -n -e '请输入部署项目访问端口(建议8000-8888)? \033[5m (10s无操作默认8888端口): \033[0m'
+        echo -n -e '请输入部署项目访问http端口(建议8000-8888)? \033[5m (10s无操作默认8888端口): \033[0m'
         read Arg
-        case $Arg in
-        "")  #Autocontinue
-         Arg=$Arg
-          break;;
-        esac
-          nginxPort=$Arg
+          case $Arg in
+          "")  #Autocontinue
+            nginxHttpPort=8888
+            break;;
+          esac
+          nginxHttpPort=$Arg
           break;
         done
 
+
+        while true;do
+        stty -icanon min 0 time 100
+        echo -n -e '\n由于https证书的配置问题设置好的端口配置在nginx中是暂时屏蔽的\n请输入部署项目访问https端口(建议4433-4488)? \033[5m (10s无操作默认4433端口): \033[0m'
+        read Arg
+        case $Arg in
+        "")  #Autocontinue
+          nginxHttpsPort=4433
+          break;;
+        esac
+          nginxHttpsPort=$Arg
+          break;
+        done
 
         while true;do
         stty -icanon min 0 time 100
@@ -572,34 +590,31 @@ setDevOps()
         esac
         done
 
-
-
         while true;do
         stty -icanon min 0 time 100
         echo -n -e '\n请输入mysql端口(建议4306)? \033[5m (10s无操作默认4306端口): \033[0m'
         read Arg
         case $Arg in
         "")  #Autocontinue
-          Arg=$Arg
+          mysqlPort=4306
           break;;
         esac
           mysqlPort=$Arg
           break;
         done
 
+    echo "模式：${pattern}"
+    echo "http端口：${nginxHttpPort}"
+    echo "https端口：${nginxHttpsPort}"
+    echo "是否独立MySq：${mysql}"
+    echo "MySq端口：${mysqlPort}"
   fi
-    echo "${pattern}"
-    echo "${nginxPort}"
-    echo "${mysql}"
-    echo "${mysqlPort}"
-
-
-
-  # 确定是否使用独立的mysql  --》mysql端口
-
+  # nginx 配置
   echo "server {
-    listen       8888;
-    listen  [::]:8888;
+    listen       ${nginxHttpPort};
+    listen  [::]:${nginxHttpPort};
+    #listen ${nginxHttpsPort} ssl;
+    #listen  [::]:${nginxHttpsPort} ssl;
     index index.php index.html index.htm default.php default.htm default.html;
     # dnmp定义站点目录在/www/下，命名规范为/www/[项目代码|域名|系统代码]/[访问代码]
     root  /www/default/;
@@ -644,5 +659,81 @@ setDevOps()
     include conf/snippets/static_cache.conf;
 
 }" >/docker/normphp/dnmp/data/nginx/conf/default_devops.conf
+
+mysqlTpl="  devops-mysql:
+    env_file:
+      - .env
+    build: ./mysql
+    ports:
+      - "'"'"${mysqlPort}:3306"'"'"
+    networks:
+      - "'${NETWORKS}'"
+    volumes:
+      - /docker/normphp/dnmp/data/devops/data/mysql:/var/lib/mysql:rw
+      - /docker/normphp/dnmp/data/devops/data/mysql-backups:/backups:rw
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    restart: always"
+
+  if [ ${mysql}x = "no"x ];then
+    mysqlTpl='';
+  fi
+
+  #docker-compose 文件
+  echo "version: '3.3'
+services:
+  devops-php-fpm-7.4:
+    env_file:
+      - .env
+    image: normphp/dnmp-php:php-fpm-7.4-full
+    networks:
+      - "'${NETWORKS}'"
+    volumes:
+      - /docker/normphp/dnmp/data/devops/:/www/:rw
+      - /docker/normphp/dnmp/data/php/etc/php-fpm-7.4/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
+      - /docker/normphp/dnmp/data/php/etc/php-fpm-7.4/php.ini-development:/usr/local/etc/php/php.ini:ro
+      - /docker/normphp/dnmp/data/php/etc/php-fpm-7.4/php-fpm.d/:/usr/local/etc/php-fpm.d/:ro
+      - /docker/normphp/dnmp/data/logs/php-fpm-7.4:/var/log/php-fpm:rw
+    restart: always
+    command: php-fpm
+
+  devops-nginx:
+    env_file:
+      - .env
+    build: ./nginx
+    depends_on:
+      - devops-php-fpm-7.4
+    networks:
+      - "'${NETWORKS}'"
+    volumes:
+      - /docker/normphp/dnmp/data/nginx/conf/nginx_devops.conf:/etc/nginx/nginx.conf:ro
+      - /docker/normphp/dnmp/data/nginx/logs/:/var/log/nginx/:rw
+      - /docker/normphp/dnmp/data/nginx/conf/:/etc/nginx/conf/:ro
+      - /docker/normphp/dnmp/data/nginx/logs/:/wwwlogs/:rw
+      - /docker/normphp/dnmp/data/devops/:/www/:rw
+    ports:
+      - "'"'"${nginxHttpPort}:${nginxHttpPort}"'"'"
+      - "'"'"${nginxHttpsPort}:${nginxHttpsPort}"'"'"
+    restart: always
+    command: nginx -g 'daemon off;'
+
+  devops-redis:
+    env_file:
+      - .env
+    build: ./redis
+    networks:
+      - "'${NETWORKS}'"
+    volumes:
+      - /docker/normphp/dnmp/data/redis:/data
+    restart: always
+
+${mysqlTpl}
+
+networks:
+  dnmpNat:">${root_dir}/build/docker-compose/docker-compose-devops.yml
+
 
 }

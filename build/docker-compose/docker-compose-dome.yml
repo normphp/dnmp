@@ -5,7 +5,7 @@ services:
       - .env
     image: ${DOME_PHP_FPM_IMAGE}
     #ports:
-    #  - "9000:${DEVELOP_PHP_FPM_PORTS}"
+    #  - "${DEVELOP_PHP_FPM_PORTS}:9000"
     #container_name: ${DOME_PHP_FPM_NAME}
     networks:
       - ${DOME_PHP_FPM_NETWORKS}
@@ -34,9 +34,9 @@ services:
       - /docker/normphp/dnmp/data/nginx/logs/:/wwwlogs/:rw
       - /docker/normphp/dnmp/data/www/:/www/:rw
     ports:
-      - "80:${DOME_NGINX_PORTS_HTTP}"
-      - "8080:${DOME_NGINX_PORTS_HTTP2}"
-      - "443:${DOME_NGINX_PORTS_HTTPS}"
+      - "${DOME_NGINX_PORTS_HTTP}:80"
+      - "${DOME_NGINX_PORTS_HTTP2}:8080"
+      - "${DOME_NGINX_PORTS_HTTPS}:443"
     restart: always
     command: nginx -g 'daemon off;'
 networks:

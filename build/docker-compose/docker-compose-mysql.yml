@@ -5,7 +5,7 @@ services:
       - .env
     build: ${MYSQL_BUILD}
     ports:
-      - "3306:${MYSQL_PORTS}"
+      - "${MYSQL_PORTS}:3306"
     networks:
       - ${MYSQL_NETWORKS}
     volumes:

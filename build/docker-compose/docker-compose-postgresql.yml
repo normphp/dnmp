@@ -6,7 +6,7 @@ services:
     image: ${POSTGRES_IMAGE}
     #build: ${POSTGRES_BUILD}
     ports:
-      - "5432:${POSTGRES_PORTS}"
+      - "${POSTGRES_PORTS}:5432"
     networks:
       - ${POSTGRES_NETWORKS}
     volumes:
