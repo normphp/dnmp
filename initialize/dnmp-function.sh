@@ -617,7 +617,7 @@ setDevOps()
     #listen  [::]:${nginxHttpsPort} ssl;
     index index.php index.html index.htm default.php default.htm default.html;
     # dnmp定义站点目录在/www/下，命名规范为/www/[项目代码|域名|系统代码]/[访问代码]
-    root  /www/default/;
+    root  /www/code/devops-admin/;
     # 域名：在负载均衡nginx上必须配置为真实域名，在负载均衡的下级服务nginx上必须配置为下文$ upstream_host变量对应的值
     # server_name  localhost;
     #********************** ssl https 配置 *****************************
@@ -633,7 +633,7 @@ setDevOps()
     access_log  /wwwlogs/localhost.log;
     error_log  /wwwlogs/localhost.error.log;
     location / {
-        root   /www/default/;
+        root   /www/code/devops-admin/;
         index  index.html index.htm;
     }
     #**********************pass服务*****************************
@@ -644,7 +644,8 @@ setDevOps()
     # 设置运行环境模式 production  develop test
     set "'$run_mode'" production;
     location ~ [^/]\.php(/|$) {
-        #include conf/snippets/fastcgi_pass_php74_devops.conf;
+         root   /www/code/devops-admin/;
+        include conf/snippets/fastcgi_pass_php74_devops.conf;
     }
     #REWRITE-START URL重写规则引用（伪静态）,修改后将导致自动配置的伪静态规则失效
     include conf/rewrite/devops.conf;
