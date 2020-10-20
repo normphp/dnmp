@@ -403,9 +403,9 @@ initDevOpsFile()
 
   unzip -o normphp.zip \
   && sudo cp -r normphp/. /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
-  && chmod -R 707 /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
+  && chmod -R 777 /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
   && sudo cp -r ${root_dir}/build/devops/config  /docker/normphp/dnmp/data/devops/code/devops-admin/config/ \
-  && chmod -R 707 /docker/normphp/dnmp/data/devops/code/devops-admin/config/ \
+  && chmod -R 777 /docker/normphp/dnmp/data/devops/code/devops-admin/config/ \
   && ls /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
   && ln -s ../config /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/config
   # && chown -R www-data /docker/normphp/dnmp/data/devops/code/devops-admin/ \
