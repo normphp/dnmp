@@ -1,13 +1,16 @@
 <?php
 /**
- * creationDate: 2020-10-19 11:49:24
- * creationTime: 1603079364
+ * creationDate: 2020-05-16 12:00:58
+ * creationTime: 1589601658
  * @title: 基础配置
  * @appid: 
  */
 
 
-class Config
+ namespace config\app;
+
+
+class SetConfig
 { 
     const UNIVERSAL = [
     'cache' => [
@@ -37,8 +40,8 @@ class Config
             'sql',
             'clientInfo',
             'system',
-            'memory'
-            ],
+            'memory',//内存状态
+        ],
         'uuid_identifier'       => 'test-1',
         'SuccessReturnJsonCode' => [
             'name'  => 'code',
@@ -106,46 +109,62 @@ class Config
         'homeLoginLay' => ''
         ]
     ];
-
-    const GEETEST = [
-    'CAPTCHA_ID'  => 'd842a23183055b29cc507075e9d9fdf1',
-    'PRIVATE_KEY' => '097fb86c51c7bda387df5297e9b52c27',
-    'MD5'         => '097fb86c587df527e927'
+    const MICROSERVICE = [
+        'M_SMS'   => [
+            'api'      => '/contact-verification/micro-service/sms/test/',
+            'url'      => '',
+            'configId' => ''
+        ],
+        'CONFIG'  => [
+            'appid'          => 'E4675305-0D20-9545-049B-0E0786AE4518',
+            'token'          => '',
+            'appsecret'      => '',
+            'encodingAesKey' => ''
+        ],
+        'E_MAIL'  => [
+            'api'      => '/contact-verification/micro-service/mail/send/',
+            'url'      => '',
+            'configId' => ''
+        ],
+        'ACCOUNT' => [
+            'api'      => '/normphp/account/auth-jwt-service/',
+            'url'      => '',
+            'configId' => ''
+        ]
     ];
-
     const JSON_WEB_TOKEN_SECRET = [
-    'base'    => [
-        'alg'   => 'md5',
-        'name'  => '管理员',
-        'role'  => '',
-        'value' => ''
+        'base'    => [
+            'alg'   => 'md5',
+            'name'  => '管理员',
+            'role'  => '',
+            'value' => ''
         ],
-    'common'  => [
-        'alg'        => 'md5',
-        'name'       => '普通权限',
-        'role'       => 'common',
-        'Header'     => [
-            'alg'    => 'aes',
-            'sig'    => 'md5',
-            'typ'    => 'JWT',
-            'appid'  => 'ashaaasd1232jjdskhkkx',
-            'number' => ''
+        'common'  => [
+            'alg'        => 'md5',
+            'name'       => '普通权限',
+            'role'       => 'common',
+            'Header'     => [
+                'alg'    => 'aes',
+                'sig'    => 'md5',
+                'typ'    => 'JWT',
+                'appid'  => 'ashaaasd1232jjdskhkkx',
+                'number' => ''
             ],
-        'secret'     => 'abcd123343',
-        'Payload'    => [
-            'aud' => 'socketServer',
-            'exp' => 7200,
-            'iss' => 'server',
-            'sub' => 'phpServer--socketServer'
+            'secret'     => 'abcd123343',
+            'Payload'    => [
+                'aud' => 'socketServer',
+                'exp' => 7200,
+                'iss' => 'server',
+                'sub' => 'phpServer--socketServer'
             ],
-        'secret_key' => 'sakjshkjkljm889289023dscponbxba3242903902ijkds',
-        'token_name' => 'access_token'
+            'secret_key' => 'sakjshkjkljm889289023dscponbxba3242903902ijkds',
+            'token_name' => 'access_token'
         ],
-    'visitor' => [
-        'alg'   => 'md5',
-        'name'  => '游客',
-        'role'  => '',
-        'value' => ''
+        'visitor' => [
+            'alg'   => 'md5',
+            'name'  => '游客',
+            'role'  => '',
+            'value' => ''
         ]
     ];
 
@@ -159,22 +178,22 @@ class Config
     ];
 
     const SMS = [
-    'Aliyun'  => [
-        'pattern'         => [
-            'register' => [
-                'SignName'     => '',
-                'parameter'    => [
-                    'code' => '验证码'
+        'Aliyun'  => [
+            'pattern'         => [
+                'register' => [
+                    'SignName'     => '',
+                    'parameter'    => [
+                        'code' => '验证码'
                     ],
-                'TemplateCode' => ''
+                    'TemplateCode' => ''
                 ]
             ],
-        'RegionId'        => 'cn-hangzhou',
-        'aisleName'       => 'Aliyun',
-        'accessKeyId'     => '',
-        'accessKeySecret' => ''
+            'RegionId'        => 'cn-hangzhou',
+            'aisleName'       => 'Aliyun',
+            'accessKeyId'     => '',
+            'accessKeySecret' => ''
         ],
-    'default' => 'Aliyun'
+        'default' => 'Aliyun'
     ];
 
     const TERMINAL_INFO_PATTERN = 'high';
@@ -223,8 +242,8 @@ class Config
     const FILES_UPLOAD_APP = [
     'asdkjlk3434df674545l' => [
         'appid'          => 'asdkjlk3434df674545l',
-        'AppSecret'      => '',
-        'token'          => '@',
+        'AppSecret'      => 'asdkjlsssfk3434df67455656345l',
+        'token'          => '68uijkmsd454lfgjuwynvcv@',
         'period'         => 20,
         'request_domain' => [
             '/^http:\\/\\/[A-Za-z0-9_-]+.oauth.heil.top/S',
@@ -247,39 +266,18 @@ class Config
         ]
     ];
 
-    const MICROSERVICE = [
-    'M_SMS'   => [
-        'api'      => '/contact-verification/micro-service/sms/test/',
-        'url'      => '',
-        'configId' => ''
-        ],
-    'CONFIG'  => [
-        'appid'          => '',
-        'token'          => '',
-        'appsecret'      => '',
-        'encodingAesKey' => ''
-        ],
-    'E_MAIL'  => [
-        'api'      => '/contact-verification/micro-service/mail/send/',
-        'url'      => '',
-        'configId' => ''
-        ],
-    'ACCOUNT' => [
-        'api'      => '/normphp/account/auth-jwt-service/',
-        'url'      => '',
-        'configId' => ''
-        ]
+    const GEETEST = [
+        'CAPTCHA_ID'=>'',
+        'PRIVATE_KEY'=>'',
+        'MD5'=>'',
     ];
-
     const WEC_CHAT_CODE = [
-    'appid'            => '',
-    'token'            => '',
-    'app_secret'       => '',
-    'target_url'       => '',
-    'encoding_aes_key' => '',
-    'apiUrl'           => ''
+        'appid'            => '',
+        'token'            => '9168148371',
+        'app_secret'       => '',
+        'target_url'       => 'http://oauth.heil.top/account/wecht-qr-target',
+        'encoding_aes_key' => '',
+        'apiUrl'               =>'http://oauth.heil.top/normative/wechat/common/code-app/qr/',
     ];
-
-
 
 }

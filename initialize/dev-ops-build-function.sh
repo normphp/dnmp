@@ -122,14 +122,15 @@ startDevOps()
   docker-compose -f docker-compose-devops.yml up -d
   echo '进行项目数据库初始化、启动web-socket操作';
 /usr/bin/expect <<EOF
-    set timeout 7
+    set timeout 13
     spawn  docker exec -it docker-compose_devops-php-fpm-7.4_1 bash
     expect {
-        ":/data#" { send "echo '进行数据库初始化' && cd /www/code/devops-admin/normphp/public && php index_cli.php --route /deploy/cliDbInitStructure \n";exp_continue }
+        ":/data#" { send "echo '进行数据库初始化：大约需要等待6-10s' && cd /www/code/devops-admin/normphp/public && php index_cli.php --route /deploy/cliDbInitStructure \n";exp_continue }
         "normphp/public#" { send "echo '启动web-socket' && pwd && php index_cli.php --route /devops/server/web-socket & \n\n"; }
     }
     expect eof
 EOF
+  exit;
 }
 stopDevOps()
 {
@@ -399,13 +400,13 @@ initDevOpsFile()
   cd ~ && rm -rf normphp.zip normphp /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
   && sudo mkdir -p /docker/normphp/dnmp/data/devops/code/devops-admin/{resource,normphp} \
   && sudo mkdir -p /docker/normphp/dnmp/data/devops/data/{redis,mysql} \
-  && wget wget -c "http://nomphp.pizepei.com/DevOps/layuiAdmin/normphp.zip?v=3" -O normphp.zip
-
-  unzip -o normphp.zip \
+  && wget  -c "http://nomphp.pizepei.com/DevOps/layuiAdmin/v1/normphp.zip?v1" -O normphp.zip \
+  && unzip -o normphp.zip \
   && sudo cp -r normphp/. /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
   && chmod -R 777 /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
   && sudo cp -r ${root_dir}/build/devops/config  /docker/normphp/dnmp/data/devops/code/devops-admin/config/ \
   && chmod -R 777 /docker/normphp/dnmp/data/devops/code/devops-admin/config/ \
+  && chown -R www-data /docker/normphp/dnmp/data/devops/code/devops-admin/ \
   && ls /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
   && ln -s ../config /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/config
   # && chown -R www-data /docker/normphp/dnmp/data/devops/code/devops-admin/ \

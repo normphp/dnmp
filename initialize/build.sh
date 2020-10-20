@@ -33,7 +33,8 @@ sudo
 if [ $? -ne 0 ]; then
   yum  -y install  sudo
 fi
-
+# 创建用户
+useradd www-data
 #*********安装decker**********
 installDocker ${1}
 # 设置开机执行 rc.sh
