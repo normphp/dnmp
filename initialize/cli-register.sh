@@ -47,6 +47,10 @@ elif [ ${1}x = "updateDnmp"x ];then
   updateDnmpSh $root_dir
 elif [ ${1}x = "startDevops"x ];then
   startDevOps $root_dir   $*
+elif [ ${1}x = "initDevOps"x ];then
+  initDevOps $root_dir   $*
+elif [ ${1}x = "stopDevOps"x ];then
+  stopDevOps $root_dir   $*
 elif [ ${1}x = "update"x ];then
 update  $root_dir $*
 else
@@ -75,6 +79,13 @@ else
   后面的参数与与docker-compose命令完全一致：
   dnmp dome up
   相当于：docker-compose -f docker-compose-dome.yml up
+
+  DevOps 服务命令
+
+  \033[32m devOpsDocument\033[0m DevOps服务文档
+  \033[32m initDevOps \033[0m    初始化DevOps服务
+  \033[32m startDevops \033[0m   启动DevOps服务
+  \033[32m stopDevOps \033[0m    停止DevOps服务
 
   其他服务
   \033[32m tls \033[0m           https tls 管理[在acme.sh的基础上实现主要用在自动化跨服务器管理]
