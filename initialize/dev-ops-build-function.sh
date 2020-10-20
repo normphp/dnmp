@@ -383,6 +383,7 @@ networks:
 # 初始化  下载对应文件
 initDevOpsFile()
 {
+  # useradd www-data
   # 删除历史遗留
   # 复制到 对应目录 处理压缩包
   # 下载前端文件
@@ -403,8 +404,11 @@ initDevOpsFile()
   unzip -o normphp.zip \
   && sudo cp -r normphp/. /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
   && chmod -R 707 /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
+  && sudo cp -r ${root_dir}/build/devops/config  /docker/normphp/dnmp/data/devops/code/devops-admin/config/ \
+  && chmod -R 707 /docker/normphp/dnmp/data/devops/code/devops-admin/config/ \
   && ls /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
   && ln -s ../config /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/config
+  # && chown -R www-data /docker/normphp/dnmp/data/devops/code/devops-admin/ \
   # 关于软连接 这里需要记录说明一下：
   #   比如说我们需要/docker/dnmp/devops-admin/config 源文件夹连接到 /docker/dnmp/devops-admin/下
   #   也就是在/docker/dnmp/devops-admin/normphp/下有 config文件夹
