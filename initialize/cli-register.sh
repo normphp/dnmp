@@ -51,6 +51,8 @@ elif [ ${1}x = "initDevOps"x ];then
   initDevOps $root_dir   $*
 elif [ ${1}x = "stopDevOps"x ];then
   stopDevOps $root_dir   $*
+elif [ ${1}x = "devOpsDocument"x ];then
+  devOpsDocument $root_dir   $*
 elif [ ${1}x = "update"x ];then
 update  $root_dir $*
 else
