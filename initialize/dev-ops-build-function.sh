@@ -134,9 +134,9 @@ startDevOps()
     spawn  docker exec -it docker-compose_devops-php-fpm-7.4_1 bash
     expect {
         ":/data#" { send "sudo \n"; }
-        "sudo: command not found" { send "apt-get update && apt-get install sudo \n"; exp_continue}
     }
     expect {
+      "sudo: command not found" { send "apt-get update && apt-get install sudo \n";exp_continue }
       ":/data#" { send "echo '进行数据库初始化：大约需要等待10-20s' && cd /www/code/devops-admin/normphp/public && sudo -u www-data php index_cli.php --route /deploy/cliDbInitStructure \n";exp_continue }
       "normphp/public#" { send "echo '启动web-socket' && pwd && sudo -u www-data php index_cli.php --route /devops/server/web-socket & \n\n"; }
     }
@@ -293,6 +293,24 @@ initDevOps()
     sed -i "s/{{hostPort}}/${hostPort}/g"           /docker/normphp/dnmp/data/devops/code/devops-admin/config/Deploy.php
     sed -i "s/{{hostPassword}}/${hostPassword}/g"   /docker/normphp/dnmp/data/devops/code/devops-admin/config/Deploy.php
 
+  archInfo=`arch`
+  if [ ${archInfo}x = "x86_64"x ];then
+    archInfo=''
+    mysqlImages='./mysql'
+    echo ${archInfo}
+  elif [ ${archInfo}x = "aarch64"x ];then
+    echo ${archInfo}
+    archInfo='-arm'
+    mysqlImages='./mysql/arm'
+  else
+    echo ${archInfo}
+    echo '只支持x86_64、aarch64'
+    exit
+  fi
+
+
+
+
   # nginx 配置
   echo "server {
     listen       ${nginxHttpPort};
@@ -348,7 +366,7 @@ initDevOps()
 mysqlTpl="  devops-mysql:
     env_file:
       - .env
-    build: ./mysql
+    build: ${mysqlImages}
     ports:
       - "'"'"${mysqlPort}:3306"'"'"
     networks:
@@ -373,7 +391,7 @@ services:
   devops-php-fpm-7.4:
     env_file:
       - .env
-    image: normphp/dnmp-php:php-fpm-7.4-full
+    image: normphp/dnmp-php:php-fpm-7.4-full${archInfo}
     networks:
       - "'${NETWORKS}'"
     ports:
