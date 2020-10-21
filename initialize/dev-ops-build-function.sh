@@ -125,22 +125,20 @@ devOpsDocument()
 # 启动部署系统
 startDevOps()
 {
-  sudo
-  if [ $? -ne 0 ];then
-      apt-get update
-      apt-get install sudo
-  fi
   echo '启动容器';
   pwd
   docker-compose -f docker-compose-devops.yml up -d
   echo '进行项目数据库初始化、启动web-socket操作';
 /usr/bin/expect <<EOF
-    set timeout 13
+    set timeout 60
     spawn  docker exec -it docker-compose_devops-php-fpm-7.4_1 bash
     expect {
-        ":/data#" { send "apt-get update && apt-get install sudo  \n";exp_continue }
-        ":/data#" { send "echo '进行数据库初始化：大约需要等待6-10s' && cd /www/code/devops-admin/normphp/public && sudo -u www-data php index_cli.php --route /deploy/cliDbInitStructure \n";exp_continue }
-        "normphp/public#" { send "echo '启动web-socket' && pwd && sudo -u www-data php index_cli.php --route /devops/server/web-socket & \n\n"; }
+        ":/data#" { send "sudo \n"; }
+        "bash: sudo: command not found" { send "apt-get update && apt-get install sudo \n"; exp_continue}
+    }
+    expect {
+      ":/data#" { send "echo '进行数据库初始化：大约需要等待10-20s' && cd /www/code/devops-admin/normphp/public && sudo -u www-data php index_cli.php --route /deploy/cliDbInitStructure \n";exp_continue }
+      "normphp/public#" { send "echo '启动web-socket' && pwd && sudo -u www-data php index_cli.php --route /devops/server/web-socket & \n\n"; }
     }
     expect eof
 EOF
@@ -264,7 +262,33 @@ initDevOps()
     echo "MySq端口：${mysqlPort}"
   fi
 
-  initDevOpsFile
+   initDevOpsFile
+
+    # 输入当前服务器外部访问IP
+    while true;do
+    echo -n -e '\n \033[5m 输入当前服务器外部访问IP: \033[0m'
+    read Arg
+    hostIp=$Arg
+    hostName=$Arg
+      break;
+    done
+    while true;do
+    echo -n -e '\n \033[5m 输入当前服务器SSH外部访问端口: \033[0m'
+    read Arg
+    hostPort=$Arg
+      break;
+    done
+    while true;do
+    echo -n -e '\n初始化部署时输入的是root密码，后期开自行修改为使用密钥 或者其他用户 \033[5m 输入当前服务器root SSH密码: \033[0m'
+    read Arg
+    hostPassword=$Arg
+      break;
+    done
+
+    sed -i "s/{{hostName}}/${hostName}/g"           /docker/normphp/dnmp/data/devops/code/devops-admin/config/Deploy.php
+    sed -i "s/{{hostIp}}/${hostIp}/g"               /docker/normphp/dnmp/data/devops/code/devops-admin/config/Deploy.php
+    sed -i "s/{{hostPort}}/${hostPort}/g"           /docker/normphp/dnmp/data/devops/code/devops-admin/config/Deploy.php
+    sed -i "s/{{hostPassword}}/${hostPassword}/g"   /docker/normphp/dnmp/data/devops/code/devops-admin/config/Deploy.php
 
   # nginx 配置
   echo "server {

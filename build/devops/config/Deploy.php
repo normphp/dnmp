@@ -31,13 +31,13 @@ class Deploy
     ];
 
     const MicroService = [
-        'url' =>'http://103.210.23.213/normphp/basics/microservice/apps/config/',
-        'hostDomain'  =>'dev.heil.red',
+        'url' =>'http://103.xxx.xxx.xxx/normphp/basics/microservice/apps/config/',
+        'hostDomain'  =>'',
         'urlencode' => true,
-        'appid'=>'677FF87E-0415-F553-7A12-FDBFC15B3330',//服务appid
-        'appSecret'=>'5589ba719128973a008379c09e4c9975',//加密参数
-        'encodingAesKey'=>'6ba24ab0440ab70bcd40ab9caa9d4a94d06bb46d7da',//解密参数
-        'token'=>'0bd2d658402b00400da77b69bd0942bb',//签名使用
+        'appid'=>'',//服务appid
+        'appSecret'=>'',//加密参数
+        'encodingAesKey'=>'',//解密参数
+        'token'=>'',//签名使用
     ];
 
     const PERMISSIONS = [
@@ -49,7 +49,7 @@ class Deploy
     const SERVICE_MODULE = [
     [
         'id'   => '13',
-        'name' => 'normative--用来测试的主项目',
+        'name' => 'normphp',
         'MODULE_PREFIX' =>'normphp',
         'path' => 'normphp'
         ],
@@ -58,12 +58,6 @@ class Deploy
         'name' => 'layuiAdmin--前端layuiAdmin',
         'MODULE_PREFIX' =>'resource',
         'path' => 'layuiAdmin'
-        ],
-    [
-        'id'   => '14',
-        'name' => 'socks--重构的socks服务模块',
-        'MODULE_PREFIX' =>'socks',
-        'path' => 'socks'
         ]
     ];
 
@@ -83,10 +77,10 @@ class Deploy
     ];
     #netstat -tunlp|grep 9501  kill -9 3905
     const buildServer = [
-    'host'            => '107.172.99.86',
-    'port'            => 22,
+    'host'            => '{{hostIp}}',
+    'port'            => '{{hostPort}}',
     'username'        => 'root',
-    'password'        => 'w251tnVJnX2Wx9k9CC',
+    'password'        => '{{hostPassword}}',
     'ssh2_auth'       => 'password',
     'pubkey'          => '',
     'prikey'          => '',
@@ -96,35 +90,32 @@ class Deploy
             'ssl_cert_file' => '',
             'ssl_key_file'  => ''
             ],
-        'hostName' => '103.210.23.213',
+        'hostName' => '{{hostName}}',
         'host'     => '0.0.0.0',
         'port'     => '9501'
         ]
     ];
 
     const GITLAB = [
-        'OauthUrl' => 'https://gitlab.heil.red',
-        'AppId'    => '119930af3ea7dcd6378ea5ebaa0942716bdd200b6d139f89a0f1ebbaed9be303',
-        'Key'      => '42b7f87022a8557576db03333d21ef99930fc7e3191e99baee8384a64d59c9f5',
+        'OauthUrl' => '',
+        'AppId'    => '',
+        'Key'      => '',
         'versions' =>'v4',
     ];
 
     const INITIALIZE = [
     'versions'       => 'v2',
     'configCenter'   => '',
-    'appid'          => 'appid76372843924923894',
-    'appSecret'      => 'asdkj346fk3434df67455656345l',
-    'encodingAesKey' => 'asdkjasdad346fk34dfsfdsf34df67455656345l',
-    'token'          => '68uijkmsd454lfgnvcv@'
+    'appid'          => '',
+    'appSecret'      => '',
+    'encodingAesKey' => '',
+    'token'          => ''
     ];
-
     const SUPER_ADMIN_INFO = [
     'phone'   => 18888888888,
     'email'   => '88888888@888.com',
     'pasword' => 88888888,
      'mid'=>'normphp',
     ];
-
-
 
 }
