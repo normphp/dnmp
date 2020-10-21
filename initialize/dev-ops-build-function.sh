@@ -111,12 +111,25 @@ devOpsDocument()
         a）、进入php容器：docker exec -it docker-compose_devops-php-fpm-7.4_1 bash
         b）、cd /www/code/devops-admin/normphp/public && php index_cli.php --route /deploy/cliDbInitStructure
         c）、第一次执行时间会比较长（5s左右）一般不需要手动执行每次执行 dnmp startDevOps时会执行
+    6、关于文件权限问题
+      1）、通过nginx 转发的php请求执行用户为容器内的www-data用户，因此为保证文件归属一致需要在宿主机创建一个www-data用户，然后在宿主机设置对应的php文件的归属
+        a）、chmod -R 777  [目录]       设置目录权限  sudo -u www-data
+        b）、chown -R www-data  [目录   设置用户
+      2）、由于进入容器执行cil php 命令默认使用的是root 因此执行命令创建的文件也是root归属，这样是不建议的。
+        a）、在执行cil php 命令时 需要使用sudo 命令
+          1）、如果没有安装sudo 命令，先安装：
+          2）、在需要这些的cil php命令前执前增加sudo -u www-data 如：sudo -u www-data sudo -u www-data php index_cli.php --route /deploy/cliDbInitStructure
 ';
 
 }
 # 启动部署系统
 startDevOps()
 {
+  sudo
+  if [ $? -ne 0 ];then
+      apt-get update
+      apt-get install sudo
+  fi
   echo '启动容器';
   pwd
   docker-compose -f docker-compose-devops.yml up -d
@@ -125,8 +138,8 @@ startDevOps()
     set timeout 13
     spawn  docker exec -it docker-compose_devops-php-fpm-7.4_1 bash
     expect {
-        ":/data#" { send "echo '进行数据库初始化：大约需要等待6-10s' && cd /www/code/devops-admin/normphp/public && php index_cli.php --route /deploy/cliDbInitStructure \n";exp_continue }
-        "normphp/public#" { send "echo '启动web-socket' && pwd && php index_cli.php --route /devops/server/web-socket & \n\n"; }
+        ":/data#" { send "echo '进行数据库初始化：大约需要等待6-10s' && cd /www/code/devops-admin/normphp/public && sudo -u www-data php index_cli.php --route /deploy/cliDbInitStructure \n";exp_continue }
+        "normphp/public#" { send "echo '启动web-socket' && pwd && sudo -u www-data php index_cli.php --route /devops/server/web-socket & \n\n"; }
     }
     expect eof
 EOF
