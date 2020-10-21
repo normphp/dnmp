@@ -91,7 +91,7 @@ class Deploy
             'ssl_key_file'  => ''
             ],
         'hostName' => '{{hostName}}',
-        'host'     => '0.0.0.0',
+        'host'     => 'devops-php-fpm-7.4',
         'port'     => '9501'
         ]
     ];
