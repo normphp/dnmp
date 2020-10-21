@@ -143,6 +143,9 @@ startDevOps()
     expect eof
 EOF
   exit;
+
+  echo -n '默认账号：normphp\n默认密码：88888888';
+
 }
 stopDevOps()
 {
