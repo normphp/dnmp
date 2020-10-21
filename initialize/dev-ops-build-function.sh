@@ -138,6 +138,7 @@ startDevOps()
     set timeout 13
     spawn  docker exec -it docker-compose_devops-php-fpm-7.4_1 bash
     expect {
+        ":/data#" { send "apt-get update && apt-get install sudo  \n";exp_continue }
         ":/data#" { send "echo '进行数据库初始化：大约需要等待6-10s' && cd /www/code/devops-admin/normphp/public && sudo -u www-data php index_cli.php --route /deploy/cliDbInitStructure \n";exp_continue }
         "normphp/public#" { send "echo '启动web-socket' && pwd && sudo -u www-data php index_cli.php --route /devops/server/web-socket & \n\n"; }
     }
@@ -168,14 +169,16 @@ initDevOps()
   stty -icanon min 0 time 100
   echo -n -e '\033[32m
   本运维部署系统后端为PHP开发、前端使用LayUiAdmin
-  A、如果您只有当前一台服务器想在服务器上部署本运维部署系统同时又其他被部署的web项目也在当前服务器上建议您选择 第2选项
-  （主要是http 80 443 端口冲突问题）
-  B、如果您有N个服务器建议您选择第1选项
+
+  A、如果您只有当前一台服务器想在服务器上部署本运维部署系统同时又其他被部署的web项目也在当前服务器上建议您可直接一路回车
+  （主要是http 80 443 端口冲突问题 回车默认不使用80 443 3306）
+  B、如果您有N个服务器建议您在提示时输入想要的端口
   *****************************************************************
   1、单独使用独立服务器安装运维部署系统（当前服务器不在部署其他web项目）
   2、我只有一台服务，运维部署系统和项目都不是在当前服务器
+
   \033[0m
-  请输入数字序号选择选择模式? \033[5m (10s无操作默认1): \033[0m'
+  \033[5m (回车键确认阅读): \033[0m'
   read Arg
   case $Arg in
   1)
@@ -185,10 +188,11 @@ initDevOps()
    pattern='2'
     break;;
   "")  #Autocontinue
-   pattern='1'
+   pattern='2'
     break;;
   esac
   done
+  pattern='2'
   echo '*****************************'
   echo -e "\033[32m 使用模式：${pattern}\033[0m"
   echo '*****************************'
@@ -413,7 +417,7 @@ initDevOpsFile()
   cd ~ && rm -rf normphp.zip normphp /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
   && sudo mkdir -p /docker/normphp/dnmp/data/devops/code/devops-admin/{resource,normphp} \
   && sudo mkdir -p /docker/normphp/dnmp/data/devops/data/{redis,mysql} \
-  && wget  -c "http://nomphp.pizepei.com/DevOps/layuiAdmin/v1.1/normphp.zip?v=1.1" -O normphp.zip \
+  && wget  -c "http://nomphp.pizepei.com/DevOps/layuiAdmin/v1.2/normphp.zip?v=1.1" -O normphp.zip \
   && unzip -o normphp.zip \
   && sudo cp -r normphp/. /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
   && chmod -R 777 /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
