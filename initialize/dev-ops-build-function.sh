@@ -134,7 +134,7 @@ startDevOps()
     spawn  docker exec -it docker-compose_devops-php-fpm-7.4_1 bash
     expect {
         ":/data#" { send "sudo \n"; }
-        "bash: sudo: command not found" { send "apt-get update && apt-get install sudo \n"; exp_continue}
+        "sudo: command not found" { send "apt-get update && apt-get install sudo \n"; exp_continue}
     }
     expect {
       ":/data#" { send "echo '进行数据库初始化：大约需要等待10-20s' && cd /www/code/devops-admin/normphp/public && sudo -u www-data php index_cli.php --route /deploy/cliDbInitStructure \n";exp_continue }
