@@ -129,6 +129,7 @@ startDevOps()
   pwd
   docker-compose -f docker-compose-devops.yml up -d
   echo '进行项目数据库初始化、启动web-socket操作';
+  sleep 5
 /usr/bin/expect <<EOF
     set timeout 60
     spawn  docker exec -it docker-compose_devops-php-fpm-7.4_1 bash
@@ -317,7 +318,7 @@ initDevOps()
     sed -i "s/{{hostPort}}/${hostPort}/g"           /docker/normphp/dnmp/data/devops/code/devops-admin/config/Deploy.php
     sed -i "s/{{hostPassword}}/${hostPassword}/g"   /docker/normphp/dnmp/data/devops/code/devops-admin/config/Deploy.php
     sed -i "s/{{webSocketPort}}/${webSocketPort}/g"   /docker/normphp/dnmp/data/devops/code/devops-admin/config/Deploy.php
-    sed -i "s/http:\/\/dev.heil.red/0.0.0.0:${hostPort}/g"   ${root_dir}/initialize/config.sh
+    sed -i "s/http:\/\/dev.heil.red/0.0.0.0:${nginxHttpPort}/g"   ${root_dir}/initialize/config.sh
 
 
   archInfo=`arch`
