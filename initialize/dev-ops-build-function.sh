@@ -275,11 +275,29 @@ initDevOps()
     hostName=$Arg
       break;
     done
+
     while true;do
-    echo -n -e '\n \033[5m 输入当前服务器SSH外部访问端口: \033[0m'
+    echo -n -e '\n \033[5m 输入websocket端口（默认9501）: \033[0m'
     read Arg
-    hostPort=$Arg
-      break;
+        case $Arg in
+        "")  #Autocontinue
+            webSocketPort=9501
+          break;;
+        esac
+          webSocketPort=$Arg
+          break;
+    done
+
+    while true;do
+    echo -n -e '\n \033[5m 输入当前服务器SSH外部访问端口（默认22）: \033[0m'
+    read Arg
+        case $Arg in
+        "")  #Autocontinue
+            hostPort=22
+          break;;
+        esac
+        hostPort=$Arg
+          break;
     done
     while true;do
     echo -n -e '\n初始化部署时输入的是root密码，后期开自行修改为使用密钥 或者其他用户 \033[5m 输入当前服务器root SSH密码: \033[0m'
@@ -292,6 +310,7 @@ initDevOps()
     sed -i "s/{{hostIp}}/${hostIp}/g"               /docker/normphp/dnmp/data/devops/code/devops-admin/config/Deploy.php
     sed -i "s/{{hostPort}}/${hostPort}/g"           /docker/normphp/dnmp/data/devops/code/devops-admin/config/Deploy.php
     sed -i "s/{{hostPassword}}/${hostPassword}/g"   /docker/normphp/dnmp/data/devops/code/devops-admin/config/Deploy.php
+    sed -i "s/{{webSocketPort}}/${webSocketPort}/g"   /docker/normphp/dnmp/data/devops/code/devops-admin/config/Deploy.php
 
   archInfo=`arch`
   if [ ${archInfo}x = "x86_64"x ];then
@@ -307,8 +326,6 @@ initDevOps()
     echo '只支持x86_64、aarch64'
     exit
   fi
-
-
 
 
   # nginx 配置
@@ -395,7 +412,7 @@ services:
     networks:
       - "'${NETWORKS}'"
     ports:
-      - "9501:9501"
+      - "'"'"${webSocketPort}:${webSocketPort}"'"'"
     volumes:
       - /docker/normphp/dnmp/data/devops/:/www/:rw
       - /docker/normphp/dnmp/data/php/etc/php-fpm-7.4/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro

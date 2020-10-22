@@ -92,7 +92,7 @@ class Deploy
             ],
         'hostName' => '{{hostName}}',
         'host'     => 'devops-php-fpm-7.4',
-        'port'     => '9501'
+        'port'     => '{{webSocketPort}}'
         ]
     ];
 
