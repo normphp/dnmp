@@ -189,16 +189,17 @@ installDocker(){
           echo -e "\033[32m *****************安装Docker成功*************** \033[0m"
       fi
 
-      registryMirrors='{
-  "registry-mirrors" : [
+
+      if [ ${dockerResourceType}x = "CN"x ];then
+        echo '{
+"registry-mirrors" : [
     "https://registry.docker-cn.com",
     "https://docker.mirrors.ustc.edu.cn",
     "http://hub-mirror.c.163.com",
     "https://cr.console.aliyun.com/"
-  ]
-}'
-     echo ${registryMirrors}>/etc/docker/daemon.json
-
+]
+}' >    /etc/docker/daemon.json
+    fi
 
       echo '启动docker' \
       &&  sudo systemctl start docker \
