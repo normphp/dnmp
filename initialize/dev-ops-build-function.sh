@@ -487,7 +487,7 @@ initDevOpsFile()
   cd ~ && rm -rf normphp.zip normphp /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
   && sudo mkdir -p /docker/normphp/dnmp/data/devops/code/devops-admin/{resource,normphp} \
   && sudo mkdir -p /docker/normphp/dnmp/data/devops/data/{redis,mysql} \
-  && wget  -c "http://nomphp.pizepei.com/DevOps/layuiAdmin/v1.3/normphp.zip?v=1.1" -O normphp.zip \
+  && wget  -c "http://nomphp.pizepei.com/DevOps/layuiAdmin/v1.4/normphp.zip?v=1.1" -O normphp.zip \
   && unzip -o normphp.zip \
   && sudo cp -r normphp/. /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
   && chmod -R 777 /docker/normphp/dnmp/data/devops/code/devops-admin/normphp/ \
