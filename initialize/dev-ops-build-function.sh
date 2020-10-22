@@ -133,12 +133,18 @@ startDevOps()
     set timeout 60
     spawn  docker exec -it docker-compose_devops-php-fpm-7.4_1 bash
     expect {
-        ":/data#" { send "sudo \n"; }
+        ":/data#" { send "sudo && cd /www/code/devops-admin/normphp/public \n"; }
     }
     expect {
       "sudo: command not found" { send "apt-get update && apt-get install sudo \n";exp_continue }
-      ":/data#" { send "echo '进行数据库初始化：大约需要等待10-20s' && cd /www/code/devops-admin/normphp/public && sudo -u www-data php index_cli.php --route /deploy/cliDbInitStructure \n";exp_continue }
-      "normphp/public#" { send "echo '启动web-socket' && pwd && sudo -u www-data php index_cli.php --route /devops/server/web-socket & \n\n"; }
+
+       ":/data#" { send "cd /www/code/devops-admin/normphp/public \n";exp_continue }
+
+      "normphp/public#" { send "echo '进行数据库初始化：大约需要等待10-20s' \
+        && sudo -u www-data php index_cli.php --route /deploy/cliDbInitStructure \
+        && echo '启动web-socket' \
+        && pwd \
+        && sudo -u www-data php index_cli.php --route /devops/server/web-socket &  \n"; }
     }
     expect eof
 EOF
@@ -311,6 +317,8 @@ initDevOps()
     sed -i "s/{{hostPort}}/${hostPort}/g"           /docker/normphp/dnmp/data/devops/code/devops-admin/config/Deploy.php
     sed -i "s/{{hostPassword}}/${hostPassword}/g"   /docker/normphp/dnmp/data/devops/code/devops-admin/config/Deploy.php
     sed -i "s/{{webSocketPort}}/${webSocketPort}/g"   /docker/normphp/dnmp/data/devops/code/devops-admin/config/Deploy.php
+    sed -i "s/http:\/\/dev.heil.red/0.0.0.0:${hostPort}/g"   ${root_dir}/initialize/config.sh
+
 
   archInfo=`arch`
   if [ ${archInfo}x = "x86_64"x ];then

@@ -191,7 +191,7 @@ installDocker(){
 
 
       if [ ${dockerResourceType}x = "CN"x ];then
-        echo '{
+      sudo  echo '{
 "registry-mirrors" : [
     "https://registry.docker-cn.com",
     "https://docker.mirrors.ustc.edu.cn",
