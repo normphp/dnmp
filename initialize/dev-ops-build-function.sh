@@ -129,7 +129,7 @@ startDevOps()
   pwd
   docker-compose -f docker-compose-devops.yml up -d
   echo '进行项目数据库初始化、启动web-socket操作';
-  sleep 5
+  sleep 6
 /usr/bin/expect <<EOF
     set timeout 60
     spawn  docker exec -it docker-compose_devops-php-fpm-7.4_1 bash
