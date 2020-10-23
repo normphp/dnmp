@@ -45,7 +45,7 @@ elif [ ${1}x = "tls"x ];then
   tlsInit $root_dir $*
 elif [ ${1}x = "updateDnmp"x ];then
   updateDnmpSh $root_dir
-elif [ ${1}x = "startDevops"x ];then
+elif [ ${1}x = "startDevOps"x ];then
   startDevOps $root_dir   $*
 elif [ ${1}x = "initDevOps"x ];then
   initDevOps $root_dir   $*
@@ -86,7 +86,7 @@ else
 
   \033[32m devOpsDocument\033[0m DevOps服务文档
   \033[32m initDevOps \033[0m    初始化DevOps服务
-  \033[32m startDevops \033[0m   启动DevOps服务
+  \033[32m startDevOps \033[0m   启动DevOps服务
   \033[32m stopDevOps \033[0m    停止DevOps服务
 
   其他服务
