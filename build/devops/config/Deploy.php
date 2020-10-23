@@ -91,7 +91,8 @@ class Deploy
             'ssl_key_file'  => ''
             ],
         'hostName' => '{{hostName}}',
-        'host'     => 'devops-php-fpm-7.4',
+        'dockerHostName' => 'devops-php-fpm-7.4',# docker 容器环境下使用
+        'host'     => 'devops-php-fpm-7.4',# docker 容器环境下使用
         'port'     => '{{webSocketPort}}'
         ]
     ];
