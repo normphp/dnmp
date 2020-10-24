@@ -337,6 +337,11 @@ initDevOps()
   fi
 
 
+  # 判断文件大小
+  # ls -l qqwry.json | awk '{print $5}'
+  # 获取第一行
+  # sed -n 1p qqwry.json
+
   # nginx 配置
   echo "server {
     listen       ${nginxHttpPort};
