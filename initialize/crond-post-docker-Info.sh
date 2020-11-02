@@ -8,7 +8,7 @@ if [ ${CentreServe}x = "on"x ];then
   if [ ${CentreServePostDockerInfoRouter}x != ""x ];then
       # 循环请求 5s  10n
       dint=1
-      while(( $dint<=10 ))
+      while(( $dint<=5 ))
       do
           # 开始 获取信息
           curl --unix-socket /var/run/docker.sock 'http:/containers/json?all=1&size=1'  >dockerContainers.txt
@@ -19,7 +19,7 @@ if [ ${CentreServe}x = "on"x ];then
           echo
           echo $dint
           let "dint++"
-          sleep 5
+          sleep 11
       done
   fi
 fi
