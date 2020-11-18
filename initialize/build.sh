@@ -28,6 +28,7 @@ source  ${root_dir}'/initialize/cli-register.sh'
 setResourceType $*
 # 选择phpImages文件
 downloadPHPImages
+yum clean all
 yum  -y  install vim wget openssl screen unzip  expect tcl-devel inotify inotify-tools
 sudo
 if [ $? -ne 0 ]; then
