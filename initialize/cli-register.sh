@@ -7,6 +7,7 @@ export root_dir='${1}'
 cd "${root_dir}/build/docker-compose/"
 source ${root_dir}/initialize/config.sh
 source ${root_dir}/initialize/dnmp-function.sh
+source ${root_dir}/initialize/dnmp-composer.sh
 source ${root_dir}/initialize/dev-ops-build-function.sh
 if [ ${1}x = "dome"x ];then
   compose  $*
@@ -53,6 +54,8 @@ elif [ ${1}x = "stopDevOps"x ];then
   stopDevOps $root_dir   $*
 elif [ ${1}x = "devOpsDocument"x ];then
   devOpsDocument $root_dir   $*
+elif [ ${1}x = "composer"x ];then
+  composer $root_dir   $*
 elif [ ${1}x = "update"x ];then
 update  $root_dir $*
 else
@@ -81,6 +84,11 @@ else
   后面的参数与与docker-compose命令完全一致：
   dnmp dome up
   相当于：docker-compose -f docker-compose-dome.yml up
+
+  composer 命令
+  \033[32m composer [phpVersions] [cli] \033[0m
+    如使用php7.4执行composer ：
+      dnmp composer 7.4 -V
 
   DevOps 服务命令
 
