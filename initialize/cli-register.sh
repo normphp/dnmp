@@ -55,7 +55,7 @@ elif [ ${1}x = "stopDevOps"x ];then
 elif [ ${1}x = "devOpsDocument"x ];then
   devOpsDocument $root_dir   $*
 elif [ ${1}x = "composer"x ];then
-  composer $root_dir   $*
+  composer  $*
 elif [ ${1}x = "update"x ];then
 update  $root_dir $*
 else
@@ -88,8 +88,8 @@ else
   composer 命令
   \033[32m composer [phpVersions] [cli] \033[0m
     如使用php7.4执行composer ：
-      dnmp composer 7.4 -V
-
+      dnmp composer 7.4 [.PATH] install
+      [.PATH]为/docker/normphp/dnmp/data/build/下的相对路径
   DevOps 服务命令
 
   \033[32m devOpsDocument\033[0m DevOps服务文档
