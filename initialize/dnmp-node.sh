@@ -16,24 +16,7 @@ node(){
   $dockerNodeCli
 
 }
-npm(){
-  #这里的-f参数判断$myFile是否存在
-  # 写入dev版本的 docker-node.yml
-  echo ${1} ${2}
-  nodeFile="${root_dir}/build/docker-compose/docker-node-${2}-build.yml"
-  setPHPNodeBuildYML $nodeFile $*
-  echo "$nodeFile"
-  dockerNodeCli="docker-compose -f ${nodeFile} run --rm -w  /data/build/${3} node-${2}-build  npm ${4} ${5} ${6} ${7} ${8} ${9}"
 
-  dockerNodeVCli="docker-compose -f ${nodeFile} run --rm -w  /data/build/  node-${2}-build  npm -v"
-  $dockerNodeVCli
-
-  echo $dockerNodeCli
-  echo "Local run path /docker/normphp/dnmp/data/build/${3}"
-  echo "***************************************************"
-  $dockerNodeCli
-
-}
 
 # 写入 Build
 setPHPNodeBuildYML(){
