@@ -8,6 +8,7 @@ cd "${root_dir}/build/docker-compose/"
 source ${root_dir}/initialize/config.sh
 source ${root_dir}/initialize/dnmp-function.sh
 source ${root_dir}/initialize/dnmp-composer.sh
+source ${root_dir}/initialize/dnmp-node.sh
 source ${root_dir}/initialize/dev-ops-build-function.sh
 if [ ${1}x = "dome"x ];then
   compose  $*
@@ -56,6 +57,8 @@ elif [ ${1}x = "devOpsDocument"x ];then
   devOpsDocument $root_dir   $*
 elif [ ${1}x = "composer"x ];then
   composer  $*
+elif [ ${1}x = "node"x ];then
+  node  $*
 elif [ ${1}x = "update"x ];then
 update  $root_dir $*
 else
@@ -90,6 +93,12 @@ else
     如使用php7.4执行composer ：
       dnmp composer 7.4 [.PATH] install
       [.PATH]为/docker/normphp/dnmp/data/build/下的相对路径
+   node|npm   命令
+  \033[32m node|npm [nodeVersions] [cli] \033[0m
+    如使用node 10.22.1 执行node ：
+      dnmp node 10.22.1 [.PATH] nmp install
+      [.PATH]为/docker/normphp/dnmp/data/build/下的相对路径
+
   DevOps 服务命令
 
   \033[32m devOpsDocument\033[0m DevOps服务文档
