@@ -55,8 +55,7 @@ phpFpmPattern(){
   stty -icanon min 0 time 100
   echo -n -e '\033[32m
   1、universal  通用版[只含gd、pdo、redis扩展]
-  2、swoole     swoole版[通用版基础上增加swoole扩展]
-  3、full       整版[通用版基础上增加ssh2、xdebug、swoole、MongoDB扩展]
+  2、full       整版[通用版基础上增加ssh2、xdebug、swoole、MongoDB扩展]
   4、diy        DIY
   \033[0m
   请输入序号选择环境版本? \033[5m (10s无操作默认1): \033[0m'
@@ -66,9 +65,6 @@ phpFpmPattern(){
   export phpFpmPattern='universal'
     break;;
   2)
-  export phpFpmPattern='swoole'
-    break;;
-  3)
   export phpFpmPattern='full'
     break;;
   "")  #Autocontinue
@@ -83,25 +79,25 @@ phpFpmPattern(){
 }
 setDockerComposeYml()
 {
-  archInfo=`arch`
-  if [ ${archInfo}x = "x86_64"x ];then
-    archInfo=''
-    echo ${archInfo}
-  elif [ ${archInfo}x = "aarch64"x ];then
-    echo ${archInfo}
-    archInfo='-arm'
-  else
-    echo ${archInfo}
-    echo '只支持x86_64、aarch64'
-    exit
-  fi
+#  archInfo=`arch`
+#  if [ ${archInfo}x = "x86_64"x ];then
+#    archInfo=''
+#    echo ${archInfo}
+#  elif [ ${archInfo}x = "aarch64"x ];then
+#    echo ${archInfo}
+#    archInfo='-arm'
+#  else
+#    echo ${archInfo}
+#    echo '只支持x86_64、aarch64'
+#    exit
+#  fi
   # 写入配置文件
 echo "version: '3.3'
 services:
   ${phpFpmVersions}:
     env_file:
     - .env
-    image: normphp/dnmp-php:"${phpFpmVersions}-${phpFpmPattern}${archInfo}"
+    image: normphp/dnmp-php:"${phpFpmVersions}-${phpFpmPattern}"
     #    ports:
     #  - "9000:9000"
     networks:
