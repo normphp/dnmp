@@ -42,11 +42,9 @@ setPHPComposerBuildYML(){
 echo 'FROM normphp/dnmp-php:"'${phpversion}'-full'${archInfo}'"
 MAINTAINER pizepei "pizepei@pizepei.com"
 #更新安装依赖包和PHP核心拓展
-RUN apt-get update  \
-&& apt-get -y install git
+RUN apk add --update --no-cache git
 WORKDIR /data
-# Write Permission
-RUN usermod -u 1000 www-data' > ${root_dir}/build/docker-compose/php/${3}/Dockerfile
+' > ${root_dir}/build/docker-compose/php/${3}/Dockerfile
   # 写入compose配置文件
   # ssh 有安全隐患（暂时先用构建机器的配置）
 echo "version: '3.3'
